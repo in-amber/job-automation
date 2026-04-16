@@ -1,0 +1,15 @@
+{
+  "mode": "volume_first",
+  "default_decision_on_uncertainty": "apply",
+  "human_approval_before_submit": true,
+  "auto_submit_linkedin_easy_apply": true,
+  "auto_submit_greenhouse": false,
+  "auto_submit_workday": false,
+  "attempt_field_corrections_before_escalation": true,
+  "max_field_retries": 2,
+  "max_issue_minutes": 3,
+  "pause_on_cover_letter_detection": true,
+  "manual_signup_only": true,
+  "update_google_sheet_after_each_application": true,
+  "local_timezone": "America/Los_Angeles"
+}

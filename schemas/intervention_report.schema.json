@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "intervention_report.schema.json",
+  "title": "InterventionReport",
+  "description": "AI-output or worker-output schema. Classifies blockages cleanly with typed human actions.",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "issue_type",
+    "issue_summary",
+    "required_human_action",
+    "created_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Reference to the application packet"
+    },
+    "issue_type": {
+      "type": "string",
+      "enum": [
+        "signup_required",
+        "captcha",
+        "otp_required",
+        "missing_answer",
+        "cover_letter_required",
+        "field_mapping_failure",
+        "suspicious_site",
+        "unknown"
+      ]
+    },
+    "issue_summary": {
+      "type": "string",
+      "description": "Human-readable description of the issue"
+    },
+    "current_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL where issue was encountered"
+    },
+    "required_human_action": {
+      "type": "string",
+      "enum": [
+        "create_account",
+        "solve_captcha",
+        "complete_verification",
+        "approve_cover_letter",
+        "answer_missing_question",
+        "review_application",
+        "inspect_site"
+      ],
+      "description": "Classified action required from human"
+    },
+    "screenshot_path": {
+      "type": ["string", "null"],
+      "description": "Path to screenshot of the issue"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

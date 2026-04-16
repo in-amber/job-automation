@@ -1,0 +1,85 @@
+{
+  "name": "04_queue_packets",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [250, 300],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "ls -la /home/node/job-data/queues/ready_to_apply/"
+      },
+      "name": "Check Ready Queue",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [450, 300],
+      "typeVersion": 1,
+      "notes": "Check packets ready for browser automation"
+    },
+    {
+      "parameters": {
+        "command": "ls -la /home/node/job-data/queues/waiting_for_cover_letter_approval/"
+      },
+      "name": "Check Waiting Queue",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [450, 450],
+      "typeVersion": 1,
+      "notes": "Check packets waiting for cover letter approval. These do NOT block the ready queue."
+    },
+    {
+      "parameters": {},
+      "name": "Queue Status",
+      "type": "n8n-nodes-base.noOp",
+      "position": [650, 375],
+      "typeVersion": 1,
+      "notes": "Cowork reads from ready_to_apply queue. Packets waiting for cover letters are processed separately and do not block."
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Ready Queue",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Waiting Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Ready Queue": {
+      "main": [
+        [
+          {
+            "node": "Queue Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Waiting Queue": {
+      "main": [
+        [
+          {
+            "node": "Queue Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  },
+  "tags": ["job-automation", "queues"]
+}

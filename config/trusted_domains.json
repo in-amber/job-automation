@@ -1,0 +1,9 @@
+{
+  "tier_a": [
+    "linkedin.com",
+    "greenhouse.io",
+    "myworkdayjobs.com"
+  ],
+  "tier_b": [],
+  "tier_c_default": true
+}

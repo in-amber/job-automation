@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "normalized_job.schema.json",
+  "title": "NormalizedJob",
+  "description": "Code-generated storage schema. Factual, ingestion-stage object with no inferred hints.",
+  "type": "object",
+  "required": [
+    "job_id",
+    "source",
+    "fetched_at",
+    "company",
+    "title",
+    "apply_url",
+    "source_url",
+    "description_raw"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "type": "string",
+      "description": "Unique identifier for this job (hash of source + source_posting_id)"
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin of the job posting"
+    },
+    "source_posting_id": {
+      "type": ["string", "null"],
+      "description": "Original ID from the source platform"
+    },
+    "fetched_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when job was fetched"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company name"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title"
+    },
+    "location": {
+      "type": ["string", "null"],
+      "description": "Job location or null if not specified"
+    },
+    "employment_type": {
+      "type": ["string", "null"],
+      "description": "Employment type if specified by source"
+    },
+    "apply_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Direct application URL"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL where job was originally found"
+    },
+    "description_raw": {
+      "type": "string",
+      "description": "Original job description HTML/text"
+    },
+    "description_clean": {
+      "type": ["string", "null"],
+      "description": "Cleaned plaintext job description"
+    },
+    "salary_text": {
+      "type": ["string", "null"],
+      "description": "Salary information if available"
+    },
+    "source_attributes": {
+      "type": "object",
+      "description": "Copied or normalized source data, not model inference",
+      "additionalProperties": true
+    }
+  }
+}

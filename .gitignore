@@ -1,0 +1,69 @@
+# Environment
+.env
+*.env.local
+
+# Credentials
+config/google_credentials.json
+n8n/credentials/*.json
+!n8n/credentials/README.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+
+# Data (keep structure, ignore contents)
+data/raw_jobs/*
+data/normalized_jobs/*
+data/screened_jobs/*
+data/application_packets/*
+data/queues/**/*
+data/run_logs/*
+data/checkpoints/*
+!data/**/.gitkeep
+
+# Artifacts
+artifacts/screenshots/*
+artifacts/pdfs/*
+artifacts/cover_letters/*
+artifacts/exports/*
+!artifacts/**/.gitkeep
+
+# Applicant data (sensitive)
+config/applicant/resume.pdf
+config/applicant/applicant_master_answers.txt
+config/applicant/cover_letters_master.md
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docker
+n8n/data/

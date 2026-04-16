@@ -1,0 +1,107 @@
+[
+  {
+    "name": "entry_level_no_requirements",
+    "job": {
+      "job_id": "apply001",
+      "source": "linkedin",
+      "source_posting_id": "1001",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "StartupCo",
+      "title": "Software Engineer",
+      "location": "San Francisco, CA",
+      "employment_type": "full_time",
+      "apply_url": "https://linkedin.com/jobs/apply/1001",
+      "source_url": "https://linkedin.com/jobs/view/1001",
+      "description_raw": "Looking for a software engineer to join our team.",
+      "description_clean": "Looking for a software engineer to join our team.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "apply",
+    "reason": "No hard reject rules triggered"
+  },
+  {
+    "name": "preferred_experience_not_required",
+    "job": {
+      "job_id": "apply002",
+      "source": "linkedin",
+      "source_posting_id": "1002",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "TechCorp",
+      "title": "Backend Developer",
+      "location": "Remote",
+      "employment_type": "full_time",
+      "apply_url": "https://linkedin.com/jobs/apply/1002",
+      "source_url": "https://linkedin.com/jobs/view/1002",
+      "description_raw": "3+ years experience preferred. Nice to have experience with Python.",
+      "description_clean": "3+ years experience preferred. Nice to have experience with Python.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "apply",
+    "reason": "Preferred experience is not a hard requirement"
+  },
+  {
+    "name": "ideally_has_experience",
+    "job": {
+      "job_id": "apply003",
+      "source": "greenhouse",
+      "source_posting_id": "1003",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "GrowthStartup",
+      "title": "Full Stack Engineer",
+      "location": "New York, NY",
+      "employment_type": "full_time",
+      "apply_url": "https://boards.greenhouse.io/growthstartup/jobs/1003",
+      "source_url": "https://boards.greenhouse.io/growthstartup/jobs/1003",
+      "description_raw": "Ideally has 2-4 years of experience building web applications.",
+      "description_clean": "Ideally has 2-4 years of experience building web applications.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "apply",
+    "reason": "Ideally has is soft language, not a hard requirement"
+  },
+  {
+    "name": "ambiguous_level",
+    "job": {
+      "job_id": "apply004",
+      "source": "linkedin",
+      "source_posting_id": "1004",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "MidSizeCo",
+      "title": "Software Engineer II",
+      "location": "Austin, TX",
+      "employment_type": "full_time",
+      "apply_url": "https://linkedin.com/jobs/apply/1004",
+      "source_url": "https://linkedin.com/jobs/view/1004",
+      "description_raw": "Join our engineering team. Some experience with cloud services helpful.",
+      "description_clean": "Join our engineering team. Some experience with cloud services helpful.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "apply",
+    "reason": "Engineer II is ambiguous, not clearly senior"
+  },
+  {
+    "name": "one_year_required_at_limit",
+    "job": {
+      "job_id": "apply005",
+      "source": "workday",
+      "source_posting_id": "1005",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "EnterpriseCo",
+      "title": "Junior Developer",
+      "location": "Chicago, IL",
+      "employment_type": "full_time",
+      "apply_url": "https://enterpriseco.myworkdayjobs.com/1005",
+      "source_url": "https://enterpriseco.myworkdayjobs.com/1005",
+      "description_raw": "1 year of experience required in software development.",
+      "description_clean": "1 year of experience required in software development.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "apply",
+    "reason": "1 year required equals max_required_years_experience limit"
+  }
+]

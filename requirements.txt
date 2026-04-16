@@ -1,0 +1,15 @@
+# Job Application Automation Dependencies
+
+# Core
+openai>=1.0.0
+jsonschema>=4.20.0
+
+# Google Sheets integration
+google-api-python-client>=2.100.0
+google-auth>=2.23.0
+
+# Testing
+pytest>=7.4.0
+
+# Utilities (optional)
+python-dotenv>=1.0.0

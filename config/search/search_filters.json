@@ -1,0 +1,8 @@
+{
+  "locations": ["San Francisco Bay Area", "Remote", "Sacramento"],
+  "remote_allowed": true,
+  "onsite_allowed": true,
+  "hybrid_allowed": true,
+  "keywords_include": [],
+  "keywords_exclude": []
+}

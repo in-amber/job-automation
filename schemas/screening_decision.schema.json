@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "screening_decision.schema.json",
+  "title": "ScreeningDecision",
+  "description": "AI-output schema. Must be minimal and strict. Default to 'apply' unless hard rule clearly triggers.",
+  "type": "object",
+  "required": [
+    "job_id",
+    "decision",
+    "matched_reject_rules",
+    "reason_summary",
+    "evidence",
+    "cover_letter_signal",
+    "generated_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "type": "string",
+      "description": "Reference to the normalized job"
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["apply", "reject"],
+      "description": "Screening outcome. Default to 'apply' unless hard rule clearly triggers."
+    },
+    "matched_reject_rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of reject rule names that triggered. Must be non-empty if decision is 'reject'."
+    },
+    "reason_summary": {
+      "type": "string",
+      "description": "Brief explanation of the decision"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Short strings grounded in posting text. Must be non-empty if decision is 'reject'."
+    },
+    "cover_letter_signal": {
+      "type": "string",
+      "enum": ["unknown", "no_signal", "optional_signal", "explicitly_required"],
+      "description": "Signal from posting about cover letter. Use 'unknown' if unclear."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when decision was made"
+    }
+  },
+  "if": {
+    "properties": {
+      "decision": { "const": "reject" }
+    }
+  },
+  "then": {
+    "properties": {
+      "matched_reject_rules": {
+        "minItems": 1
+      },
+      "evidence": {
+        "minItems": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "name": "senior_title_explicit",
+    "job": {
+      "job_id": "reject001",
+      "source": "linkedin",
+      "source_posting_id": "2001",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "BigTech",
+      "title": "Senior Software Engineer",
+      "location": "San Francisco, CA",
+      "employment_type": "full_time",
+      "apply_url": "https://linkedin.com/jobs/apply/2001",
+      "source_url": "https://linkedin.com/jobs/view/2001",
+      "description_raw": "Looking for a senior engineer with 5+ years experience.",
+      "description_clean": "Looking for a senior engineer with 5+ years experience.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "reject",
+    "expected_rule": "reject_senior_titles",
+    "reason": "Title contains 'Senior'"
+  },
+  {
+    "name": "staff_title",
+    "job": {
+      "job_id": "reject002",
+      "source": "linkedin",
+      "source_posting_id": "2002",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "TechGiant",
+      "title": "Staff Engineer",
+      "location": "Seattle, WA",
+      "employment_type": "full_time",
+      "apply_url": "https://linkedin.com/jobs/apply/2002",
+      "source_url": "https://linkedin.com/jobs/view/2002",
+      "description_raw": "Staff-level position for experienced engineers.",
+      "description_clean": "Staff-level position for experienced engineers.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "reject",
+    "expected_rule": "reject_senior_titles",
+    "reason": "Title contains 'Staff'"
+  },
+  {
+    "name": "explicit_high_experience_required",
+    "job": {
+      "job_id": "reject003",
+      "source": "greenhouse",
+      "source_posting_id": "2003",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "StartupX",
+      "title": "Software Engineer",
+      "location": "Remote",
+      "employment_type": "full_time",
+      "apply_url": "https://boards.greenhouse.io/startupx/jobs/2003",
+      "source_url": "https://boards.greenhouse.io/startupx/jobs/2003",
+      "description_raw": "Requirements: 3+ years of experience required in backend development.",
+      "description_clean": "Requirements: 3+ years of experience required in backend development.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "reject",
+    "expected_rule": "max_required_years_experience",
+    "reason": "3+ years required exceeds 1 year limit"
+  },
+  {
+    "name": "requires_clearance",
+    "job": {
+      "job_id": "reject004",
+      "source": "linkedin",
+      "source_posting_id": "2004",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "DefenseCo",
+      "title": "Software Developer",
+      "location": "Washington, DC",
+      "employment_type": "full_time",
+      "apply_url": "https://linkedin.com/jobs/apply/2004",
+      "source_url": "https://linkedin.com/jobs/view/2004",
+      "description_raw": "Must have active TS/SCI security clearance.",
+      "description_clean": "Must have active TS/SCI security clearance.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "reject",
+    "expected_rule": "reject_if_requires_clearance",
+    "reason": "Requires security clearance"
+  },
+  {
+    "name": "lead_title",
+    "job": {
+      "job_id": "reject005",
+      "source": "workday",
+      "source_posting_id": "2005",
+      "fetched_at": "2024-01-15T10:00:00Z",
+      "company": "EnterpriseCorp",
+      "title": "Lead Software Engineer",
+      "location": "Boston, MA",
+      "employment_type": "full_time",
+      "apply_url": "https://enterprisecorp.myworkdayjobs.com/2005",
+      "source_url": "https://enterprisecorp.myworkdayjobs.com/2005",
+      "description_raw": "Technical leadership role for our platform team.",
+      "description_clean": "Technical leadership role for our platform team.",
+      "salary_text": null,
+      "source_attributes": {}
+    },
+    "expected_decision": "reject",
+    "expected_rule": "reject_senior_titles",
+    "reason": "Title contains 'Lead'"
+  }
+]

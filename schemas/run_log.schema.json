@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "run_log.schema.json",
+  "title": "RunLog",
+  "description": "Runtime log schema. Structured for analysis, not freeform.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "packet_id",
+    "worker",
+    "started_at",
+    "result"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "description": "Unique identifier for this run"
+    },
+    "packet_id": {
+      "type": "string",
+      "description": "Reference to the application packet"
+    },
+    "worker": {
+      "type": "string",
+      "description": "Worker identifier (e.g., 'cowork')"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "waiting_for_signup",
+        "waiting_for_cover_letter",
+        "waiting_for_human_review",
+        "failed"
+      ]
+    },
+    "confirmation_number": {
+      "type": ["string", "null"],
+      "description": "Application confirmation number if provided"
+    },
+    "issue_type": {
+      "type": ["string", "null"],
+      "enum": [
+        "signup_required",
+        "captcha",
+        "otp_required",
+        "missing_answer",
+        "cover_letter_required",
+        "field_mapping_failure",
+        "unknown",
+        null
+      ],
+      "description": "Typed issue classification if escalated"
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Additional notes from the worker"
+    },
+    "screenshot_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Paths to saved screenshots"
+    },
+    "pdf_path": {
+      "type": ["string", "null"],
+      "description": "Path to saved PDF of application"
+    }
+  }
+}

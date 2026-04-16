@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: job-automation-n8n
+    restart: unless-stopped
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-changeme}
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
+      - GENERIC_TIMEZONE=${LOCAL_TIMEZONE:-America/Los_Angeles}
+      - TZ=${LOCAL_TIMEZONE:-America/Los_Angeles}
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_USER_FOLDER=/home/node/.n8n
+    volumes:
+      - ./n8n/data:/home/node/.n8n
+      - ./n8n/workflows:/home/node/workflows:ro
+      - ./data:/home/node/job-data
+      - ./artifacts:/home/node/artifacts
+      - ./config:/home/node/config:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

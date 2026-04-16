@@ -1,0 +1,55 @@
+{
+  "name": "screening_decision",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "required": [
+      "job_id",
+      "decision",
+      "matched_reject_rules",
+      "reason_summary",
+      "evidence",
+      "cover_letter_signal",
+      "generated_at"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "job_id": {
+        "type": "string",
+        "description": "The job ID being screened"
+      },
+      "decision": {
+        "type": "string",
+        "enum": ["apply", "reject"],
+        "description": "The screening decision. Must be 'apply' unless a hard rule clearly triggers."
+      },
+      "matched_reject_rules": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Names of reject rules that triggered. Must be non-empty if decision is 'reject'."
+      },
+      "reason_summary": {
+        "type": "string",
+        "description": "Brief explanation of the decision"
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Short strings grounded in posting text. Must be non-empty if decision is 'reject'."
+      },
+      "cover_letter_signal": {
+        "type": "string",
+        "enum": ["unknown", "no_signal", "optional_signal", "explicitly_required"],
+        "description": "Signal from posting about cover letter. Use 'unknown' if unclear."
+      },
+      "generated_at": {
+        "type": "string",
+        "description": "ISO 8601 timestamp"
+      }
+    }
+  }
+}

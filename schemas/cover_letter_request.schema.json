@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cover_letter_request.schema.json",
+  "title": "CoverLetterRequest",
+  "description": "Code-generated storage schema. Request to generate a cover letter draft.",
+  "type": "object",
+  "required": [
+    "packet_id",
+    "job_id",
+    "company",
+    "title",
+    "source_url",
+    "apply_url",
+    "job_snapshot_path",
+    "cover_letters_master_path",
+    "reason",
+    "created_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "packet_id": {
+      "type": "string",
+      "description": "Reference to the application packet"
+    },
+    "job_id": {
+      "type": "string",
+      "description": "Reference to the job"
+    },
+    "company": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "apply_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "job_snapshot_path": {
+      "type": "string",
+      "description": "Path to the normalized job JSON"
+    },
+    "cover_letters_master_path": {
+      "type": "string",
+      "description": "Path to the cover letter corpus file"
+    },
+    "reason": {
+      "type": "string",
+      "enum": ["predicted_needed", "discovered_mid_apply"],
+      "description": "Why the cover letter is needed"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

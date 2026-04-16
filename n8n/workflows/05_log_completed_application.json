@@ -1,0 +1,108 @@
+{
+  "name": "05_log_completed_application",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "log-application",
+        "responseMode": "responseNode"
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "typeVersion": 1,
+      "notes": "Receives application completion data from Cowork or manual trigger"
+    },
+    {
+      "parameters": {
+        "command": "cd /home/node/job-data && python /home/node/config/../scripts/logging/write_run_log.py {{ $json.packet_id }} --result {{ $json.result }}"
+      },
+      "name": "Write Run Log",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [450, 300],
+      "typeVersion": 1,
+      "notes": "Write local run log"
+    },
+    {
+      "parameters": {
+        "command": "cd /home/node/job-data && python /home/node/config/../scripts/sheets/update_google_sheet.py --packet-id {{ $json.packet_id }}"
+      },
+      "name": "Update Google Sheets",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [650, 300],
+      "typeVersion": 1,
+      "notes": "Update Google Sheets immediately after application"
+    },
+    {
+      "parameters": {
+        "command": "cd /home/node/job-data && python /home/node/config/../scripts/logging/archive_artifacts.py --packet-id {{ $json.packet_id }}"
+      },
+      "name": "Archive Artifacts",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [850, 300],
+      "typeVersion": 1,
+      "notes": "Archive screenshots, PDFs, and other artifacts"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"status\": \"logged\", \"packet_id\": \"{{ $json.packet_id }}\"}"
+      },
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1050, 300],
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Write Run Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Run Log": {
+      "main": [
+        [
+          {
+            "node": "Update Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Archive Artifacts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Archive Artifacts": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "saveExecutionProgress": true,
+    "saveManualExecutions": true
+  },
+  "tags": ["job-automation", "logging"]
+}

@@ -1,0 +1,8 @@
+{
+  "max_required_years_experience": 1,
+  "reject_senior_titles": true,
+  "senior_title_keywords": ["senior", "staff", "principal", "lead", "manager", "director"],
+  "reject_if_requires_clearance": true,
+  "reject_if_location_mismatch": true,
+  "reject_if_explicitly_unwanted_domain": []
+}
