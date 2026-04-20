@@ -190,11 +190,20 @@ job-automation/
     cowork/
       master_operator.md
       skills/
-        read_application_packet.md
-        fill_structured_form.md
-        handle_signup_escalation.md
-        submission_audit.md
-        save_artifacts_and_log.md
+        apply_to_job_from_packet/
+          SKILL.md
+          escalation_policy.md
+          submission_audit_checklist.md
+          artifact_logging.md
+          ats_playbooks.md
+        # Future optional splits (TODO, do not implement yet):
+        #   workday_application/SKILL.md
+        #   greenhouse_application/SKILL.md
+        #   linkedin_easy_apply/SKILL.md
+        #   application_recovery/SKILL.md
+        # Only split out if the main skill becomes too long,
+        # ATS behavior clearly diverges, or resuming from
+        # interrupted applications becomes a common workflow.
 
   schemas/
     normalized_job.schema.json
@@ -224,7 +233,7 @@ job-automation/
       transition_packet.py
     sheets/
       update_google_sheet.py
-    logging/
+    run_logs/
       write_run_log.py
       archive_artifacts.py
     utils/
@@ -651,7 +660,7 @@ The system should store `ats_type` in every packet and log.
 
 Create four tabs.
 
-### `applications`
+### `applied`
 
 Columns:
 
@@ -672,7 +681,7 @@ Columns:
 - `confirmation_number`
 - `notes`
 
-### `rejections`
+### `skipped`
 
 Columns:
 
@@ -716,7 +725,7 @@ Columns:
 
 After every completed application attempt, immediately update:
 
-- `applications`
+- `applied`
 - `runs`
 - `interventions` if relevant
 

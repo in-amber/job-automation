@@ -1,0 +1,28 @@
+GET https://linkedin-job-search-api.p.rapidapi.com/active-jb-7d?limit=10&offset=0&title_filter=%22Data+Engineer%22&location_filter=%22United+States%22+OR+%22United+Kingdom%22&description_type=text HTTP/1.1
+access-control-allow-credentials: true
+access-control-allow-origin: *
+content-length: 89010
+content-type: application/json
+date: Sat, 18 Apr 2026 19:46:32 GMT
+server: RapidAPI-0.0.30
+vary: Accept-Encoding
+x-amz-apigw-id: cB_fyGdZgi0EssQ=
+x-amzn-requestid: cc1ce941-4739-4b32-9118-f0b433c6fca0
+x-amzn-trace-id: Root=1-69e3df97-0baf02c11bb757c47652799f
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-rapidapi-region: AWS - us-west-2
+x-rapidapi-request-id: af802d23c1c5971fc9a0b174158e5922586c9428767b44baeb6a959acf89d244
+x-rapidapi-version: 0.0.30
+x-ratelimit-jobs-limit: 250
+x-ratelimit-jobs-remaining: 240
+x-ratelimit-jobs-reset: 2588478
+x-ratelimit-rapid-free-plans-hard-limit-limit: 500000
+x-ratelimit-rapid-free-plans-hard-limit-remaining: 499999
+x-ratelimit-rapid-free-plans-hard-limit-reset: 2588478
+x-ratelimit-requests-limit: 25
+x-ratelimit-requests-remaining: 24
+x-ratelimit-requests-reset: 2588478
+specificMethodHeaders: [object Object]
+
+{}

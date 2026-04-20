@@ -50,7 +50,7 @@ artifacts/exports/*
 
 # Applicant data (sensitive)
 config/applicant/resume.pdf
-config/applicant/applicant_master_answers.txt
+config/applicant/applicant_master_answers.md
 config/applicant/cover_letters_master.md
 
 # IDE

@@ -45,6 +45,8 @@ Executes applications:
 - Handles escalations
 - Saves artifacts (screenshots, PDFs)
 
+Driven by the master operator prompt plus one Skill: `prompts/cowork/skills/apply_to_job_from_packet/`, which bundles the full procedure (packet read, fill, escalation, submission audit, artifact logging, ATS handling). See `docs/prompts.md` for details.
+
 ### Local Filesystem
 
 Primary state storage:

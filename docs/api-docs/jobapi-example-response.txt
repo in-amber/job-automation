@@ -1,0 +1,729 @@
+0:
+id:"2114102402"
+date_posted:"2026-04-18T18:13:19.482"
+date_created:"2026-04-18T18:33:19.56389"
+title:"Graduate Data Engineer"
+organization:"Joveo Ai"
+organization_url:"https://www.linkedin.com/company/joveo-ai"
+date_validthrough:null
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressRegion:""
+addressCountry:""
+addressLocality:"United Kingdom"
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://uk.linkedin.com/jobs/view/graduate-data-engineer-at-joveo-ai-4403836445"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"uk.linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/D560BAQGZaEx4qwD7IA/company-logo_100_100/B56Z2GgtYDKwAQ-/0/1776078215755/joveo_ai_logo?e=2147483647&v=beta&t=Z_c1Wdt3sOnawDucHhWZoerE4Sgjz4CUC25PsdPubQg"
+cities_derived:null
+counties_derived:null
+regions_derived:null
+countries_derived:
+0:"United Kingdom"
+locations_derived:
+0:"United Kingdom"
+timezones_derived:
+0:"Europe/London"
+lats_derived:
+0:54.7023545
+lngs_derived:
+0:-3.2765753
+remote_derived:false
+linkedin_org_employees:1
+linkedin_org_url:"https://www.joveo.com"
+linkedin_org_size:"51-200 employees"
+linkedin_org_slogan:"AI-Led, High-Performance Recruitment Marketing Platform"
+linkedin_org_industry:"Software Development"
+linkedin_org_followers:null
+linkedin_org_headquarters:"Menlo Park, California"
+linkedin_org_type:"Privately Held"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:"Recruitment"
+1:"Talent Acquisition"
+2:"Programmatic Job Advertising"
+3:"Recruitment Marketing"
+4:"HR Technology"
+5:"Ad Tech"
+6:"HR Tech"
+7:"SaaS"
+8:"Programmatic Recruitment Advertising"
+9:"Job Advertising"
+10:" Recruitment Advertising"
+11:"Platform"
+12:"Software"
+13:"and ecruitment Analytics"
+linkedin_org_locations:
+0:"Menlo Park, California, US"
+linkedin_org_description:"As the global leader in AI-powered recruitment marketing and candidate engagement, we are transforming talent attraction and recruitment media buying for the world’s largest and smartest employers, staffing businesses, RPOs, and recruitment advertising agencies. The Joveo platform enables businesses to attract, source, engage, and hire the most relevant candidates on time, within their budget. Powering millions of jobs every day, our data-driven recruitment marketing platform uses advanced data science and machine learning to dynamically manage and optimise talent sourcing and applications across all online channels while providing real-time insights at every step of the job seeker journey, from click to hire. For more information, visit www.joveo.com."
+linkedin_org_recruitment_agency_derived:false
+seniority:"Not Applicable"
+directapply:true
+linkedin_org_slug:"joveo-ai"
+no_jb_schema:true
+external_apply_url:null
+ats_duplicate:null
+linkedin_id:4403836445
+description_text:"About Joveo: Every company says they're "AI-first." We actually are. Joveo's recruitment advertising platform processes millions of hiring decisions through machine learning, real-time bidding, and predictive analytics — helping the world's largest employers find the right people, faster and fairer. But we're not done. Not even close. Role: Graduate Data Engineer Location: Remote Role Overview: We are hiring a Graduate Data Engineer to launch your career building the data infrastructure that powers Joveo's AI platform. You will write production data pipelines, learn modern data stack tools, and contribute to systems that process millions of data points in real time. Key Responsibilities: - Build and maintain batch and real-time data pipelines under senior guidance - Write SQL and Python code for data transformation and ETL workflows - Learn cloud data platforms (BigQuery, Redshift, Snowflake) in production - Contribute to data quality monitoring and pipeline reliability work - Collaborate with data scientists and analysts to deliver clean, usable datasets - Grow your skills in data modeling, orchestration, and modern data engineering practices Required Skills & Qualifications: - Recent graduate with a Bachelor's or Master's in Computer Science, Data Science, or related field - Working knowledge of Python and SQL for data manipulation - Understanding of database fundamentals and data modeling basics - Familiarity with any data pipeline tool, cloud platform, or big data technology is a plus - Strong analytical thinking and attention to data correctness - Curiosity about how data flows through real production systems Equal Opportunity Employer: Joveo is an equal opportunity employer. We are committed to building an inclusive workplace and welcome applications from all qualified individuals regardless of race, color, ethnicity, nationality, gender, gender identity or expression, sexual orientation, age, religion, disability, marital status, or any other characteristic protected by applicable law. All hiring decisions are made solely on the basis of qualifications, skills, and demonstrated ability. If your dream job is one that doesn't fit neatly into a job title — apply. Joveo. Where AI meets the future of work."
+1:
+id:"2114101781"
+date_posted:"2026-04-18T18:13:00"
+date_created:"2026-04-18T18:32:37.789994"
+title:"Lead Data Engineer (Bank Tech)"
+organization:"Capital One"
+organization_url:"https://www.linkedin.com/company/capital-one"
+date_validthrough:"2026-05-18T18:13:00"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"New York"
+addressRegion:"NY"
+streetAddress:null
+latitude:40.72501
+longitude:-73.9983
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/lead-data-engineer-bank-tech-at-capital-one-4403064575"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/C560BAQF0OgQyRZ9yAA/company-logo_200_200/company-logo_200_200/0/1635782718446/capital_one_logo?e=2147483647&v=beta&t=EdvNN6BepIhdQnc9udE-QlqxASeRgfZxEr0ZYI4s6cQ"
+cities_derived:
+0:"New York"
+counties_derived:null
+regions_derived:
+0:"New York"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"New York, New York, United States"
+timezones_derived:
+0:"America/New_York"
+lats_derived:
+0:40.7127281
+lngs_derived:
+0:-74.0060152
+remote_derived:false
+linkedin_org_employees:83909
+linkedin_org_url:"http://www.capitalone.com"
+linkedin_org_size:"10,001+ employees"
+linkedin_org_slogan:null
+linkedin_org_industry:"Financial Services"
+linkedin_org_followers:1127113
+linkedin_org_headquarters:"McLean, Va"
+linkedin_org_type:"Public Company"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:"Business Banking"
+linkedin_org_locations:
+0:"1680 Capital One Drive, McLean, Va 22102, US"
+1:"8020 Towers Crescent Dr, Vienna, VA 22182, US"
+2:"2 Bethesda METRO Center, Bethesda, MD 20814, US"
+linkedin_org_description:"At Capital One, we're making things better for our customers and associates through innovation and collaboration. We were founded on the belief that everyone deserves financial freedom—and are dedicated to a world where all have equal opportunity to prosper. Banking is in our DNA, but we are so much more than a bank. We always think about what’s next—and how we can bring our customers the tools needed to improve their financial lives. Your ideas, experiences and skills will help make banking better. You’ll be part of a supportive culture while earning amazing benefits. That’s life at Capital One. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. View our Social Media Community Guidelines https://www.capitalone.com/digital/social-media/ "
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:false
+linkedin_org_slug:"capital-one"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:true
+linkedin_id:4403064575
+description_text:"Do you love building and pioneering in the technology space? Do you enjoy solving complex business problems in a fast-paced, collaborative, inclusive, and iterative delivery environment? At Capital One, you'll be part of a big group of makers, breakers, doers and disruptors, who solve real problems and meet real customer needs. Bank Tech is seeking Full Stack Software Engineers who are passionate about marrying data with emerging technologies. As a Capital One Lead Software Engineer, you’ll have the opportunity to be on the forefront of driving a major transformation within Capital One. We're not just supporting a bank; we're redefining the tech foundation for a financial giant. As Bank Tech, we are leading the charge to become the first bank to build an internal, integrated, and fully modernized core banking platform. If you're passionate about modular, resilient, cloud-native, and secure engineering, you'll find your challenge here. We're building common capabilities and cutting-edge, real-time technology solutions that power critical lines of business including our Retail Bank, Small Business Bank, Commercial Bank, and Capital One Shopping. What You’ll Do: Collaborate with and across Agile teams to design, develop, test, implement, and support technical solutions in full-stack development tools and technologies Work with a team of developers with deep experience in machine learning, distributed microservices, and full stack systems Utilize programming languages like Java, Scala, Python and Open Source RDBMS and NoSQL databases and Cloud based data warehousing services such as Redshift and Snowflake Share your passion for staying on top of tech trends, experimenting with and learning new technologies, participating in internal & external technology communities, and mentoring other members of the engineering community Collaborate with digital product managers, and deliver robust cloud-based solutions that drive powerful experiences to help millions of Americans achieve financial empowerment Perform unit tests and conduct reviews with other team members to make sure your code is rigorously designed, elegantly coded, and effectively tuned for performance Basic Qualifications: Bachelor’s Degree At least 4 years of experience in application development (Internship experience does not apply) At least 2 years of experience in big data technologies At least 1 year experience with cloud computing (AWS, Microsoft Azure, Google Cloud) Preferred Qualifications: 7+ years of experience in application development including Python, SQL, Scala, or Java 4+ years of experience with a public cloud (AWS, Microsoft Azure, Google Cloud) 4+ years experience with Distributed data/computing tools (MapReduce, Hadoop, Hive, EMR, Kafka, Spark, Gurobi, or MySQL) 4+ year experience working on real-time data and streaming applications 4+ years of experience with NoSQL implementation (Mongo, Cassandra) 4+ years of data warehousing experience (Redshift or Snowflake) 4+ years of experience with UNIX/Linux including basic commands and shell scripting 2+ years of experience with Agile engineering practices At this time, Capital One will not sponsor a new applicant for employment authorization, or offer any immigration related support for this position (i.e. H1B, F-1 OPT, F-1 STEM OPT, F-1 CPT, J-1, TN, E-2, E-3, L-1 and O-1, or any EADs or other forms of work authorization that require immigration support from an employer). The minimum and maximum full-time annual salaries for this role are listed below, by location. Please note that this salary information is solely for candidates hired to perform work within one of these locations, and refers to the amount Capital One is willing to pay at the time of this posting. Salaries for part-time roles will be prorated based upon the agreed upon number of hours to be regularly worked. McLean, VA: $197,300 - $225,100 for Lead Data Engineer New York, NY: $215,200 - $245,600 for Lead Data Engineer Richmond, VA: $179,400 - $204,700 for Lead Data Engineer Wilmington, DE: $179,400 - $204,700 for Lead Data Engineer Candidates hired to work in other locations will be subject to the pay range associated with that location, and the actual annualized salary amount offered to any candidate at the time of hire will be reflected solely in the candidate’s offer letter. This role is also eligible to earn performance based incentive compensation, which may include cash bonus(es) and/or long term incentives (LTI). Incentives could be discretionary or non discretionary depending on the plan. Capital One offers a comprehensive, competitive, and inclusive set of health, financial and other benefits that support your total well-being. Learn more at the Capital One Careers website. Eligibility varies based on full or part-time status, exempt or non-exempt status, and management level. This role is expected to accept applications for a minimum of 5 business days. No agencies please. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. Capital One promotes a drug-free workplace. Capital One will consider for employment qualified applicants with a criminal history in a manner consistent with the requirements of applicable laws regarding criminal background inquiries, including, to the extent applicable, Article 23-A of the New York Correction Law; San Francisco, California Police Code Article 49, Sections 4901-4920; New York City’s Fair Chance Act; Philadelphia’s Fair Criminal Records Screening Act; and other applicable federal, state, and local laws and regulations regarding criminal background inquiries. If you have visited our website in search of information on employment opportunities or to apply for a position, and you require an accommodation, please contact Capital One Recruiting at 1-800-304-9102 or via email at RecruitingAccommodation@capitalone.com. All information you provide will be kept confidential and will be used only to the extent required to provide needed reasonable accommodations. For technical support or questions about Capital One's recruiting process, please send an email to Careers@capitalone.com Capital One does not provide, endorse nor guarantee and is not liable for third-party products, services, educational tools or other information available through this site. Capital One Financial is made up of several different entities. Please note that any position posted in Canada is for Capital One Canada, any position posted in the United Kingdom is for Capital One Europe and any position posted in the Philippines is for Capital One Philippines Service Corp. (COPSSC)."
+2:
+id:"2114101794"
+date_posted:"2026-04-18T18:13:00"
+date_created:"2026-04-18T18:32:38.69723"
+title:"Lead Data Engineer (Bank Tech)"
+organization:"Capital One"
+organization_url:"https://www.linkedin.com/company/capital-one"
+date_validthrough:"2026-05-18T18:13:00"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"McLean"
+addressRegion:"VA"
+streetAddress:null
+latitude:38.93463
+longitude:-77.17058
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/lead-data-engineer-bank-tech-at-capital-one-4403067526"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/C560BAQF0OgQyRZ9yAA/company-logo_200_200/company-logo_200_200/0/1635782718446/capital_one_logo?e=2147483647&v=beta&t=EdvNN6BepIhdQnc9udE-QlqxASeRgfZxEr0ZYI4s6cQ"
+cities_derived:
+0:"McLean"
+counties_derived:
+0:"Fairfax County"
+regions_derived:
+0:"Virginia"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"McLean, Virginia, United States"
+timezones_derived:
+0:"America/New_York"
+lats_derived:
+0:38.93668525
+lngs_derived:
+0:-77.1858430261388
+remote_derived:false
+linkedin_org_employees:83909
+linkedin_org_url:"http://www.capitalone.com"
+linkedin_org_size:"10,001+ employees"
+linkedin_org_slogan:null
+linkedin_org_industry:"Financial Services"
+linkedin_org_followers:1127113
+linkedin_org_headquarters:"McLean, Va"
+linkedin_org_type:"Public Company"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:"Business Banking"
+linkedin_org_locations:
+0:"1680 Capital One Drive, McLean, Va 22102, US"
+1:"8020 Towers Crescent Dr, Vienna, VA 22182, US"
+2:"2 Bethesda METRO Center, Bethesda, MD 20814, US"
+linkedin_org_description:"At Capital One, we're making things better for our customers and associates through innovation and collaboration. We were founded on the belief that everyone deserves financial freedom—and are dedicated to a world where all have equal opportunity to prosper. Banking is in our DNA, but we are so much more than a bank. We always think about what’s next—and how we can bring our customers the tools needed to improve their financial lives. Your ideas, experiences and skills will help make banking better. You’ll be part of a supportive culture while earning amazing benefits. That’s life at Capital One. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. View our Social Media Community Guidelines https://www.capitalone.com/digital/social-media/ "
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:false
+linkedin_org_slug:"capital-one"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:true
+linkedin_id:4403067526
+description_text:"Do you love building and pioneering in the technology space? Do you enjoy solving complex business problems in a fast-paced, collaborative, inclusive, and iterative delivery environment? At Capital One, you'll be part of a big group of makers, breakers, doers and disruptors, who solve real problems and meet real customer needs. Bank Tech is seeking Full Stack Software Engineers who are passionate about marrying data with emerging technologies. As a Capital One Lead Software Engineer, you’ll have the opportunity to be on the forefront of driving a major transformation within Capital One. We're not just supporting a bank; we're redefining the tech foundation for a financial giant. As Bank Tech, we are leading the charge to become the first bank to build an internal, integrated, and fully modernized core banking platform. If you're passionate about modular, resilient, cloud-native, and secure engineering, you'll find your challenge here. We're building common capabilities and cutting-edge, real-time technology solutions that power critical lines of business including our Retail Bank, Small Business Bank, Commercial Bank, and Capital One Shopping. What You’ll Do: Collaborate with and across Agile teams to design, develop, test, implement, and support technical solutions in full-stack development tools and technologies Work with a team of developers with deep experience in machine learning, distributed microservices, and full stack systems Utilize programming languages like Java, Scala, Python and Open Source RDBMS and NoSQL databases and Cloud based data warehousing services such as Redshift and Snowflake Share your passion for staying on top of tech trends, experimenting with and learning new technologies, participating in internal & external technology communities, and mentoring other members of the engineering community Collaborate with digital product managers, and deliver robust cloud-based solutions that drive powerful experiences to help millions of Americans achieve financial empowerment Perform unit tests and conduct reviews with other team members to make sure your code is rigorously designed, elegantly coded, and effectively tuned for performance Basic Qualifications: Bachelor’s Degree At least 4 years of experience in application development (Internship experience does not apply) At least 2 years of experience in big data technologies At least 1 year experience with cloud computing (AWS, Microsoft Azure, Google Cloud) Preferred Qualifications: 7+ years of experience in application development including Python, SQL, Scala, or Java 4+ years of experience with a public cloud (AWS, Microsoft Azure, Google Cloud) 4+ years experience with Distributed data/computing tools (MapReduce, Hadoop, Hive, EMR, Kafka, Spark, Gurobi, or MySQL) 4+ year experience working on real-time data and streaming applications 4+ years of experience with NoSQL implementation (Mongo, Cassandra) 4+ years of data warehousing experience (Redshift or Snowflake) 4+ years of experience with UNIX/Linux including basic commands and shell scripting 2+ years of experience with Agile engineering practices At this time, Capital One will not sponsor a new applicant for employment authorization, or offer any immigration related support for this position (i.e. H1B, F-1 OPT, F-1 STEM OPT, F-1 CPT, J-1, TN, E-2, E-3, L-1 and O-1, or any EADs or other forms of work authorization that require immigration support from an employer). The minimum and maximum full-time annual salaries for this role are listed below, by location. Please note that this salary information is solely for candidates hired to perform work within one of these locations, and refers to the amount Capital One is willing to pay at the time of this posting. Salaries for part-time roles will be prorated based upon the agreed upon number of hours to be regularly worked. McLean, VA: $197,300 - $225,100 for Lead Data Engineer New York, NY: $215,200 - $245,600 for Lead Data Engineer Richmond, VA: $179,400 - $204,700 for Lead Data Engineer Wilmington, DE: $179,400 - $204,700 for Lead Data Engineer Candidates hired to work in other locations will be subject to the pay range associated with that location, and the actual annualized salary amount offered to any candidate at the time of hire will be reflected solely in the candidate’s offer letter. This role is also eligible to earn performance based incentive compensation, which may include cash bonus(es) and/or long term incentives (LTI). Incentives could be discretionary or non discretionary depending on the plan. Capital One offers a comprehensive, competitive, and inclusive set of health, financial and other benefits that support your total well-being. Learn more at the Capital One Careers website. Eligibility varies based on full or part-time status, exempt or non-exempt status, and management level. This role is expected to accept applications for a minimum of 5 business days. No agencies please. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. Capital One promotes a drug-free workplace. Capital One will consider for employment qualified applicants with a criminal history in a manner consistent with the requirements of applicable laws regarding criminal background inquiries, including, to the extent applicable, Article 23-A of the New York Correction Law; San Francisco, California Police Code Article 49, Sections 4901-4920; New York City’s Fair Chance Act; Philadelphia’s Fair Criminal Records Screening Act; and other applicable federal, state, and local laws and regulations regarding criminal background inquiries. If you have visited our website in search of information on employment opportunities or to apply for a position, and you require an accommodation, please contact Capital One Recruiting at 1-800-304-9102 or via email at RecruitingAccommodation@capitalone.com. All information you provide will be kept confidential and will be used only to the extent required to provide needed reasonable accommodations. For technical support or questions about Capital One's recruiting process, please send an email to Careers@capitalone.com Capital One does not provide, endorse nor guarantee and is not liable for third-party products, services, educational tools or other information available through this site. Capital One Financial is made up of several different entities. Please note that any position posted in Canada is for Capital One Canada, any position posted in the United Kingdom is for Capital One Europe and any position posted in the Philippines is for Capital One Philippines Service Corp. (COPSSC)."
+3:
+id:"2114088876"
+date_posted:"2026-04-18T18:01:28"
+date_created:"2026-04-18T18:05:47.452568"
+title:"Lead Data Engineer (Bank Tech)"
+organization:"Capital One"
+organization_url:"https://www.linkedin.com/company/capital-one"
+date_validthrough:"2026-05-18T17:58:21"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"Wilmington"
+addressRegion:"DE"
+streetAddress:null
+latitude:39.74592
+longitude:-75.54643
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/lead-data-engineer-bank-tech-at-capital-one-4403067520"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/C560BAQF0OgQyRZ9yAA/company-logo_200_200/company-logo_200_200/0/1635782718446/capital_one_logo?e=2147483647&v=beta&t=EdvNN6BepIhdQnc9udE-QlqxASeRgfZxEr0ZYI4s6cQ"
+cities_derived:
+0:"Wilmington"
+counties_derived:
+0:"New Castle County"
+regions_derived:
+0:"Delaware"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"Wilmington, Delaware, United States"
+timezones_derived:
+0:"America/New_York"
+lats_derived:
+0:39.7459468
+lngs_derived:
+0:-75.546589
+remote_derived:false
+linkedin_org_employees:83909
+linkedin_org_url:"http://www.capitalone.com"
+linkedin_org_size:"10,001+ employees"
+linkedin_org_slogan:null
+linkedin_org_industry:"Financial Services"
+linkedin_org_followers:1127113
+linkedin_org_headquarters:"McLean, Va"
+linkedin_org_type:"Public Company"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:"Business Banking"
+linkedin_org_locations:
+0:"1680 Capital One Drive, McLean, Va 22102, US"
+1:"8020 Towers Crescent Dr, Vienna, VA 22182, US"
+2:"2 Bethesda METRO Center, Bethesda, MD 20814, US"
+linkedin_org_description:"At Capital One, we're making things better for our customers and associates through innovation and collaboration. We were founded on the belief that everyone deserves financial freedom—and are dedicated to a world where all have equal opportunity to prosper. Banking is in our DNA, but we are so much more than a bank. We always think about what’s next—and how we can bring our customers the tools needed to improve their financial lives. Your ideas, experiences and skills will help make banking better. You’ll be part of a supportive culture while earning amazing benefits. That’s life at Capital One. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. View our Social Media Community Guidelines https://www.capitalone.com/digital/social-media/ "
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:false
+linkedin_org_slug:"capital-one"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:true
+linkedin_id:4403067520
+description_text:"Do you love building and pioneering in the technology space? Do you enjoy solving complex business problems in a fast-paced, collaborative, inclusive, and iterative delivery environment? At Capital One, you'll be part of a big group of makers, breakers, doers and disruptors, who solve real problems and meet real customer needs. Bank Tech is seeking Full Stack Software Engineers who are passionate about marrying data with emerging technologies. As a Capital One Lead Software Engineer, you’ll have the opportunity to be on the forefront of driving a major transformation within Capital One. We're not just supporting a bank; we're redefining the tech foundation for a financial giant. As Bank Tech, we are leading the charge to become the first bank to build an internal, integrated, and fully modernized core banking platform. If you're passionate about modular, resilient, cloud-native, and secure engineering, you'll find your challenge here. We're building common capabilities and cutting-edge, real-time technology solutions that power critical lines of business including our Retail Bank, Small Business Bank, Commercial Bank, and Capital One Shopping. What You’ll Do: Collaborate with and across Agile teams to design, develop, test, implement, and support technical solutions in full-stack development tools and technologies Work with a team of developers with deep experience in machine learning, distributed microservices, and full stack systems Utilize programming languages like Java, Scala, Python and Open Source RDBMS and NoSQL databases and Cloud based data warehousing services such as Redshift and Snowflake Share your passion for staying on top of tech trends, experimenting with and learning new technologies, participating in internal & external technology communities, and mentoring other members of the engineering community Collaborate with digital product managers, and deliver robust cloud-based solutions that drive powerful experiences to help millions of Americans achieve financial empowerment Perform unit tests and conduct reviews with other team members to make sure your code is rigorously designed, elegantly coded, and effectively tuned for performance Basic Qualifications: Bachelor’s Degree At least 4 years of experience in application development (Internship experience does not apply) At least 2 years of experience in big data technologies At least 1 year experience with cloud computing (AWS, Microsoft Azure, Google Cloud) Preferred Qualifications: 7+ years of experience in application development including Python, SQL, Scala, or Java 4+ years of experience with a public cloud (AWS, Microsoft Azure, Google Cloud) 4+ years experience with Distributed data/computing tools (MapReduce, Hadoop, Hive, EMR, Kafka, Spark, Gurobi, or MySQL) 4+ year experience working on real-time data and streaming applications 4+ years of experience with NoSQL implementation (Mongo, Cassandra) 4+ years of data warehousing experience (Redshift or Snowflake) 4+ years of experience with UNIX/Linux including basic commands and shell scripting 2+ years of experience with Agile engineering practices At this time, Capital One will not sponsor a new applicant for employment authorization, or offer any immigration related support for this position (i.e. H1B, F-1 OPT, F-1 STEM OPT, F-1 CPT, J-1, TN, E-2, E-3, L-1 and O-1, or any EADs or other forms of work authorization that require immigration support from an employer). The minimum and maximum full-time annual salaries for this role are listed below, by location. Please note that this salary information is solely for candidates hired to perform work within one of these locations, and refers to the amount Capital One is willing to pay at the time of this posting. Salaries for part-time roles will be prorated based upon the agreed upon number of hours to be regularly worked. McLean, VA: $197,300 - $225,100 for Lead Data Engineer New York, NY: $215,200 - $245,600 for Lead Data Engineer Richmond, VA: $179,400 - $204,700 for Lead Data Engineer Wilmington, DE: $179,400 - $204,700 for Lead Data Engineer Candidates hired to work in other locations will be subject to the pay range associated with that location, and the actual annualized salary amount offered to any candidate at the time of hire will be reflected solely in the candidate’s offer letter. This role is also eligible to earn performance based incentive compensation, which may include cash bonus(es) and/or long term incentives (LTI). Incentives could be discretionary or non discretionary depending on the plan. Capital One offers a comprehensive, competitive, and inclusive set of health, financial and other benefits that support your total well-being. Learn more at the Capital One Careers website. Eligibility varies based on full or part-time status, exempt or non-exempt status, and management level. This role is expected to accept applications for a minimum of 5 business days. No agencies please. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. Capital One promotes a drug-free workplace. Capital One will consider for employment qualified applicants with a criminal history in a manner consistent with the requirements of applicable laws regarding criminal background inquiries, including, to the extent applicable, Article 23-A of the New York Correction Law; San Francisco, California Police Code Article 49, Sections 4901-4920; New York City’s Fair Chance Act; Philadelphia’s Fair Criminal Records Screening Act; and other applicable federal, state, and local laws and regulations regarding criminal background inquiries. If you have visited our website in search of information on employment opportunities or to apply for a position, and you require an accommodation, please contact Capital One Recruiting at 1-800-304-9102 or via email at RecruitingAccommodation@capitalone.com. All information you provide will be kept confidential and will be used only to the extent required to provide needed reasonable accommodations. For technical support or questions about Capital One's recruiting process, please send an email to Careers@capitalone.com Capital One does not provide, endorse nor guarantee and is not liable for third-party products, services, educational tools or other information available through this site. Capital One Financial is made up of several different entities. Please note that any position posted in Canada is for Capital One Canada, any position posted in the United Kingdom is for Capital One Europe and any position posted in the Philippines is for Capital One Philippines Service Corp. (COPSSC)."
+4:
+id:"2114088599"
+date_posted:"2026-04-18T18:01:13"
+date_created:"2026-04-18T18:05:38.576098"
+title:"Distinguished Data Engineer"
+organization:"Capital One"
+organization_url:"https://www.linkedin.com/company/capital-one"
+date_validthrough:"2026-05-18T17:58:13"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"McLean"
+addressRegion:"VA"
+streetAddress:null
+latitude:38.93463
+longitude:-77.17058
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/distinguished-data-engineer-at-capital-one-4403066584"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/C560BAQF0OgQyRZ9yAA/company-logo_200_200/company-logo_200_200/0/1635782718446/capital_one_logo?e=2147483647&v=beta&t=EdvNN6BepIhdQnc9udE-QlqxASeRgfZxEr0ZYI4s6cQ"
+cities_derived:
+0:"McLean"
+counties_derived:
+0:"Fairfax County"
+regions_derived:
+0:"Virginia"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"McLean, Virginia, United States"
+timezones_derived:
+0:"America/New_York"
+lats_derived:
+0:38.93668525
+lngs_derived:
+0:-77.1858430261388
+remote_derived:false
+linkedin_org_employees:83909
+linkedin_org_url:"http://www.capitalone.com"
+linkedin_org_size:"10,001+ employees"
+linkedin_org_slogan:null
+linkedin_org_industry:"Financial Services"
+linkedin_org_followers:1127113
+linkedin_org_headquarters:"McLean, Va"
+linkedin_org_type:"Public Company"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:"Business Banking"
+linkedin_org_locations:
+0:"1680 Capital One Drive, McLean, Va 22102, US"
+1:"8020 Towers Crescent Dr, Vienna, VA 22182, US"
+2:"2 Bethesda METRO Center, Bethesda, MD 20814, US"
+linkedin_org_description:"At Capital One, we're making things better for our customers and associates through innovation and collaboration. We were founded on the belief that everyone deserves financial freedom—and are dedicated to a world where all have equal opportunity to prosper. Banking is in our DNA, but we are so much more than a bank. We always think about what’s next—and how we can bring our customers the tools needed to improve their financial lives. Your ideas, experiences and skills will help make banking better. You’ll be part of a supportive culture while earning amazing benefits. That’s life at Capital One. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. View our Social Media Community Guidelines https://www.capitalone.com/digital/social-media/ "
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:false
+linkedin_org_slug:"capital-one"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:true
+linkedin_id:4403066584
+description_text:"Distinguished Data Engineers are individual contributors who strive to be diverse in thought so we visualize the problem space. At Capital One, we believe diversity of thought strengthens our ability to influence, collaborate and provide the most innovative solutions across organizational boundaries. Distinguished Engineers will significantly impact our trajectory and devise clear roadmaps to deliver next generation technology solutions. Deep technical experts and thought leaders that help accelerate adoption of the very best engineering practices, while maintaining knowledge on industry innovations, trends and practices Visionaries, collaborating on Capital One’s toughest issues, to deliver on business needs that directly impact the lives of our customers and associates Role models and mentors, helping to coach and strengthen the technical expertise and know-how of our engineering and product community Evangelists, both internally and externally, helping to elevate the Distinguished Engineering community and establish themselves as a go-to resource on given technologies and technology-enabled capabilities About the Team: The Capital One File Transfer platform is a business-critical delivery channel for integrating systems, enabling partners to securely send and receive files with Capital One. It utilizes industry-standard protocols, alongside cutting-edge cloud-to-cloud and multi-cloud transfer technologies, to facilitate these essential data exchanges. This platform is vital for the company's daily operations and future growth. The application's complexity arises from the need to securely share petabytes of data annually with thousands of partners. As an engineer on this platform, your primary challenge will be developing more reliable and cost-efficient ways to manage these massive data volumes, ensuring security, performance, and scalability. Responsibilities: Build awareness, increase knowledge and drive adoption of modern technologies, sharing consumer and engineering benefits to gain buy-in Strike the right balance between lending expertise and providing an inclusive environment where others’ ideas can be heard and championed; leverage expertise to grow skills in the broader Capital One team Promote a culture of engineering excellence, using opportunities to reuse and innersource solutions where possible Effectively communicate with and influence key stakeholders across the enterprise, at all levels of the organization Operate as a trusted advisor for a specific technology, platform or capability domain, helping to shape use cases and implementation in an unified manner Lead the way in creating next-generation talent for Tech, mentoring internal talent and actively recruiting external talent to bolster Capital One’s Tech talent Basic Qualifications: Bachelor’s Degree At least 7 years of experience in data engineering At least 3 years of experience in data architecture At least 2 years of experience building applications in AWS Preferred Qualifications: Masters’ Degree 9+ years of experience in data engineering 3+ years of data modeling experience 2+ years of experience with ontology standards for defining a domain 2+ years of experience using Python, SQL or Scala 1+ year of experience deploying machine learning models 3+ years of experience implementing big data processing solutions on AWS Capital One will consider sponsoring a new qualified applicant for employment authorization for this position The minimum and maximum full-time annual salaries for this role are listed below, by location. Please note that this salary information is solely for candidates hired to perform work within one of these locations, and refers to the amount Capital One is willing to pay at the time of this posting. Salaries for part-time roles will be prorated based upon the agreed upon number of hours to be regularly worked. McLean, VA: $269,100 - $307,200 for Distinguished Data Engineer Candidates hired to work in other locations will be subject to the pay range associated with that location, and the actual annualized salary amount offered to any candidate at the time of hire will be reflected solely in the candidate’s offer letter. This role is also eligible to earn performance based incentive compensation, which may include cash bonus(es) and/or long term incentives (LTI). Incentives could be discretionary or non discretionary depending on the plan. Capital One offers a comprehensive, competitive, and inclusive set of health, financial and other benefits that support your total well-being. Learn more at the Capital One Careers website. Eligibility varies based on full or part-time status, exempt or non-exempt status, and management level. This role is expected to accept applications for a minimum of 5 business days. No agencies please. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. Capital One promotes a drug-free workplace. Capital One will consider for employment qualified applicants with a criminal history in a manner consistent with the requirements of applicable laws regarding criminal background inquiries, including, to the extent applicable, Article 23-A of the New York Correction Law; San Francisco, California Police Code Article 49, Sections 4901-4920; New York City’s Fair Chance Act; Philadelphia’s Fair Criminal Records Screening Act; and other applicable federal, state, and local laws and regulations regarding criminal background inquiries. If you have visited our website in search of information on employment opportunities or to apply for a position, and you require an accommodation, please contact Capital One Recruiting at 1-800-304-9102 or via email at RecruitingAccommodation@capitalone.com. All information you provide will be kept confidential and will be used only to the extent required to provide needed reasonable accommodations. For technical support or questions about Capital One's recruiting process, please send an email to Careers@capitalone.com Capital One does not provide, endorse nor guarantee and is not liable for third-party products, services, educational tools or other information available through this site. Capital One Financial is made up of several different entities. Please note that any position posted in Canada is for Capital One Canada, any position posted in the United Kingdom is for Capital One Europe and any position posted in the Philippines is for Capital One Philippines Service Corp. (COPSSC)."
+5:
+id:"2114087425"
+date_posted:"2026-04-18T17:59:16"
+date_created:"2026-04-18T18:04:55.826632"
+title:"Lead Data Engineer (Bank Tech)"
+organization:"Capital One"
+organization_url:"https://www.linkedin.com/company/capital-one"
+date_validthrough:"2026-05-18T17:59:09"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"Richmond"
+addressRegion:"VA"
+streetAddress:null
+latitude:37.539265
+longitude:-77.43803
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/lead-data-engineer-bank-tech-at-capital-one-4403075496"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/C560BAQF0OgQyRZ9yAA/company-logo_200_200/company-logo_200_200/0/1635782718446/capital_one_logo?e=2147483647&v=beta&t=EdvNN6BepIhdQnc9udE-QlqxASeRgfZxEr0ZYI4s6cQ"
+cities_derived:
+0:"Richmond"
+counties_derived:null
+regions_derived:
+0:"Virginia"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"Richmond, Virginia, United States"
+timezones_derived:
+0:"America/New_York"
+lats_derived:
+0:37.5385087
+lngs_derived:
+0:-77.43428
+remote_derived:false
+linkedin_org_employees:83909
+linkedin_org_url:"http://www.capitalone.com"
+linkedin_org_size:"10,001+ employees"
+linkedin_org_slogan:null
+linkedin_org_industry:"Financial Services"
+linkedin_org_followers:1127113
+linkedin_org_headquarters:"McLean, Va"
+linkedin_org_type:"Public Company"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:"Business Banking"
+linkedin_org_locations:
+0:"1680 Capital One Drive, McLean, Va 22102, US"
+1:"8020 Towers Crescent Dr, Vienna, VA 22182, US"
+2:"2 Bethesda METRO Center, Bethesda, MD 20814, US"
+linkedin_org_description:"At Capital One, we're making things better for our customers and associates through innovation and collaboration. We were founded on the belief that everyone deserves financial freedom—and are dedicated to a world where all have equal opportunity to prosper. Banking is in our DNA, but we are so much more than a bank. We always think about what’s next—and how we can bring our customers the tools needed to improve their financial lives. Your ideas, experiences and skills will help make banking better. You’ll be part of a supportive culture while earning amazing benefits. That’s life at Capital One. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. View our Social Media Community Guidelines https://www.capitalone.com/digital/social-media/ "
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:false
+linkedin_org_slug:"capital-one"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:true
+linkedin_id:4403075496
+description_text:"Do you love building and pioneering in the technology space? Do you enjoy solving complex business problems in a fast-paced, collaborative, inclusive, and iterative delivery environment? At Capital One, you'll be part of a big group of makers, breakers, doers and disruptors, who solve real problems and meet real customer needs. Bank Tech is seeking Full Stack Software Engineers who are passionate about marrying data with emerging technologies. As a Capital One Lead Software Engineer, you’ll have the opportunity to be on the forefront of driving a major transformation within Capital One. We're not just supporting a bank; we're redefining the tech foundation for a financial giant. As Bank Tech, we are leading the charge to become the first bank to build an internal, integrated, and fully modernized core banking platform. If you're passionate about modular, resilient, cloud-native, and secure engineering, you'll find your challenge here. We're building common capabilities and cutting-edge, real-time technology solutions that power critical lines of business including our Retail Bank, Small Business Bank, Commercial Bank, and Capital One Shopping. What You’ll Do: Collaborate with and across Agile teams to design, develop, test, implement, and support technical solutions in full-stack development tools and technologies Work with a team of developers with deep experience in machine learning, distributed microservices, and full stack systems Utilize programming languages like Java, Scala, Python and Open Source RDBMS and NoSQL databases and Cloud based data warehousing services such as Redshift and Snowflake Share your passion for staying on top of tech trends, experimenting with and learning new technologies, participating in internal & external technology communities, and mentoring other members of the engineering community Collaborate with digital product managers, and deliver robust cloud-based solutions that drive powerful experiences to help millions of Americans achieve financial empowerment Perform unit tests and conduct reviews with other team members to make sure your code is rigorously designed, elegantly coded, and effectively tuned for performance Basic Qualifications: Bachelor’s Degree At least 4 years of experience in application development (Internship experience does not apply) At least 2 years of experience in big data technologies At least 1 year experience with cloud computing (AWS, Microsoft Azure, Google Cloud) Preferred Qualifications: 7+ years of experience in application development including Python, SQL, Scala, or Java 4+ years of experience with a public cloud (AWS, Microsoft Azure, Google Cloud) 4+ years experience with Distributed data/computing tools (MapReduce, Hadoop, Hive, EMR, Kafka, Spark, Gurobi, or MySQL) 4+ year experience working on real-time data and streaming applications 4+ years of experience with NoSQL implementation (Mongo, Cassandra) 4+ years of data warehousing experience (Redshift or Snowflake) 4+ years of experience with UNIX/Linux including basic commands and shell scripting 2+ years of experience with Agile engineering practices At this time, Capital One will not sponsor a new applicant for employment authorization, or offer any immigration related support for this position (i.e. H1B, F-1 OPT, F-1 STEM OPT, F-1 CPT, J-1, TN, E-2, E-3, L-1 and O-1, or any EADs or other forms of work authorization that require immigration support from an employer). The minimum and maximum full-time annual salaries for this role are listed below, by location. Please note that this salary information is solely for candidates hired to perform work within one of these locations, and refers to the amount Capital One is willing to pay at the time of this posting. Salaries for part-time roles will be prorated based upon the agreed upon number of hours to be regularly worked. McLean, VA: $197,300 - $225,100 for Lead Data Engineer New York, NY: $215,200 - $245,600 for Lead Data Engineer Richmond, VA: $179,400 - $204,700 for Lead Data Engineer Wilmington, DE: $179,400 - $204,700 for Lead Data Engineer Candidates hired to work in other locations will be subject to the pay range associated with that location, and the actual annualized salary amount offered to any candidate at the time of hire will be reflected solely in the candidate’s offer letter. This role is also eligible to earn performance based incentive compensation, which may include cash bonus(es) and/or long term incentives (LTI). Incentives could be discretionary or non discretionary depending on the plan. Capital One offers a comprehensive, competitive, and inclusive set of health, financial and other benefits that support your total well-being. Learn more at the Capital One Careers website. Eligibility varies based on full or part-time status, exempt or non-exempt status, and management level. This role is expected to accept applications for a minimum of 5 business days. No agencies please. Capital One is an equal opportunity employer (EOE, including disability/vet) committed to non-discrimination in compliance with applicable federal, state, and local laws. Capital One promotes a drug-free workplace. Capital One will consider for employment qualified applicants with a criminal history in a manner consistent with the requirements of applicable laws regarding criminal background inquiries, including, to the extent applicable, Article 23-A of the New York Correction Law; San Francisco, California Police Code Article 49, Sections 4901-4920; New York City’s Fair Chance Act; Philadelphia’s Fair Criminal Records Screening Act; and other applicable federal, state, and local laws and regulations regarding criminal background inquiries. If you have visited our website in search of information on employment opportunities or to apply for a position, and you require an accommodation, please contact Capital One Recruiting at 1-800-304-9102 or via email at RecruitingAccommodation@capitalone.com. All information you provide will be kept confidential and will be used only to the extent required to provide needed reasonable accommodations. For technical support or questions about Capital One's recruiting process, please send an email to Careers@capitalone.com Capital One does not provide, endorse nor guarantee and is not liable for third-party products, services, educational tools or other information available through this site. Capital One Financial is made up of several different entities. Please note that any position posted in Canada is for Capital One Canada, any position posted in the United Kingdom is for Capital One Europe and any position posted in the Philippines is for Capital One Philippines Service Corp. (COPSSC)."
+6:
+id:"2114048310"
+date_posted:"2026-04-18T16:21:26"
+date_created:"2026-04-18T16:32:41.89931"
+title:"Data Engineer"
+organization:"FetchJobs.co"
+organization_url:"https://www.linkedin.com/company/fetchjobs-co"
+date_validthrough:"2026-05-18T16:21:26"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"Tucson"
+addressRegion:"AZ"
+streetAddress:null
+latitude:32.221878
+longitude:-110.97122
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/data-engineer-at-fetchjobs-co-4403836253"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/D560BAQGdJnOklMFmTQ/company-logo_200_200/B56ZwpyugQKEAI-/0/1770227690183/fetchjobs_co_logo?e=2147483647&v=beta&t=9JUhy340GHhqZZDaaWH95KqOuf5UR4wgbkWSQpGsFqY"
+cities_derived:
+0:"Tucson"
+counties_derived:
+0:"Pima County"
+regions_derived:
+0:"Arizona"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"Tucson, Arizona, United States"
+timezones_derived:
+0:"America/Phoenix"
+lats_derived:
+0:32.2228765
+lngs_derived:
+0:-110.974847
+remote_derived:false
+linkedin_org_employees:null
+linkedin_org_url:"https://www.fetchjobs.co"
+linkedin_org_size:"2-10 employees"
+linkedin_org_slogan:"Jobs That Match Your Skills"
+linkedin_org_industry:"IT Services and IT Consulting"
+linkedin_org_followers:null
+linkedin_org_headquarters:""
+linkedin_org_type:"Privately Held"
+linkedin_org_foundeddate:""
+linkedin_org_specialties:
+0:""
+linkedin_org_locations:
+linkedin_org_description:null
+linkedin_org_recruitment_agency_derived:false
+seniority:"Associate"
+directapply:false
+linkedin_org_slug:"fetchjobs-co"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:false
+linkedin_id:4403836253
+description_text:"Electrical Engineer - Data Link SystemsDate Posted 2026-03-17 Country United States of America Location: US-AZ-TUCSON-M E Hermans Rd BLDG M02 Position Role Type Onsite U.S. Citizen, U.S. Person, Or Immigration Status Requirements Active and transferable U.S. government issued security clearance is required prior to start date. U.S. citizenship is required, as only U.S. citizens are eligible for a security clearance Security Clearance Type DoD Clearance: Secret Security Clearance Status Ability to obtain INTERIM U.S. government issued security clearance is required prior to start date About The Company Raytheon is a leading defense and aerospace company committed to safeguarding national security and advancing technological innovation. With over a century of experience, Raytheon leverages its engineering expertise to develop cutting-edge solutions that address complex threats and challenges faced by the United States and its allies. The company's core values are rooted in integrity, innovation, and a dedication to making the world a safer place. Raytheon’s work spans a broad spectrum of defense systems, missile technologies, cybersecurity, and space-based applications, positioning it as a global leader in the industry. Employees at Raytheon are driven by a higher purpose—to protect freedoms and create a more secure future through technological excellence and collaborative problem-solving. About The Role Raytheon is seeking a talented Electrical Engineer to join the Advanced Effector Guidance Systems team. This role focuses on designing, developing, and testing wireless communication and data link systems that support tactical missile programs. The successful candidate will be involved in all phases of product development—from initial concept and design to integration and testing. The position offers an exciting opportunity to work on next-generation high-capacity, covert, and agile data links that operate in challenging environments, including space-based and terrestrial RF links. The engineer will collaborate with multidisciplinary teams, contribute to system architecture trade studies, develop algorithms, and support hardware implementation efforts. This role requires a detail-oriented professional capable of solving complex technical problems and innovating in the field of RF communications and digital signal processing. Qualifications The ideal candidate will possess a degree in Science, Technology, Engineering, or Mathematics (STEM) with at least two years of relevant experience. Proficiency in programming languages such as MATLAB, SIMULINK, C/C++, or similar is essential. Candidates should have practical experience in conducting performance trade studies, link budget analyses, and developing communication system models. A solid understanding of digital signal processing, RF and electromagnetic theory, and probability and stochastic signal processing is required. Prior experience with RF hardware development, system engineering of RF subsystems, and familiarity with waveform simulation techniques is preferred. Strong analytical skills, the ability to work independently, and excellent communication skills are essential for success in this role. Responsibilities Perform and evaluate concept and performance trade studies, including link budget analyses, to demonstrate data link capabilities. Conduct hardware and software communication architecture trade studies to optimize system performance. Develop, prototype, and validate data link models and communication signal processing algorithms through high-fidelity simulations and hardware testing. Support laboratory and field testing activities to verify and validate system performance against requirements. Participate in project design reviews, peer reviews, and deliver technical briefings to internal leadership and external customers throughout all development phases. Collaborate with cross-functional teams to ensure system integration, manufacturability, and cost-effectiveness. Document technical processes, test results, and system configurations to ensure traceability and knowledge sharing. Benefits Raytheon offers a comprehensive benefits package designed to support the health, well-being, and professional development of its employees. Hired applicants are eligible for medical, dental, and vision insurance, as well as life and disability coverage. The company provides a 401(k) retirement plan with matching contributions, flexible spending accounts, and paid time off including holidays, parental leave, and vacation days. Raytheon also encourages continuous learning through employee assistance programs, tuition reimbursement, and the Employee Scholar Program. Additionally, employees may participate in annual incentive programs based on individual and company performance. The company fosters a collaborative and innovative work environment where employees are valued and encouraged to grow their careers. Equal Opportunity Raytheon is an Equal Opportunity Employer committed to creating an inclusive environment for all employees. We do not discriminate based on race, color, religion, sex, sexual orientation, gender identity, national origin, age, disability, veteran status, or any other protected class under applicable law. We provide affirmative action in employment for qualified individuals with disabilities and protected veterans, in compliance with Section 503 of the Rehabilitation Act and the Vietnam Era Veterans' Readjustment Assistance Act. We believe diversity and inclusion are essential to our success and are dedicated to fostering a workplace where everyone can thrive and contribute to our mission of safeguarding national security."
+7:
+id:"2114048187"
+date_posted:"2026-04-18T16:11:45"
+date_created:"2026-04-18T16:32:30.602616"
+title:"Senior Data Engineer"
+organization:"FreedomPay"
+organization_url:"https://www.linkedin.com/company/freedompay"
+date_validthrough:"2026-05-18T16:11:44"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"Newark"
+addressRegion:"NJ"
+streetAddress:null
+latitude:40.731506
+longitude:-74.174385
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/senior-data-engineer-at-freedompay-4403834749"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/C4D0BAQHQ-yWRwhi46g/company-logo_200_200/company-logo_200_200/0/1630578101659/freedompay_logo?e=2147483647&v=beta&t=PvD_FNO1k0MFRSJYbQx_sSQ82EBTlB97kyanQQae8I0"
+cities_derived:
+0:"Newark"
+counties_derived:
+0:"Essex County"
+regions_derived:
+0:"New Jersey"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"Newark, New Jersey, United States"
+timezones_derived:
+0:"America/New_York"
+lats_derived:
+0:40.735657
+lngs_derived:
+0:-74.1723667
+remote_derived:false
+linkedin_org_employees:601
+linkedin_org_url:"http://www.freedompay.com"
+linkedin_org_size:"501-1,000 employees"
+linkedin_org_slogan:"Data Driven Commerce Platform"
+linkedin_org_industry:"IT Services and IT Consulting"
+linkedin_org_followers:15335
+linkedin_org_headquarters:"Philadelphia, Pennsylvania"
+linkedin_org_type:"Privately Held"
+linkedin_org_foundeddate:"2000"
+linkedin_org_specialties:
+0:"Payment Solutions"
+1:"Mobile Payments"
+2:"Mobile Marketing"
+3:"Mobile Incentives"
+4:"Incentive Management"
+5:"Cashless Solutions"
+6:"Credit Card Gateway"
+7:"PCI Compliance"
+8:"PCI Scope Reduction"
+9:"Analytics"
+10:"Stored Value"
+11:"Business Intelligence"
+12:"and Touchless Commerce"
+linkedin_org_locations:
+0:"2929 Walnut Street, 14th Floor, Philadelphia, Pennsylvania 19104, US"
+1:"40 Bank Street, 26th Floor, London, United Kingdom E14 5NR, GB"
+linkedin_org_description:"The FreedomPay Commerce Platform is the best way for merchants to simplify complex payment environments. Validated by the PCI Security Standards Council for Point-to-Point Encryption (P2PE) along with EMV, Tokenization, Contactless and DCC capabilities, global leaders in retail, hospitality, gaming, education, healthcare and financial services trust FreedomPay to deliver unmatched security and advanced value added services. Since our launch in 2000, FreedomPay has been a pioneer in Next Level Commerce™, including mobile payments, cashless solutions, virtual and remote terminals, payment processing, intelligent analysis, routing of promotions, incentives and customer relationship management services. As the industry's first TransAtlantic payments solution with integrations across top point-of-sale, device manufacturers and payment processors, supported by rapid API adoption, FreedomPay is driving the future of commerce and customer interaction. With offices in Philadelphia, Las Vegas and London, FreedomPay continues to make your payments faster, simpler, safer and smarter. For more information, go to www.freedompay.com. "
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:false
+linkedin_org_slug:"freedompay"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:true
+linkedin_id:4403834749
+description_text:"The FreedomPay Commerce Platform is the technology of choice for many of the largest companies across the globe in retail, hospitality, lodging, gaming, sports and entertainment, foodservice, education, healthcare and financial services. FreedomPay's technology has been purposely built to deliver rock solid performance in the highly complex environment of global commerce. The company maintains a world-class security environment and was first to earn the coveted validation by the PCI Security Standards Council against Point-to-Point Encryption with EMV standard in North America. FreedomPay's robust solutions across payments, security, identity and data analytics are available in-store, online and on-mobile and are supported by rapid API adoption. The award winning FreedomPay Commerce Platform operates on a single, unified technology stack across multiple continents allowing enterprises to deliver a consistent, repeatable experience on a global scale. FreedomPay is a fast paced, high growth company with a great culture with competitive benefits and compensation with a business casual atmosphere.FreedomPay is experiencing explosive growth and seeks a Senior Data Engineer with expert-level database skills and a passion for technical leadership. This role is with FreedomPay’s small but exciting Database Engineering team. This team of data engineers design, build, and maintain all data-related aspects of our products directly or through collaboration with other development teams. This work includes design, creation, and maintenance of Data Structures, Database Objects, ETL processes and reporting visualizations. The primary technology stack runs on the Microsoft SQL Server 2019 and 2022 stacks, as well as Snowflake, CosmosDB, Redis, and additional modern database technologies In this role, you will collaborate with team members to design, build, and operate data pipelines and data products across SQL Server and Snowflake. You will contribute to ELT/ETL development, orchestration, monitoring, and cost/performance optimization, and you will partner with analytics and application teams to deliver trusted, well-governed datasets and self-service reporting. ResponsibilitiesDesign and evolve data models and database objects for operational and analytical workloads in Microsoft SQL Server and Snowflake (schemas, roles, warehouses, performance and cost optimization). Build and maintain ELT/ETL pipelines (batch and near-real-time), leveraging Snowflake capabilities (Snowpipe, Streams/Tasks) and orchestration tools (e.g., Airflow or Azure Data Factory) as appropriate. Implement and support data streaming and event-driven ingestion patterns using technologies such as Kafka, Azure Event Hubs, (topics/streams, schemas, consumers, and replay strategies). Leverage Redis and other low-latency data stores for caching and real-time access patterns; partner with application teams to define fit-for-purpose SLAs and data freshness targets. Develop and maintain curated datasets and self-service analytics in Sigma Computing (workbooks, datasets, governance and performance), and support legacy reporting where needed (e.g., SSRS).Collaborate with engineering, analytics, and product teams to deliver data solutions that meet business requirements. Automate deployments using Git-based workflows and CI/CD (e.g., Azure DevOps), including database migration/versioning (Flyway) Use Claude Code (AI-assisted development) to accelerate data pipeline delivery (design, implementation, refactoring, documentation, and troubleshooting) while adhering to security, quality, and SDLC standards. Participate in Agile ceremonies and contribute to continuous improvement of data engineering processes and standards. Establish data quality, testing, and observability (e.g., unit/integration tests for pipelines, data validation, lineage, alerting, SLAs) to ensure reliable delivery. Partner with engineering, analytics, and product teams to define and deliver data products (source-to-target mappings, contracts, SLAs), enabling trustworthy analytics and operational use cases. Ensure data security, governance, and compliance across platforms (PII handling, encryption, auditing, retention), including Snowflake RBAC, secure data sharing, and access controls. Troubleshoot and resolve performance, reliability, and scalability issues across data platforms; instrument pipelines with logging/metrics and on-call friendly runbooks. QualificationsStrong understanding of modern data engineering practices and tools (cloud data platforms, orchestration, testing/observability, DataOps, and AI-assisted development with Claude Code). Strong English reading and writing communication skills, with an ability to express and understand complex technical concepts. As other languages are a requirement, that will be explicitly noted during the recruitment process. Strong analytical, problem-solving, and conceptual skills. Hands-on experience with Snowflake and integrating it into production data pipelines. Experience enabling governed self-service analytics with Sigma Computing (datasets, workbooks, access controls, and performance best practices). Experience with streaming/event platforms such as Kafka, Azure Event Hubs, including schema/versioning considerations and operational support. Proficiency with Python for data engineering automation and/or building pipeline components; experience with orchestration (Airflow and/or Azure Data Factory) is strongly preferred. Experience using Claude Code to develop, test, and iterate on data pipeline solutions (e.g., generating boilerplate, improving SQL/Python, and speeding up root-cause analysis) with appropriate human review. Ability to work in teams and strong interpersonal skills. Ability to work under pressure and meet tight deadlines. Ability to anticipate potential problems and determine and implement solutions. Education/ExperienceRelevant training in principles and techniques of database development and modeling. Be familiar with systems concepts, design, and standards. Provide expertise in software usage, functionality, performance, security, aesthetics, resilience, reuse, comprehensibility, and economic and technological tradeoffs. Bachelor’s degree in Computer Science, Software Engineering, MIS, or related discipline; or equivalent practical experience. 7+ years of experience in data engineering and/or database engineering, including building and operating production data pipelines. Experience working within an AGILE Scrum or SafAgile software development environment Strong written and verbal interpersonal communication skills in the English language Technical ExpertiseExpert in designing, optimizing, and scaling relational and cloud-native data platforms (SQL Server, Snowflake, Cosmos DB, Redis). Experience with streaming architectures and tooling (Kafka/Event Hubs/Kinesis), including delivery semantics, late/out-of-order events, and operational monitoring. Strong proficiency in Python and SQL for building pipeline components, automation, and data transformations; familiarity with modern ELT patterns and reusable frameworks. Experience with orchestration and DataOps, Git-based workflows, CI/CD Data quality and observability experience Analytics enablement experience with Sigma Computing, including modeling curated datasets for performance and supporting governed self-service. Comfortable using Claude Code for AI-assisted development to improve engineering velocity and consistency across SQL/Python codebases, tests, and documentation. Proven track record of architecting multi-terabyte, high-performance data solutions Advanced proficiency in T-SQL, query optimization, indexing strategies, and database security Experience implementing DataOps, CI/CD, and automated testing for database deployments Five or more years of experience developing the full range of objects in Microsoft SQL 2019 (or better) databases using SQL and T-SQL Five or more years of experience creating and maintaining ETL packages with SQL Server Integration Services (SSIS); At least three years of experience SSIS with SQL Server 2019 (or better) preferred. Five or more years collaborating with team members on SQL, T-SQL, SSIS, and SSRS performance tuning problems to resolution. Working knowledge of deployments utilizing Database Projects, MS-ISPACs and DACPACs preferred Basic C# applied (non-academic) programming experience knowledge a plus Familiarity or experience with Azure SQL, Azure Data Factory is a plus Experience with version control, preferably GIT Experience with work management tools such as Jira or Azure DevOps Proficient in SDLC process and able to follow through the lifecycle of a process AttributesStrong collaborative approach to team members inside and outside of database development group to develop solutions and solve problems Professional, positive, and self-motivated approach. Strong relationship-building, written and verbal communication skills at all levels. Ability to work independently and as part of a team, managing multiple tasks and priorities. Commitment to continuous learning and adapting to new technologies and best practices. Exceptional communication skills, able to articulate complex concepts to technical and non-technical audiences Commitment to continuous learning and driving organizational excellence As the fastest growing commerce company in the industry, we offer the opportunity for tremendous upward mobility within the company as well as development and professional growth opportunities. FreedomPay's fulltime roles provide exceptional benefits including medical, prescription, dental and vision coverage, Life Insurance, Retirement Plans with company match, commission sharing plan, flexible hybrid working environment, and great parental and other leave programs. All positions must be able to successfully pass a background check as well as a credit check.FreedomPay is an Equal Opportunity Employer, including Disability/Veterans. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or status as a protected veteran.VEVRAA Federal Contractor.We request Priority Protected Veteran & Disabled Referrals for all of our locations within the state."
+8:
+id:"2114015444"
+date_posted:"2026-04-18T16:01:57"
+date_created:"2026-04-18T16:05:08.891359"
+title:"Mid-Level Data Engineer"
+organization:"Sarmaya"
+organization_url:"https://www.linkedin.com/company/digitaltransformationforbusiness"
+date_validthrough:"2026-10-15T16:01:57"
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressCountry:"US"
+addressLocality:"Los Angeles"
+addressRegion:"CA"
+streetAddress:null
+latitude:34.05224
+longitude:-118.24335
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/mid-level-data-engineer-at-sarmaya-4403065262"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/D4D0BAQGVJoexSjjp9g/company-logo_200_200/B4DZx6uYOlKQAM-/0/1771585504724/digitaltransformationforbusiness_logo?e=2147483647&v=beta&t=8lJXtHWo4VV1Qvn1WHQHb1p4I1doWvtpuVDHY0i5CIU"
+cities_derived:
+0:"Los Angeles"
+counties_derived:
+0:"Los Angeles County"
+regions_derived:
+0:"California"
+countries_derived:
+0:"United States"
+locations_derived:
+0:"Los Angeles, California, United States"
+timezones_derived:
+0:"America/Los_Angeles"
+lats_derived:
+0:34.0536909
+lngs_derived:
+0:-118.242766
+remote_derived:false
+linkedin_org_employees:3
+linkedin_org_url:"sarmayaai.com"
+linkedin_org_size:"201-500 employees"
+linkedin_org_slogan:"Sarmaya builds the technology backbone for modern enterprises."
+linkedin_org_industry:"Technology, Information and Internet"
+linkedin_org_followers:932
+linkedin_org_headquarters:"Los Angeles , CA"
+linkedin_org_type:"Privately Held"
+linkedin_org_foundeddate:"2009"
+linkedin_org_specialties:
+0:"Custom Enterprise Operating Systems"
+1:"Explainable AI & Agentic Automation"
+2:"Digital & Systems Transformation"
+3:" Finance"
+4:"HR"
+5:"and Supply Chain OS Development"
+6:"Tech Team-as-a-Service"
+7:"Data Warehousing & Data Architecture"
+8:"ETL/ELT Pipeline Engineering"
+9:"Cloud Infrastructure (AWS"
+10:"Azure"
+11:"GCP)"
+12:" DevOps & Infrastructure-as-Code"
+13:"Cybersecurity & Cloud Security"
+14:" Governance"
+15:"Risk & Compliance (GRC)"
+16:"Data Migration & Modernization"
+17:"Enterprise Integrations (ERP"
+18:"CRM"
+19:"Payments)"
+20:"Observability & System Monitoring"
+21:"AI Forecasting & Anomaly Detection"
+22:" ML Ops & Model Deployment"
+23:"Process Automation & Workflow Orchestration"
+24:" Vendor & Policy Governance Systems"
+25:" Incident Response & Security Operations"
+26:"and Enterprise Consulting & Advisory Services"
+linkedin_org_locations:
+0:"Los Angeles , CA, US"
+1:"173 W PECHS, Karachi, 75500, PK"
+2:"Dubai, AE"
+3:"London, GB"
+linkedin_org_description:"Sarmaya is a digital transformation company that develops custom systems for growing enterprises. We design and engineer core platforms for finance, supply chain, HR, operations, and other critical business functions. Our work replaces spreadsheet sprawl, manual workarounds, and fragile integrations with structured systems that scale. You get automation without black boxes and control without bottlenecks. We don’t sell software. We build what needs to exist for your business. That means working with real workflows, regulatory requirements, legacy systems, and operational constraints. Not idealized processes. Not demo architectures. We take the environment you are operating in and engineer systems that work inside it and improve it. Our clients are growth-stage and enterprise teams who have outgrown duct-tape solutions and vendor-led transformations. Most come to us after rising costs, brittle integrations, and platforms that promised transformation but delivered configuration fatigue. They need more than a vendor. They need a partner who can think at the system level and execute cleanly. What we do includes building operating systems for finance, HR, supply chain, operations, and fully custom domains; migrating and structuring data platforms without losing history or breaking compliance; designing AI workflows that are explainable, auditable, and governed; setting up cloud infrastructure and DevOps that scale without fragility; modernizing cybersecurity deployment and controls; and deploying full tech teams when execution matters now, not after months of hiring. We also provide consulting and training to ensure systems remain effective long after delivery. We operate a Tech Team-as-a-Service model for companies that want senior-level output without hiring overhead or long-term fixed costs. Sarmaya is part of TAG Group, operating since 2006. We build systems that think and explain. Your data. Your rules. Technology that works. We'd be pleased to connect!"
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:true
+linkedin_org_slug:"digitaltransformationforbusiness"
+no_jb_schema:null
+external_apply_url:null
+ats_duplicate:null
+linkedin_id:4403065262
+description_text:"Sarmaya is seeking a skilled and detail-oriented Mid-Level Data Engineer to join our growing team. This role is suited for professionals who have a strong foundation in data engineering and are capable of designing, building, and maintaining scalable data systems that support business operations and decision- making. Key Responsibilities Design, develop, and maintain robust data pipelines for processing and transforming large datasets. Build and manage data architectures, including data warehouses and data lakes. Ensure data quality, integrity, and consistency across all systems. Optimize database performance and manage data storage solutions. Collaborate with cross-functional teams to understand data requirements and deliver reliable data solutions. Implement data validation, monitoring, and alerting systems to ensure smooth operations. Work with structured and unstructured data from multiple sources and integrate them into unified systems. Support data accessibility and reporting by enabling efficient querying and retrieval mechanisms. Document data processes, workflows, and system architecture for long-term scalability and maintenance. Requirements Bachelor’s degree in Computer Science, Software Engineering, Data Science, or a related field. 2–4 years of experience in data engineering or a related role. Strong proficiency in SQL and experience with relational and non-relational databases. Experience with programming languages such as Python, Java, or Scala. Hands-on experience with ETL/ELT processes and tools. Familiarity with data warehousing solutions (e.g., BigQuery, Redshift, Snowflake). Understanding of data modeling concepts and best practices. Experience working with APIs and integrating external data sources. Strong problem-solving skills and attention to detail. Preferred Qualifications Experience with cloud platforms such as AWS, Google Cloud, or Azure. Familiarity with workflow orchestration tools (e.g., Airflow). Knowledge of big data technologies such as Spark or Hadoop. Experience with real-time data streaming tools (e.g., Kafka). Understanding of data governance and security best practices. What We Offer A structured and performance-driven work environment. Opportunities to work on complex data systems and scalable architectures. Exposure to cross-functional collaboration and real-world data challenges. Professional growth and development within a dynamic team. Application Process Interested candidates are encouraged to apply by submitting their updated resume along with any relevant project work or portfolio demonstrating their experience in data engineering. Only shortlisted candidates will be contacted. We appreciate your interest and look forward to reviewing your application."
+9:
+id:"2114011477"
+date_posted:"2026-04-18T15:50:18.378"
+date_created:"2026-04-18T16:02:18.466031"
+title:"Data Engineer (Remote)"
+organization:"Certified Collision Group"
+organization_url:"https://www.linkedin.com/company/certifiedcg"
+date_validthrough:null
+locations_raw:0:
+@type:"Place"
+address:
+@type:"PostalAddress"
+addressRegion:""
+addressCountry:""
+addressLocality:"United States"
+location_type:null
+location_requirements_raw:null
+salary_raw:null
+employment_type:
+0:"FULL_TIME"
+url:"https://www.linkedin.com/jobs/view/data-engineer-remote-at-certified-collision-group-4403052899"
+source_type:"jobboard"
+source:"linkedin"
+source_domain:"linkedin.com"
+organization_logo:"https://media.licdn.com/dms/image/v2/D560BAQHyZYciT8hYPw/company-logo_100_100/company-logo_100_100/0/1680715233820/certifiedcg_logo?e=2147483647&v=beta&t=JM8Uft901XZnYp0TsO4LYvOdEAtjQUn6zXsxfObL2pg"
+cities_derived:null
+counties_derived:null
+regions_derived:null
+countries_derived:
+0:"United States"
+locations_derived:
+0:"United States"
+timezones_derived:
+0:"America/Chicago"
+lats_derived:
+0:39.7837304
+lngs_derived:
+0:-100.445882
+remote_derived:true
+linkedin_org_employees:42
+linkedin_org_url:"http://www.certifiedcg.com"
+linkedin_org_size:"11-50 employees"
+linkedin_org_slogan:"North America's finest, OE Certified, Independently Owned-and-Operated collision repair centers"
+linkedin_org_industry:"Motor Vehicle Manufacturing"
+linkedin_org_followers:null
+linkedin_org_headquarters:""
+linkedin_org_type:"Privately Held"
+linkedin_org_foundeddate:"2014"
+linkedin_org_specialties:
+0:""
+linkedin_org_locations:
+a commitment to quality, and an ability to leverage the purchasing scale of our nationwide network. Our members are fully independent shops, each with their own highly regarded brand reputations in their local markets. We provide access to enhanced carrier relations, fair pricing and operational support that help independent shop owners continue to excel in the face of industry consolidation and complexity."
+linkedin_org_recruitment_agency_derived:false
+seniority:"Mid-Senior level"
+directapply:true
+linkedin_org_slug:"certifiedcg"
+no_jb_schema:true
+external_apply_url:null
+ats_duplicate:null
+linkedin_id:4403052899
+description_text:"Company Description: Certified Collision Group (CCG) is an affiliate network supporting leading independent collision repair shops across the U.S. and Canada. With a commitment to quality and empowerment, we help our affiliates maintain their independence while benefiting from the scale of a nationwide network. CCG offers access to enhanced carrier relations, competitive pricing, and operational support, enabling shop owners to thrive amidst industry challenges. Each of our affiliate businesses upholds a strong reputation within their local market, ensuring exceptional service and expertise. Position Overview: Certified Collision Group (CCG) is seeking an experienced Data Engineer to design, develop, and optimize scalable data solutions. The ideal candidate will bring 6–8 years of overall data engineering experience, including strong expertise in Azure Cloud Services, SQL, and ETL processes. Key responsibilities: Develop, enhance, and maintain ETL pipelines. Design and implement data models and data warehousing solutions. Optimize SQL queries and perform performance tuning on large and complex datasets. Support analytics and reporting needs. Collaborate with business analysts and stakeholders to gather requirements and translate them into scalable technical solutions. Technical Skills Required Azure Data Factory (ADF): Building, orchestrating, and monitoring data pipelines. RDBMS: Writing complex queries, views, stored procedures, and performance optimization. ETL & Data Transformation: Experience handling large-scale datasets. Power BI or other data visualization tools: Designing, developing, and maintaining dashboards and semantic models to deliver actionable insights and support business decision-making. Scripting: Proficiency in Python or similar scripting language preferred. Additional Requirements: Bachelor’s degree in Computer Science, Data Engineering, or a related field. Microsoft Azure certification preferred. Industry experience in Automotive Aftermarket is a plus. Strong business-oriented communicator and problem solver with a high sense of ownership, able to translate complex data challenges into scalable solutions while collaborating cross functionally and prioritizing high-impact work. Working Conditions: This position is remote-based and may require limited travel. The role involves frequent interaction with staff, management, and external contacts. Standard business hours apply, though some flexibility may be required to support organizational needs. Equal Opportunity Statement: We are an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, national origin, disability, or protected veteran status. FLSA Status Exempt To Apply: Email your resume to jobs@certifiedcg.com."

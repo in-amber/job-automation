@@ -131,7 +131,7 @@ def sample_application_packet():
         "resume_path": "config/applicant/resume.pdf",
         "cover_letter_status": "not_needed",
         "cover_letter_path": None,
-        "applicant_answers_path": "config/applicant/applicant_master_answers.txt",
+        "applicant_answers_path": "config/applicant/applicant_master_answers.md",
         "job_snapshot_path": "data/normalized_jobs/abc123def456.json",
         "screening_decision_path": "data/screened_jobs/abc123def456.json",
         "submit_policy": {

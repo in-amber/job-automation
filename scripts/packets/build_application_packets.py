@@ -133,7 +133,7 @@ def build_packet(
         'resume_path': 'config/applicant/resume.pdf',
         'cover_letter_status': cover_letter_status,
         'cover_letter_path': None,
-        'applicant_answers_path': 'config/applicant/applicant_master_answers.txt',
+        'applicant_answers_path': 'config/applicant/applicant_master_answers.md',
         'job_snapshot_path': f'data/normalized_jobs/{job["job_id"]}.json',
         'screening_decision_path': f'data/screened_jobs/{job["job_id"]}.json',
         'submit_policy': submit_policy,

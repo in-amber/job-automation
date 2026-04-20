@@ -67,7 +67,7 @@ Escalation paths: `waiting_for_cover_letter_approval`, `waiting_for_signup`, `wa
 
 - `config/runtime.json` - Submit policies, retry limits, mode settings
 - `config/search/reject_rules.json` - Hard reject criteria
-- `config/applicant/applicant_master_answers.txt` - Form field answers
+- `config/applicant/applicant_master_answers.md` - Form field answers
 - `schemas/*.schema.json` - JSON Schema validators for all data types
 - `prompts/` - System prompts for OpenAI and Cowork
 

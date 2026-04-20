@@ -22,6 +22,19 @@ from utils.fileio import read_json, write_json, list_json_files, read_text, read
 from utils.timestamps import now_iso
 from utils.json_validate import validate_screening_decision
 
+
+def _load_env_file() -> None:
+    """Best-effort .env loader so OPENAI_API_KEY is picked up without manual export."""
+    env_path = PROJECT_ROOT / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key.strip(), value.strip())
+
 try:
     from openai import OpenAI
     HAS_OPENAI = True
@@ -199,6 +212,8 @@ def main() -> int:
         help="Maximum number of jobs to screen"
     )
     args = parser.parse_args()
+
+    _load_env_file()
 
     # Load configuration
     reject_rules = read_json(PROJECT_ROOT / "config" / "search" / "reject_rules.json")

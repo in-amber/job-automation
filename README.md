@@ -42,7 +42,7 @@ This system is **volume-first**. Screening is a hard-reject filter, not a rankin
    - Edit `config/search/titles.txt` with job titles
    - Edit `config/search/reject_rules.json` with hard reject criteria
    - Add your resume to `config/applicant/resume.pdf`
-   - Fill in `config/applicant/applicant_master_answers.txt`
+   - Fill in `config/applicant/applicant_master_answers.md`
 
 5. **Run the pipeline**
    ```bash

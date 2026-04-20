@@ -69,7 +69,7 @@ Generate concise, plausible cover letter drafts based on the user's corpus mater
 
 ## Cowork Master Operator Prompt
 
-Located in `prompts/cowork/`
+Located in `prompts/cowork/master_operator.md`
 
 ### Purpose
 Instruct Claude Cowork on browser automation behavior.
@@ -88,3 +88,32 @@ Use typed enums instead of prose:
 - `required_human_action`: create_account, solve_captcha, etc.
 
 Do not invent suggested actions in prose.
+
+## Cowork Skills
+
+Located in `prompts/cowork/skills/`
+
+A Skill is a reusable playbook, not a tiny function. For v1 there is one Skill.
+
+### `apply_to_job_from_packet/`
+
+End-to-end browser-worker procedure: read a packet, fill the application, branch on ATS specifics, handle escalations, run the submission audit, optionally submit, save artifacts, and return a structured run result.
+
+Files:
+
+- `SKILL.md` - the main procedure
+- `escalation_policy.md` - immediate vs. try-then-escalate rules and retry limits
+- `submission_audit_checklist.md` - pre-submit verification steps
+- `artifact_logging.md` - what to save, what never to store
+- `ats_playbooks.md` - compact per-ATS guidance (LinkedIn Easy Apply, Greenhouse, Workday, other)
+
+Packet reading, escalation, signup handling, submission audit, artifact logging, field correction, and queue transitions are **sections of this Skill**, not separate Skills. Do not reintroduce them as standalone Skill files.
+
+### Future optional splits (TODO, not implemented)
+
+Only split these out if the main Skill becomes too long, ATS behavior clearly diverges, Claude starts mixing up platform-specific instructions, or resuming from interrupted applications becomes a common workflow:
+
+- `workday_application/SKILL.md`
+- `greenhouse_application/SKILL.md`
+- `linkedin_easy_apply/SKILL.md`
+- `application_recovery/SKILL.md`

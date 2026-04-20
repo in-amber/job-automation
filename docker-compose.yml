@@ -1,8 +1,9 @@
-version: '3.8'
-
 services:
   n8n:
-    image: n8nio/n8n:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: job-automation-n8n:latest
     container_name: job-automation-n8n
     restart: unless-stopped
     ports:
@@ -25,6 +26,7 @@ services:
       - ./data:/home/node/job-data
       - ./artifacts:/home/node/artifacts
       - ./config:/home/node/config:ro
+      - ./scripts:/home/node/scripts:ro
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:5678/healthz"]
       interval: 30s

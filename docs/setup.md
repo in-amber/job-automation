@@ -34,13 +34,13 @@ Edit `.env` with your values:
 ### 3. Configure Applicant Data
 
 ```bash
-cp config/applicant/applicant_master_answers.txt.example config/applicant/applicant_master_answers.txt
+cp config/applicant/applicant_master_answers.md.example config/applicant/applicant_master_answers.md
 cp config/applicant/cover_letters_master.md.example config/applicant/cover_letters_master.md
 ```
 
 Edit these files with your information:
 - Add your resume to `config/applicant/resume.pdf`
-- Fill in `applicant_master_answers.txt` with your standard answers
+- Fill in `applicant_master_answers.md` with your standard answers
 - Add your cover letter material to `cover_letters_master.md`
 
 ### 4. Configure Search and Rules

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "2114102402",
+    "date_posted": "2026-04-18T18:13:19.482",
+    "date_created": "2026-04-18T18:33:19.56389",
+    "title": "Graduate Data Engineer",
+    "organization": "Joveo Ai",
+    "organization_url": "https://www.linkedin.com/company/joveo-ai",
+    "date_validthrough": null,
+    "locations_raw": [
+      {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "United Kingdom"}}
+    ],
+    "location_type": null,
+    "salary_raw": null,
+    "employment_type": ["FULL_TIME"],
+    "url": "https://uk.linkedin.com/jobs/view/graduate-data-engineer-at-joveo-ai-4403836445",
+    "source_type": "jobboard",
+    "source": "linkedin",
+    "source_domain": "uk.linkedin.com",
+    "locations_derived": ["United Kingdom"],
+    "remote_derived": false,
+    "linkedin_org_industry": "Software Development",
+    "linkedin_org_employees": 1,
+    "linkedin_org_recruitment_agency_derived": false,
+    "linkedin_org_slug": "joveo-ai",
+    "seniority": "Not Applicable",
+    "directapply": true,
+    "external_apply_url": null,
+    "ats_duplicate": null,
+    "description_text": "About Joveo: Every company says they're AI-first. Role: Graduate Data Engineer. Location: Remote."
+  },
+  {
+    "id": "2114101781",
+    "date_posted": "2026-04-18T18:13:00",
+    "title": "Lead Data Engineer (Bank Tech)",
+    "organization": "Capital One",
+    "employment_type": ["FULL_TIME"],
+    "url": "https://www.linkedin.com/jobs/view/lead-data-engineer-bank-tech-at-capital-one-4403064575",
+    "source": "linkedin",
+    "source_domain": "linkedin.com",
+    "locations_derived": ["New York, New York, United States"],
+    "remote_derived": false,
+    "linkedin_org_industry": "Financial Services",
+    "linkedin_org_employees": 83909,
+    "linkedin_org_recruitment_agency_derived": false,
+    "linkedin_org_slug": "capital-one",
+    "seniority": "Mid-Senior level",
+    "directapply": false,
+    "external_apply_url": null,
+    "ats_duplicate": true,
+    "description_text": "At Capital One, we're making things better. At least 4 years of experience required."
+  }
+]

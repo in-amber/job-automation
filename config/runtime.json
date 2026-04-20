@@ -2,7 +2,7 @@
   "mode": "volume_first",
   "default_decision_on_uncertainty": "apply",
   "human_approval_before_submit": true,
-  "auto_submit_linkedin_easy_apply": true,
+  "auto_submit_linkedin_easy_apply": false,
   "auto_submit_greenhouse": false,
   "auto_submit_workday": false,
   "attempt_field_corrections_before_escalation": true,

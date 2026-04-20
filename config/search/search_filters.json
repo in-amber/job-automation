@@ -4,5 +4,13 @@
   "onsite_allowed": true,
   "hybrid_allowed": true,
   "keywords_include": [],
-  "keywords_exclude": []
+  "keywords_exclude": [],
+  "linkedin_api": {
+    "endpoint": "7d",
+    "location_filter": "\"United States\"",
+    "seniority_filter": "Entry level,Associate,Not Applicable",
+    "remote": null,
+    "max_jobs": 200,
+    "include_description": true
+  }
 }

@@ -9,6 +9,8 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 # Required environment variables
 REQUIRED_ENV_VARS = [
     "OPENAI_API_KEY",
+    "RAPIDAPI_KEY",
+    "RAPIDAPI_HOST",
 ]
 
 # Optional but recommended
@@ -28,7 +30,7 @@ REQUIRED_FILES = [
 
 # Required for actual applications (not scaffolding)
 APPLICANT_FILES = [
-    "config/applicant/applicant_master_answers.txt",
+    "config/applicant/applicant_master_answers.md",
     "config/applicant/resume.pdf",
 ]
 
