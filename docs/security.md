@@ -38,7 +38,6 @@
 - Resume content (for application context)
 - Cover letters
 - Application form answers (non-sensitive)
-- Screenshots of application forms
 - Job descriptions and decisions
 
 ## Non-Goals (v1)

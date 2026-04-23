@@ -331,9 +331,7 @@ Use a shape equivalent to this:
   "result": "submitted|waiting_for_signup|waiting_for_cover_letter|waiting_for_human_review|failed",
   "confirmation_number": "string|null",
   "issue_type": "signup_required|captcha|otp_required|missing_answer|cover_letter_required|field_mapping_failure|unknown|null",
-  "notes": "string|null",
-  "screenshot_paths": ["string"],
-  "pdf_path": "string|null"
+  "notes": "string|null"
 }
 ```
 

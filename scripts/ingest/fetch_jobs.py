@@ -26,7 +26,14 @@ LINKEDIN_ENDPOINTS = {
     "7d": "/active-jb-7d",
     "6m": "/active-jb-6m",
 }
-LINKEDIN_PAGE_SIZE = 100
+# Per-endpoint page-size cap. The 6m endpoint supports 500 per request;
+# all others cap at 100. Getting this right matters because requests are
+# metered — forcing pagination on 6m would burn 5x the request credits.
+LINKEDIN_PAGE_SIZE_BY_ENDPOINT = {
+    "24h": 100,
+    "7d": 100,
+    "6m": 500,
+}
 
 
 def _load_env_file() -> None:
@@ -157,7 +164,8 @@ def fetch_from_linkedin(
     if max_jobs_override is not None:
         max_jobs = max_jobs_override
     # Only request as many per page as we still need, capped at the API page size.
-    page_size = max(1, min(LINKEDIN_PAGE_SIZE, max_jobs))
+    endpoint_page_cap = LINKEDIN_PAGE_SIZE_BY_ENDPOINT.get(endpoint_key, 100)
+    page_size = max(1, min(endpoint_page_cap, max_jobs))
 
     base_params = {
         "title_filter": title_filter,

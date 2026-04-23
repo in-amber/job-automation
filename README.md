@@ -57,7 +57,7 @@ This system is **volume-first**. Screening is a hard-reject filter, not a rankin
 ```
 config/          Runtime settings, search filters, applicant data
 data/            Jobs, packets, queues, logs (primary state)
-artifacts/       Screenshots, PDFs, cover letters
+artifacts/       Cover letters
 prompts/         OpenAI and Cowork system prompts
 schemas/         JSON Schema validators
 scripts/         Python CLI tools

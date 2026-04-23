@@ -43,7 +43,6 @@ Executes applications:
 - Fills forms from applicant answers
 - Uploads documents
 - Handles escalations
-- Saves artifacts (screenshots, PDFs)
 
 Driven by the master operator prompt plus one Skill: `prompts/cowork/skills/apply_to_job_from_packet/`, which bundles the full procedure (packet read, fill, escalation, submission audit, artifact logging, ATS handling). See `docs/prompts.md` for details.
 
@@ -51,7 +50,7 @@ Driven by the master operator prompt plus one Skill: `prompts/cowork/skills/appl
 
 Primary state storage:
 - `data/` - All job data and queue state
-- `artifacts/` - Screenshots, PDFs, cover letters
+- `artifacts/` - Cover letters
 - `config/` - Runtime settings
 
 ### Google Sheets

@@ -79,7 +79,6 @@ Instruct Claude Cowork on browser automation behavior.
 - Fill ONLY from packet and applicant answers
 - Respect submit policy per ATS type
 - Stop on escalation triggers (signup, captcha, OTP)
-- Save artifacts (screenshots, PDFs)
 - Generate structured intervention reports with typed enums
 
 ### Intervention Reports

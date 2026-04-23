@@ -25,10 +25,7 @@ DIRECTORIES = [
     "data/run_logs/interventions",
     "data/checkpoints",
     # Artifact directories
-    "artifacts/screenshots",
-    "artifacts/pdfs",
     "artifacts/cover_letters",
-    "artifacts/exports",
     # n8n data
     "n8n/data",
 ]

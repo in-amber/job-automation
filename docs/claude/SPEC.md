@@ -94,7 +94,7 @@ Responsibilities:
 - upload documents
 - pause on escalation conditions
 - optionally submit
-- save screenshots/PDFs/notes
+- save notes
 
 ### Optional local coding/control plane
 
@@ -171,10 +171,7 @@ job-automation/
     checkpoints/
 
   artifacts/
-    screenshots/
-    pdfs/
     cover_letters/
-    exports/
 
   sheets/
     schema.md
@@ -235,7 +232,6 @@ job-automation/
       update_google_sheet.py
     run_logs/
       write_run_log.py
-      archive_artifacts.py
     utils/
       fileio.py
       hashing.py
@@ -433,8 +429,6 @@ Fields:
 - `confirmation_number`
 - `escalation_reason`
 - `notes`
-- `screenshot_paths`
-- `pdf_path`
 
 ### `InterventionReport`
 
@@ -592,8 +586,6 @@ Claude Cowork should be treated as a constrained worker.
 - fill fields from packet and applicant master answers
 - upload approved files
 - correct form field mismatches
-- save screenshots
-- save PDF if practical
 - submit if policy allows
 
 ### Forbidden actions
@@ -773,7 +765,6 @@ Steps:
 - consume run result
 - write run log locally
 - update Google Sheets immediately
-- archive screenshots/PDFs
 
 ## 17. Scripts to implement
 
@@ -810,7 +801,6 @@ Claude Code should implement these scripts with clear CLI entry points.
 ### Logging
 
 - `write_run_log.py`
-- `archive_artifacts.py`
 
 ### Bootstrap
 

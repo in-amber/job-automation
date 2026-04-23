@@ -79,18 +79,17 @@ See `escalation_policy.md` for the full list and try-then-escalate cases.
 
 On escalation:
 
-1. Capture a screenshot of the blocking state.
-2. Record the current URL.
-3. Create an `InterventionReport` using typed enums for `issue_type` and `required_human_action` (no prose-only suggestions).
-4. Move the packet to the appropriate waiting queue.
-5. Continue to the next packet.
+1. Record the current URL.
+2. Create an `InterventionReport` using typed enums for `issue_type` and `required_human_action` (no prose-only suggestions).
+3. Move the packet to the appropriate waiting queue.
+4. Continue to the next packet.
 
 ### 7. Cover letter discovered mid-application
 
 If you discover a required cover letter mid-application and none is approved:
 
 1. Stop work on the current application immediately.
-2. Save current progress (screenshots, notes).
+2. Save current progress notes.
 3. Mark the packet `cover_letter_status = required_discovered_mid_apply`.
 4. Create the cover-letter draft request / intervention.
 5. Move the packet to `waiting_for_cover_letter_approval`.
@@ -108,14 +107,14 @@ Before clicking submit, run the full checklist in `submission_audit_checklist.md
 Honor `submit_policy`:
 
 - `auto` - submit
-- `manual` - stop at submit, capture screenshot, create review request
+- `manual` - stop at submit, create review request
 - `require_approval` - create review request, move packet to `waiting_for_human_review`, do not submit
 
 Defaults by ATS are defined in `ats_playbooks.md` and `config/runtime.json`.
 
 ### 10. Save artifacts
 
-Follow `artifact_logging.md`. Capture screenshots before submit, at any review/confirmation page, after submit, and on errors. Save a PDF of the confirmation when practical. Never store passwords, OTP codes, tokens, or session credentials.
+Follow `artifact_logging.md`. Never store passwords, OTP codes, tokens, or session credentials.
 
 ### 11. Return a structured run result
 
@@ -129,8 +128,6 @@ Emit a `RunLog`-compatible result:
 - `confirmation_number` (if available)
 - `escalation_reason` (if escalated)
 - `notes`
-- `screenshot_paths`
-- `pdf_path`
 
 This result triggers the downstream logging workflow (`05_log_completed_application`) and the Google Sheets update.
 

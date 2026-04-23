@@ -250,8 +250,6 @@ class TestRunLogSchema:
             "confirmation_number": "CONF123",
             "issue_type": None,
             "notes": None,
-            "screenshot_paths": [],
-            "pdf_path": None
         }
         is_valid, errors = validate_run_log(log)
         assert is_valid, f"Valid log failed: {errors}"
@@ -268,8 +266,6 @@ class TestRunLogSchema:
             "confirmation_number": None,
             "issue_type": "signup_required",
             "notes": "Account creation required",
-            "screenshot_paths": ["screenshots/signup.png"],
-            "pdf_path": None
         }
         is_valid, errors = validate_run_log(log)
         assert is_valid, f"Log with issue failed: {errors}"
@@ -311,7 +307,6 @@ class TestInterventionReportSchema:
             "issue_summary": "Account creation needed",
             "current_url": "https://example.com/signup",
             "required_human_action": "create_account",
-            "screenshot_path": "screenshots/issue.png",
             "created_at": "2024-01-15T10:00:00Z"
         }
         is_valid, errors = validate_intervention_report(report)

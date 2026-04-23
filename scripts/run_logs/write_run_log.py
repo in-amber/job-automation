@@ -49,8 +49,6 @@ def create_run_log(
     confirmation_number: str | None = None,
     issue_type: str | None = None,
     notes: str | None = None,
-    screenshot_paths: list[str] | None = None,
-    pdf_path: str | None = None
 ) -> dict:
     """Create a new run log entry with typed issue classification."""
     run_log = {
@@ -63,8 +61,6 @@ def create_run_log(
         "confirmation_number": confirmation_number,
         "issue_type": issue_type,
         "notes": notes,
-        "screenshot_paths": screenshot_paths or [],
-        "pdf_path": pdf_path
     }
 
     return run_log
@@ -86,8 +82,6 @@ def main() -> int:
     )
     parser.add_argument("--confirmation", help="Confirmation number if received")
     parser.add_argument("--notes", help="Additional notes")
-    parser.add_argument("--screenshot", action="append", help="Screenshot path (can be repeated)")
-    parser.add_argument("--pdf", help="PDF path")
     args = parser.parse_args()
 
     run_log = create_run_log(
@@ -96,8 +90,6 @@ def main() -> int:
         confirmation_number=args.confirmation,
         issue_type=args.issue_type,
         notes=args.notes,
-        screenshot_paths=args.screenshot or [],
-        pdf_path=args.pdf
     )
 
     # Validate

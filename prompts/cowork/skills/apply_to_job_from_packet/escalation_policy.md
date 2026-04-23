@@ -4,7 +4,7 @@ Supporting reference for `apply_to_job_from_packet/SKILL.md`. Defines when Cowor
 
 ## Immediate escalation
 
-Stop the current application immediately, capture artifacts, create an `InterventionReport`, move the packet to the appropriate waiting queue, and continue to the next packet.
+Stop the current application immediately, create an `InterventionReport`, move the packet to the appropriate waiting queue, and continue to the next packet.
 
 Immediate triggers:
 
@@ -29,6 +29,16 @@ Try-then-escalate cases:
 - upload widget issues (file picker misbehaves, wrong accepted types, etc.)
 - broken Workday field mapping (education, work history, etc.)
 
+## Silent close (no human intervention)
+
+Some terminal states do not require any human action. Do NOT create an `InterventionReport` for these. Log the outcome in the `RunLog` and continue to the next packet.
+
+Silent-close cases:
+
+- **Expired posting** — the apply page indicates the position is no longer accepting applications, has been filled, or has been removed. Typical signals: "This job is no longer accepting applications", "Position has been filled", "Job posting expired", 404 on the apply URL, redirect to a generic careers landing page. Set `RunLog.result = "expired_posting"` and move the packet to `failed`. Do not escalate.
+
+When in doubt between expired-posting and a transient error (timeout, network), prefer treating it as a transient failure (`failed` with `result = "failed"`) rather than silently closing — a human review is cheaper than losing a live application.
+
 ## Retry limits
 
 - max 2 retries per field
@@ -46,7 +56,6 @@ Required fields:
 - `issue_summary` - short human-readable description
 - `current_url`
 - `required_human_action` - typed enum (e.g. `create_account`, `solve_captcha`, `complete_verification`, `approve_cover_letter`, `answer_missing_question`, `review_application`, `inspect_site`)
-- `screenshot_path`
 - `created_at`
 
 Save reports to `data/run_logs/interventions/`.

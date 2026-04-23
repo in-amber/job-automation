@@ -123,6 +123,25 @@ class TestHardRejectRules:
         assert decision["decision"] == "reject"
         assert len(decision["evidence"]) > 0
 
+    def test_sr_abbreviation_should_reject(self):
+        """'Sr.' abbreviation should trigger rejection via senior_title_keywords."""
+        rules = {
+            "reject_senior_titles": True,
+            "senior_title_keywords": ["senior", "sr.", "staff", "principal"],
+            "max_required_years_experience": 1,
+        }
+        job = {
+            "job_id": "test_sr",
+            "title": "Sr. Risk Analyst, Scheduling",
+            "description_clean": "Risk analysis role.",
+        }
+
+        decision = screen_job_locally(job, rules)
+
+        assert decision["decision"] == "reject"
+        assert "reject_senior_titles" in decision["matched_reject_rules"]
+        assert any("Sr." in ev for ev in decision["evidence"])
+
     def test_high_experience_required_should_reject_with_evidence(self, sample_reject_rules):
         """Explicit high experience requirement should reject with evidence."""
         job = {

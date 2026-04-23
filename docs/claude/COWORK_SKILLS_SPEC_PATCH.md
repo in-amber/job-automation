@@ -25,7 +25,7 @@ These are not good standalone Skills:
 
 - reading the application packet
 - escalating to a human
-- saving screenshots or artifacts
+- saving artifacts
 - checking whether submission is allowed
 - detecting signup
 - detecting captcha
@@ -144,15 +144,12 @@ This file should contain the pre-submit checklist:
 - required fields completed
 - no unsupported facts invented
 - submit policy checked
-- screenshot saved before submission when practical
 - final submission confirmation captured when practical
 
 ### `artifact_logging.md`
 
 This file should explain what artifacts to save:
 
-- screenshots
-- PDFs, when practical
 - confirmation page details
 - run notes
 - intervention report, if blocked

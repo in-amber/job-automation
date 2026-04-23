@@ -61,7 +61,6 @@
 1. Consume run result from Cowork
 2. Write run log to `data/run_logs/`
 3. Update Google Sheets (applications, runs, interventions)
-4. Archive screenshots/PDFs
-5. Transition packet to final state
+4. Transition packet to final state
 
 **Output**: Complete audit trail

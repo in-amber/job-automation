@@ -35,22 +35,12 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/run_logs/archive_artifacts.py --packet-id {{ $json.packet_id }}"
-      },
-      "name": "Archive Artifacts",
-      "type": "n8n-nodes-base.executeCommand",
-      "position": [850, 300],
-      "typeVersion": 1,
-      "notes": "Archive screenshots, PDFs, and other artifacts"
-    },
-    {
-      "parameters": {
         "respondWith": "json",
         "responseBody": "={\"status\": \"logged\", \"packet_id\": \"{{ $json.packet_id }}\"}"
       },
       "name": "Respond",
       "type": "n8n-nodes-base.respondToWebhook",
-      "position": [1050, 300],
+      "position": [850, 300],
       "typeVersion": 1
     }
   ],
@@ -78,17 +68,6 @@
       ]
     },
     "Update Google Sheets": {
-      "main": [
-        [
-          {
-            "node": "Archive Artifacts",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Archive Artifacts": {
       "main": [
         [
           {

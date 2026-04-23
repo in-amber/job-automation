@@ -12,21 +12,17 @@ Supporting reference for `apply_to_job_from_packet/SKILL.md`. Run this checklist
 - [ ] All required fields are filled. No empty required fields, no error indicators, no validation warnings.
 - [ ] No invented facts or unsupported answers entered - every field value traces back to packet or master answers.
 - [ ] `submit_policy` is checked and permits submission (`auto`). If `manual` or `require_approval`, stop here and create a review request instead.
-- [ ] Screenshot of the completed form captured before submission, when practical.
 
 ## Submission capture
 
 When submission proceeds and completes:
 
-- [ ] Screenshot of the confirmation page captured.
 - [ ] Confirmation number or ID extracted, if present.
-- [ ] Save a PDF of the confirmation page when practical.
 
 ## Review-request path
 
 If `submit_policy == "require_approval"`:
 
 1. Stop at the submit button - do not click it.
-2. Capture a screenshot of the ready-to-submit state.
-3. Create a review request.
-4. Move the packet to `waiting_for_human_review`.
+2. Create a review request.
+3. Move the packet to `waiting_for_human_review`.

@@ -64,10 +64,15 @@ class TestPacketBuilding:
         """Verify ATS types are correctly classified."""
         from packets.build_application_packets import classify_ats
 
-        assert classify_ats("https://linkedin.com/jobs/easy/123", "linkedin") == "linkedin_easy_apply"
-        assert classify_ats("https://boards.greenhouse.io/company/123", "greenhouse") == "greenhouse"
-        assert classify_ats("https://company.myworkdayjobs.com/123", "workday") == "workday"
-        assert classify_ats("https://random-company.com/careers", "other") == "other"
+        def job(apply_url, source, directapply=None):
+            attrs = {} if directapply is None else {"directapply": directapply}
+            return {"apply_url": apply_url, "source": source, "source_attributes": attrs}
+
+        assert classify_ats(job("https://linkedin.com/jobs/easy/123", "linkedin", directapply=True)) == "linkedin_easy_apply"
+        assert classify_ats(job("https://linkedin.com/jobs/view/123", "linkedin", directapply=False)) == "other"
+        assert classify_ats(job("https://boards.greenhouse.io/company/123", "greenhouse")) == "greenhouse"
+        assert classify_ats(job("https://company.myworkdayjobs.com/123", "workday")) == "workday"
+        assert classify_ats(job("https://random-company.com/careers", "other")) == "other"
 
     def test_trust_tier_assignment(self):
         """Verify trust tiers are correctly assigned."""

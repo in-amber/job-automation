@@ -22,13 +22,24 @@ from utils.timestamps import now_iso
 from utils.json_validate import validate_application_packet
 
 
-def classify_ats(apply_url: str, source: str) -> str:
-    """Classify the ATS type based on URL and source."""
-    url_lower = apply_url.lower()
-    domain = urlparse(apply_url).netloc.lower()
+def classify_ats(job: dict) -> str:
+    """Classify the ATS type for a normalized job.
 
-    if 'linkedin.com' in domain:
-        return 'linkedin_easy_apply'
+    A linkedin.com apply_url does not imply Easy Apply — LinkedIn hosts
+    both Easy Apply listings and listings whose Apply button redirects
+    off-platform. The authoritative signal is LinkedIn's own
+    ``source_attributes.directapply`` flag: True means Easy Apply,
+    False means the listing routes to an external site.
+    """
+    apply_url = job.get('apply_url', '') or ''
+    domain = urlparse(apply_url).netloc.lower()
+    source = (job.get('source') or '').lower()
+
+    if source == 'linkedin' or 'linkedin.com' in domain:
+        directapply = job.get('source_attributes', {}).get('directapply')
+        if directapply is True:
+            return 'linkedin_easy_apply'
+        return 'other'
     if 'greenhouse.io' in domain or 'boards.greenhouse.io' in domain:
         return 'greenhouse'
     if 'myworkdayjobs.com' in domain or 'workday.com' in domain:
@@ -111,7 +122,7 @@ def build_packet(
     apply_url = job.get('apply_url', '')
     domain = urlparse(apply_url).netloc
 
-    ats_type = classify_ats(apply_url, job.get('source', ''))
+    ats_type = classify_ats(job)
     trust_tier = get_trust_tier(domain, trusted_domains)
     submit_policy = build_submit_policy(ats_type, trust_tier, runtime_config)
     escalation_policy = build_escalation_policy(runtime_config)

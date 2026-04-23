@@ -12,6 +12,7 @@ AI-output schema: ScreeningDecision (minimal, strict)
 import argparse
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -115,6 +116,81 @@ def screen_job_with_openai(
         decision["decision"] = "apply"
 
     return decision
+
+
+def _location_matches_allowed(job_location: str, allowed_locations: list[str]) -> bool:
+    """Return True if the job's location string matches any allowed entry.
+
+    Uses case-insensitive matching with two strategies per allowed entry:
+    - single-word entries (e.g. "Sacramento") require a whole-word hit;
+    - multi-word entries (e.g. "San Francisco Bay Area") match on any
+      adjacent two-word subsequence (so "San Francisco, CA" matches via
+      "san francisco" and "Greater Bay Area" matches via "bay area").
+
+    The literal entry "Remote" is skipped here — remoteness is handled
+    separately via ``source_attributes.remote_derived``.
+    """
+    if not job_location:
+        return False
+    loc = job_location.lower()
+    for entry in allowed_locations:
+        entry_l = (entry or "").lower().strip()
+        if not entry_l or entry_l == "remote":
+            continue
+        words = re.findall(r"[a-z]+", entry_l)
+        if len(words) == 1:
+            if re.search(rf"\b{re.escape(words[0])}\b", loc):
+                return True
+            continue
+        if entry_l in loc:
+            return True
+        for i in range(len(words) - 1):
+            if f"{words[i]} {words[i + 1]}" in loc:
+                return True
+    return False
+
+
+def screen_location_prefilter(
+    job: dict,
+    search_filters: dict,
+    reject_rules: dict,
+) -> dict | None:
+    """Deterministic location check that runs before the LLM/local screener.
+
+    Returns a fully-formed ``ScreeningDecision`` rejecting the job when its
+    location is outside the configured allowed list and the job is not
+    remote. Returns ``None`` to defer to the downstream screener when the
+    location is allowed, missing, or the rule is disabled.
+    """
+    if not reject_rules.get("reject_if_location_mismatch", False):
+        return None
+
+    allowed_locations = search_filters.get("locations", []) or []
+    allowed_lower = {(e or "").lower().strip() for e in allowed_locations}
+    remote_allowed = bool(search_filters.get("remote_allowed", False)) or ("remote" in allowed_lower)
+
+    job_location = (job.get("location") or "").strip()
+    source_attrs = job.get("source_attributes") or {}
+    is_remote = bool(source_attrs.get("remote_derived"))
+    if not is_remote and job_location and "remote" in job_location.lower():
+        is_remote = True
+
+    if is_remote and remote_allowed:
+        return None
+    if not job_location:
+        return None
+    if _location_matches_allowed(job_location, allowed_locations):
+        return None
+
+    return {
+        "job_id": job.get("job_id", ""),
+        "decision": "reject",
+        "matched_reject_rules": ["reject_if_location_mismatch"],
+        "reason_summary": "Job location is outside the configured allowed list and the posting is not remote.",
+        "evidence": [f"Job location: {job_location}"],
+        "cover_letter_signal": "unknown",
+        "generated_at": now_iso(),
+    }
 
 
 def screen_job_locally(job: dict, reject_rules: dict) -> dict:
@@ -260,12 +336,14 @@ def main() -> int:
             job = read_json(job_file)
             print(f"Screening: {job.get('company', '?')} - {job.get('title', '?')}")
 
-            if args.local:
-                decision = screen_job_locally(job, reject_rules)
-            else:
-                decision = screen_job_with_openai(
-                    job, reject_rules, titles, search_filters, client, model
-                )
+            decision = screen_location_prefilter(job, search_filters, reject_rules)
+            if decision is None:
+                if args.local:
+                    decision = screen_job_locally(job, reject_rules)
+                else:
+                    decision = screen_job_with_openai(
+                        job, reject_rules, titles, search_filters, client, model
+                    )
 
             # Validate decision
             is_valid, errors = validate_screening_decision(decision)

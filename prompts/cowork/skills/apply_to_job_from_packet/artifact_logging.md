@@ -4,22 +4,6 @@ Supporting reference for `apply_to_job_from_packet/SKILL.md`. Defines what to sa
 
 ## Save
 
-### Screenshots
-
-- Location: `artifacts/screenshots/{packet_id}/`
-- Naming: `{YYYYMMDD_HHMMSS}_{step}.png`
-- Capture points:
-  - form completed, before submit
-  - any review/confirmation page
-  - final confirmation after submit
-  - any blocking error or escalation state
-
-### PDFs (when practical)
-
-- Location: `artifacts/pdfs/{packet_id}/`
-- Naming: `{company}_{title}_{date}.pdf`
-- Save a PDF of the confirmation page when the browser supports it.
-
 ### Confirmation details
 
 - Confirmation number or ID extracted from the confirmation page.
@@ -55,4 +39,4 @@ Supporting reference for `apply_to_job_from_packet/SKILL.md`. Defines what to sa
 
 ## Downstream
 
-Saving the run log and artifacts is what triggers `05_log_completed_application` in n8n, which updates Google Sheets. Do not skip the final write.
+Saving the run log is what triggers `05_log_completed_application` in n8n, which updates Google Sheets. Do not skip the final write.

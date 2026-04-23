@@ -52,10 +52,6 @@
       ],
       "description": "Classified action required from human"
     },
-    "screenshot_path": {
-      "type": ["string", "null"],
-      "description": "Path to screenshot of the issue"
-    },
     "created_at": {
       "type": "string",
       "format": "date-time"

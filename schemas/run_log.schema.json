@@ -40,6 +40,7 @@
         "waiting_for_signup",
         "waiting_for_cover_letter",
         "waiting_for_human_review",
+        "expired_posting",
         "failed"
       ]
     },
@@ -64,17 +65,6 @@
     "notes": {
       "type": ["string", "null"],
       "description": "Additional notes from the worker"
-    },
-    "screenshot_paths": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Paths to saved screenshots"
-    },
-    "pdf_path": {
-      "type": ["string", "null"],
-      "description": "Path to saved PDF of application"
     }
   }
 }
