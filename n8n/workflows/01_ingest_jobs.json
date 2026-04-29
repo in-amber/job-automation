@@ -19,7 +19,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/ingest/fetch_jobs.py --source all"
+        "command": "python /home/node/scripts/ingest/fetch_jobs.py --source all"
       },
       "name": "Fetch Jobs",
       "type": "n8n-nodes-base.executeCommand",
@@ -29,7 +29,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/ingest/normalize_jobs.py"
+        "command": "python /home/node/scripts/ingest/normalize_jobs.py"
       },
       "name": "Normalize Jobs",
       "type": "n8n-nodes-base.executeCommand",
@@ -39,7 +39,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/ingest/dedupe_jobs.py"
+        "command": "python /home/node/scripts/ingest/dedupe_jobs.py"
       },
       "name": "Dedupe Jobs",
       "type": "n8n-nodes-base.executeCommand",

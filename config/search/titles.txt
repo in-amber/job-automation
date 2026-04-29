@@ -1,20 +1,21 @@
-IAM Analyst
-Identity Analyst
-Provisioning Analyst
-IT Support Specialist
-Desktop Support Technician
-IT Support Engineer
-NOC Technician
-Network Support Specialist
-Junior Network Administrator
-Junior Systems Administrator
-Systems Support Engineer
-Infrastructure Support Analyst
-Endpoint Management Analyst
-Vulnerability Management Analyst
-SOC Analyst I
-MDR Analyst
-Cybersecurity Analyst I
-IT Audit Analyst
+IT Support
+Help Desk
+Helpdesk
+Desktop Support
+Systems Administrator
+Network Administrator
+Network Support
+Systems Support
+Infrastructure Support
+NOC
+IAM
+Identity
+Provisioning
+SOC Analyst
+MDR
+Cybersecurity
+Vulnerability
+Endpoint
+IT Audit
 Compliance Analyst
 Risk Analyst

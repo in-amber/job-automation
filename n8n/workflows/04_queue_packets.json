@@ -10,7 +10,7 @@
     },
     {
       "parameters": {
-        "command": "ls -la /home/node/job-data/queues/ready_to_apply/"
+        "command": "ls -la /home/node/data/queues/ready_to_apply/"
       },
       "name": "Check Ready Queue",
       "type": "n8n-nodes-base.executeCommand",
@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "command": "ls -la /home/node/job-data/queues/waiting_for_cover_letter_approval/"
+        "command": "ls -la /home/node/data/queues/waiting_for_cover_letter_approval/"
       },
       "name": "Check Waiting Queue",
       "type": "n8n-nodes-base.executeCommand",

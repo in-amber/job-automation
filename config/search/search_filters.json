@@ -1,5 +1,5 @@
 {
-  "locations": ["San Francisco, California", "Oakland, California", "San Jose, California", "Berkeley, California", "Palo Alto, California", "Sacramento, California", "Remote"],
+  "locations": ["San Francisco, California", "Oakland, California", "San Jose, California", "Berkeley, California", "Palo Alto, California", "Sacramento, California", "Remote", "United States"],
   "remote_allowed": true,
   "onsite_allowed": true,
   "hybrid_allowed": true,
@@ -7,7 +7,7 @@
   "keywords_exclude": [],
   "linkedin_api": {
     "endpoint": "6m",
-    "location_filter": "\"San Francisco\" OR \"Oakland\" OR \"San Jose\" OR \"Berkeley\" OR \"Palo Alto\" OR \"Sacramento\" OR \"Remote\"",
+    "location_filter": "\"San Francisco\" OR \"Oakland\" OR \"San Jose\" OR \"Berkeley\" OR \"Palo Alto\" OR \"Sacramento\" OR \"Remote\" OR \"United States\"",
     "seniority_filter": "Entry level,Associate,Not Applicable",
     "remote": null,
     "max_jobs": 500,

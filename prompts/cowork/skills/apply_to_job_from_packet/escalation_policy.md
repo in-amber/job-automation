@@ -16,6 +16,7 @@ Immediate triggers:
 - unknown or suspicious domain
 - missing required document
 - required cover letter with no approved cover letter available
+- cover letter field present in the form with no approved cover letter available, even when the field is labeled "optional" — if the form accepts a cover letter, treat it as mandatory and route the packet to `waiting_for_cover_letter_approval`
 
 ## Try-then-escalate
 

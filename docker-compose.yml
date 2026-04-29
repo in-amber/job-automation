@@ -23,10 +23,11 @@ services:
     volumes:
       - ./n8n/data:/home/node/.n8n
       - ./n8n/workflows:/home/node/workflows:ro
-      - ./data:/home/node/job-data
+      - ./data:/home/node/data
       - ./artifacts:/home/node/artifacts
       - ./config:/home/node/config:ro
       - ./scripts:/home/node/scripts:ro
+      - ./.env:/home/node/.env:ro
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:5678/healthz"]
       interval: 30s

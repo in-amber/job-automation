@@ -36,12 +36,7 @@ def _load_env_file() -> None:
         key, _, value = line.partition("=")
         os.environ.setdefault(key.strip(), value.strip())
 
-try:
-    from openai import OpenAI
-    HAS_OPENAI = True
-except ImportError:
-    HAS_OPENAI = False
-    print("Warning: openai package not installed. Install with: pip install openai")
+from openai import OpenAI
 
 
 def load_screening_prompt() -> tuple[str, str]:
@@ -193,71 +188,6 @@ def screen_location_prefilter(
     }
 
 
-def screen_job_locally(job: dict, reject_rules: dict) -> dict:
-    """
-    Simple local screening without API calls.
-    Used for testing or when OpenAI is unavailable.
-
-    Implements basic rule matching with evidence collection.
-    """
-    title = job.get("title", "").lower()
-    description = job.get("description_clean") or job.get("description_raw", "")
-    description_lower = description.lower()
-
-    matched_rules = []
-    evidence = []
-
-    # Check senior title rule
-    if reject_rules.get("reject_senior_titles", False):
-        senior_keywords = reject_rules.get("senior_title_keywords", [])
-        for keyword in senior_keywords:
-            if keyword.lower() in title:
-                matched_rules.append("reject_senior_titles")
-                evidence.append(f"Title contains '{keyword}': {job.get('title', '')}")
-                break
-
-    # Check experience requirement
-    max_years = reject_rules.get("max_required_years_experience", float("inf"))
-    import re
-    exp_match = re.search(r'(\d+)\+?\s*years?\s*(of\s+)?(experience\s+)?(required|minimum)', description_lower)
-    if exp_match:
-        years_found = int(exp_match.group(1))
-        if years_found > max_years:
-            matched_rules.append("max_required_years_experience")
-            evidence.append(f"Requires {years_found}+ years experience (max allowed: {max_years})")
-
-    # Check clearance
-    if reject_rules.get("reject_if_requires_clearance", False):
-        clearance_terms = ["security clearance", "ts/sci", "top secret", "secret clearance"]
-        for term in clearance_terms:
-            if term in description_lower:
-                matched_rules.append("reject_if_requires_clearance")
-                evidence.append(f"Requires clearance: '{term}' found in description")
-                break
-
-    # Determine cover letter signal from posting text
-    cover_letter_signal = "unknown"
-    cl_lower = description_lower
-    if "cover letter required" in cl_lower or "must include cover letter" in cl_lower:
-        cover_letter_signal = "explicitly_required"
-    elif "cover letter" in cl_lower or "letter of interest" in cl_lower:
-        cover_letter_signal = "optional_signal"
-    elif any(phrase in cl_lower for phrase in ["resume only", "no cover letter"]):
-        cover_letter_signal = "no_signal"
-
-    decision = {
-        "job_id": job.get("job_id", ""),
-        "decision": "reject" if matched_rules else "apply",
-        "matched_reject_rules": matched_rules,
-        "reason_summary": f"Matched rules: {matched_rules}" if matched_rules else "No hard reject rules triggered",
-        "evidence": evidence,
-        "cover_letter_signal": cover_letter_signal,
-        "generated_at": now_iso()
-    }
-
-    return decision
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description="Screen normalized jobs")
     parser.add_argument(
@@ -271,11 +201,6 @@ def main() -> int:
         type=Path,
         default=PROJECT_ROOT / "data" / "screened_jobs",
         help="Directory for screening decisions"
-    )
-    parser.add_argument(
-        "--local",
-        action="store_true",
-        help="Use local rule matching instead of OpenAI"
     )
     parser.add_argument(
         "--dry-run",
@@ -296,21 +221,15 @@ def main() -> int:
     search_filters = read_json(PROJECT_ROOT / "config" / "search" / "search_filters.json")
     titles = read_lines(PROJECT_ROOT / "config" / "search" / "titles.txt")
 
-    # Set up OpenAI client
-    client = None
     model = os.environ.get("OPENAI_MODEL", "gpt-4o")
-
-    if not args.local:
-        if not HAS_OPENAI:
-            print("OpenAI not available, using local screening")
-            args.local = True
-        else:
-            api_key = os.environ.get("OPENAI_API_KEY")
-            if not api_key:
-                print("OPENAI_API_KEY not set, using local screening")
-                args.local = True
-            else:
-                client = OpenAI(api_key=api_key)
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        print(
+            "ERROR: OPENAI_API_KEY is not set. Screening requires OpenAI; refusing to run.",
+            file=sys.stderr,
+        )
+        return 2
+    client = OpenAI(api_key=api_key)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -324,7 +243,7 @@ def main() -> int:
     if args.limit:
         to_screen = to_screen[:args.limit]
 
-    print(f"Screening {len(to_screen)} jobs (mode: {'local' if args.local else 'OpenAI'})")
+    print(f"Screening {len(to_screen)} jobs via OpenAI model={model}")
     print()
 
     apply_count = 0
@@ -338,12 +257,9 @@ def main() -> int:
 
             decision = screen_location_prefilter(job, search_filters, reject_rules)
             if decision is None:
-                if args.local:
-                    decision = screen_job_locally(job, reject_rules)
-                else:
-                    decision = screen_job_with_openai(
-                        job, reject_rules, titles, search_filters, client, model
-                    )
+                decision = screen_job_with_openai(
+                    job, reject_rules, titles, search_filters, client, model
+                )
 
             # Validate decision
             is_valid, errors = validate_screening_decision(decision)

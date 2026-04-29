@@ -10,7 +10,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/screening/screen_jobs.py"
+        "command": "python /home/node/scripts/screening/screen_jobs.py"
       },
       "name": "Screen Jobs",
       "type": "n8n-nodes-base.executeCommand",
@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/packets/build_application_packets.py"
+        "command": "python /home/node/scripts/packets/build_application_packets.py"
       },
       "name": "Build Packets",
       "type": "n8n-nodes-base.executeCommand",
@@ -30,7 +30,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/queues/enqueue_packet.py all"
+        "command": "python /home/node/scripts/queues/enqueue_packet.py all"
       },
       "name": "Enqueue Packets",
       "type": "n8n-nodes-base.executeCommand",

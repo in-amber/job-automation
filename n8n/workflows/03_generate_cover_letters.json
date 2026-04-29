@@ -10,7 +10,7 @@
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/cover_letters/draft_cover_letters.py"
+        "command": "python /home/node/scripts/cover_letters/draft_cover_letters.py"
       },
       "name": "Draft Cover Letters",
       "type": "n8n-nodes-base.executeCommand",

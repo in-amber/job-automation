@@ -46,7 +46,7 @@ python scripts/sheets/update_google_sheet.py
 
 # Tests
 pytest tests/ -v
-pytest tests/unit/test_screening.py -v  # Single test file
+pytest tests/unit/test_location_prefilter.py -v  # Single test file
 ```
 
 ## Critical Behavioral Rules

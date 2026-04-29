@@ -120,10 +120,13 @@ def get_sheets_service():
         "GOOGLE_SHEETS_CREDENTIALS_PATH",
         str(PROJECT_ROOT / "config" / "google_credentials.json"),
     )
-    if not Path(creds_path).exists():
-        raise FileNotFoundError(f"Google credentials not found: {creds_path}")
+    creds_path_obj = Path(creds_path)
+    if not creds_path_obj.is_absolute():
+        creds_path_obj = PROJECT_ROOT / creds_path_obj
+    if not creds_path_obj.exists():
+        raise FileNotFoundError(f"Google credentials not found: {creds_path_obj}")
     credentials = service_account.Credentials.from_service_account_file(
-        creds_path,
+        str(creds_path_obj),
         scopes=["https://www.googleapis.com/auth/spreadsheets"],
     )
     return build("sheets", "v4", credentials=credentials)

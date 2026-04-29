@@ -50,7 +50,16 @@ def _load_env_file() -> None:
 
 
 def _build_title_filter(titles: list[str]) -> str:
-    """OR-join titles as double-quoted phrases per RapidAPI syntax."""
+    """OR-join titles as RapidAPI title_filter terms.
+
+    Each title is quoted so the API matches it as an in-order phrase
+    (e.g. `"IT Support"` matches "IT Support Specialist", "Senior IT Support
+    Engineer", etc.). Per the API docs, quoted = in-order phrase match;
+    unquoted multi-word = AND of the words in any order.
+
+    Titles in `titles.txt` are intentionally short concept roots, not full
+    job titles — that's what gives the OR-of-quoted-roots its breadth.
+    """
     quoted = [f'"{t.strip()}"' for t in titles if t.strip()]
     return " OR ".join(quoted)
 

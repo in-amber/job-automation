@@ -3,75 +3,35 @@
   "nodes": [
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "log-application",
-        "responseMode": "responseNode"
+        "triggerOn": "fileAdded",
+        "path": "/home/node/data/run_logs",
+        "options": {
+          "ignored": "**/interventions/**"
+        }
       },
-      "name": "Webhook",
-      "type": "n8n-nodes-base.webhook",
+      "name": "New Run Log",
+      "type": "n8n-nodes-base.localFileTrigger",
       "position": [250, 300],
       "typeVersion": 1,
-      "notes": "Receives application completion data from Cowork or manual trigger"
+      "notes": "Fires when Cowork writes a new run log to data/run_logs/. The 'ignored' glob keeps interventions/*.json from triggering this workflow — those are written separately by Cowork as intervention reports."
     },
     {
       "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/run_logs/write_run_log.py {{ $json.packet_id }} --result {{ $json.result }}"
-      },
-      "name": "Write Run Log",
-      "type": "n8n-nodes-base.executeCommand",
-      "position": [450, 300],
-      "typeVersion": 1,
-      "notes": "Write local run log"
-    },
-    {
-      "parameters": {
-        "command": "cd /home/node/job-data && python /home/node/config/../scripts/sheets/update_google_sheet.py --packet-id {{ $json.packet_id }}"
+        "command": "PACKET_ID=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))[\"packet_id\"])' \"{{ $json.path }}\") && python /home/node/scripts/sheets/update_google_sheet.py --packet-id \"$PACKET_ID\""
       },
       "name": "Update Google Sheets",
       "type": "n8n-nodes-base.executeCommand",
-      "position": [650, 300],
+      "position": [450, 300],
       "typeVersion": 1,
-      "notes": "Update Google Sheets immediately after application"
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={\"status\": \"logged\", \"packet_id\": \"{{ $json.packet_id }}\"}"
-      },
-      "name": "Respond",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "position": [850, 300],
-      "typeVersion": 1
+      "notes": "Extracts packet_id from the run log file and pushes the application row + run log row + any interventions to the audit Google Sheet. update_google_sheet.py is idempotent via data/.sheets_synced.json, so duplicate triggers are safe."
     }
   ],
   "connections": {
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Write Run Log",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Write Run Log": {
+    "New Run Log": {
       "main": [
         [
           {
             "node": "Update Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Update Google Sheets": {
-      "main": [
-        [
-          {
-            "node": "Respond",
             "type": "main",
             "index": 0
           }

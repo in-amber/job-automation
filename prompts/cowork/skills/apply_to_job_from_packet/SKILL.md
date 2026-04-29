@@ -74,6 +74,7 @@ Escalate immediately on any of:
 - suspicious or unknown domain
 - missing required document
 - required cover letter with no approved cover letter available
+- cover letter field present in the form (including fields labeled "optional") with no approved cover letter available — treat any cover letter input the form accepts as mandatory
 
 See `escalation_policy.md` for the full list and try-then-escalate cases.
 
@@ -86,7 +87,9 @@ On escalation:
 
 ### 7. Cover letter discovered mid-application
 
-If you discover a required cover letter mid-application and none is approved:
+A cover letter is "discovered" whenever the form offers any field that accepts one — a textarea, a file upload, or a link — regardless of whether the form labels it required or optional. If the form will accept a cover letter, treat it as mandatory.
+
+If you discover a cover letter field mid-application and none is approved:
 
 1. Stop work on the current application immediately.
 2. Save current progress notes.

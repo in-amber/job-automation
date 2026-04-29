@@ -14,49 +14,6 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 
-class TestScreeningPipeline:
-    """Test the screening pipeline end-to-end."""
-
-    def test_volume_first_behavior(self, sample_normalized_job, sample_reject_rules):
-        """Verify volume-first: most jobs should pass screening."""
-        from screening.screen_jobs import screen_job_locally
-
-        # Jobs without clear reject triggers should apply
-        jobs = [
-            {"job_id": "1", "title": "Software Engineer", "description_clean": "Join our team."},
-            {"job_id": "2", "title": "Backend Developer", "description_clean": "Build APIs."},
-            {"job_id": "3", "title": "Full Stack Engineer", "description_clean": "Work on products."},
-            {"job_id": "4", "title": "Junior Developer", "description_clean": "Entry level role."},
-            {"job_id": "5", "title": "Engineer II", "description_clean": "Mid-level position."},
-        ]
-
-        apply_count = 0
-        for job in jobs:
-            decision = screen_job_locally(job, sample_reject_rules)
-            if decision["decision"] == "apply":
-                apply_count += 1
-
-        # All should apply (no senior titles, no high experience requirements)
-        assert apply_count == len(jobs), "Volume-first: all ambiguous jobs should apply"
-
-    def test_rejection_requires_clear_trigger_and_evidence(self, sample_reject_rules):
-        """Verify rejections only happen with clear rule triggers and have evidence."""
-        from screening.screen_jobs import screen_job_locally
-
-        # Only jobs with clear triggers should reject
-        reject_jobs = [
-            {"job_id": "1", "title": "Senior Engineer", "description_clean": "Senior role."},
-            {"job_id": "2", "title": "Staff Developer", "description_clean": "Staff level."},
-            {"job_id": "3", "title": "Lead Engineer", "description_clean": "Leadership role."},
-        ]
-
-        for job in reject_jobs:
-            decision = screen_job_locally(job, sample_reject_rules)
-            assert decision["decision"] == "reject", f"Clear trigger should reject: {job['title']}"
-            assert len(decision["matched_reject_rules"]) > 0, "Rejection must have matched rules"
-            assert len(decision["evidence"]) > 0, "Rejection must have evidence"
-
-
 class TestPacketBuilding:
     """Test packet building from screened jobs."""
 
