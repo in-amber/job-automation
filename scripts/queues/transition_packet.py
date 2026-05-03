@@ -49,12 +49,6 @@ def get_packet_queue(packet_id: str) -> tuple[Path | None, str | None]:
             if packet_path.exists():
                 return packet_path, queue_name
 
-    # Also check application_packets directory (initial state)
-    packets_dir = PROJECT_ROOT / "data" / "application_packets"
-    packet_path = packets_dir / f"{packet_id}.json"
-    if packet_path.exists():
-        return packet_path, "application_packets"
-
     return None, None
 
 
@@ -84,22 +78,21 @@ def transition_packet(packet_id: str, new_queue: str, force: bool = False) -> bo
             print(f"Allowed transitions from {current_queue}: {allowed}")
             return False
 
-    # Read packet
+    # Read packet and update timestamp in memory
     packet = read_json(packet_path)
-
-    # Update timestamp
     packet['updated_at'] = now_iso()
 
-    # Move to new queue directory
+    # Move via rename (same-filesystem, atomic). Avoids the copy+unlink
+    # pattern, which fails under sandboxed runners (e.g. Cowork) that have
+    # write perms on the queue dirs but no delete perm on individual files.
+    # rename() is a directory-entry change — no file delete involved.
     target_dir = QUEUE_DIR / new_queue
     target_dir.mkdir(parents=True, exist_ok=True)
-
     target_path = target_dir / f"{packet['packet_id']}.json"
-    write_json(target_path, packet)
 
-    # Remove from old location
     if packet_path != target_path:
-        packet_path.unlink()
+        packet_path.rename(target_path)
+    write_json(target_path, packet)
 
     print(f"Transitioned {packet_id}: {current_queue} -> {new_queue}")
     return True

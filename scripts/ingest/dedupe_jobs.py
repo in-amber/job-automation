@@ -73,7 +73,6 @@ def main() -> int:
     # Directories to check for existing jobs
     check_dirs = [
         PROJECT_ROOT / "data" / "screened_jobs",
-        PROJECT_ROOT / "data" / "application_packets",
         PROJECT_ROOT / "data" / "queues" / "completed",
         PROJECT_ROOT / "data" / "queues" / "rejected",
         PROJECT_ROOT / "data" / "queues" / "failed",

@@ -1,36 +1,24 @@
 services:
-  n8n:
+  job-automation:
     build:
       context: .
       dockerfile: Dockerfile
-    image: job-automation-n8n:latest
-    container_name: job-automation-n8n
+    image: job-automation:latest
+    container_name: job-automation
     restart: unless-stopped
-    ports:
-      - "${N8N_PORT:-5678}:5678"
     environment:
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
-      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-changeme}
-      - N8N_HOST=${N8N_HOST:-localhost}
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
-      - GENERIC_TIMEZONE=${LOCAL_TIMEZONE:-America/Los_Angeles}
       - TZ=${LOCAL_TIMEZONE:-America/Los_Angeles}
-      - N8N_PERSONALIZATION_ENABLED=false
-      - N8N_DIAGNOSTICS_ENABLED=false
-      - N8N_USER_FOLDER=/home/node/.n8n
     volumes:
-      - ./n8n/data:/home/node/.n8n
-      - ./n8n/workflows:/home/node/workflows:ro
       - ./data:/home/node/data
       - ./artifacts:/home/node/artifacts
       - ./config:/home/node/config:ro
+      - ./prompts:/home/node/prompts:ro
+      - ./schemas:/home/node/schemas:ro
       - ./scripts:/home/node/scripts:ro
       - ./.env:/home/node/.env:ro
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:5678/healthz"]
+      test: ["CMD-SHELL", "grep -ql '^cron$' /proc/[0-9]*/comm"]
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 10s

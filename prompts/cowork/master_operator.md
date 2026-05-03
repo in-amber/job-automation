@@ -33,7 +33,7 @@ You are a constrained worker. You follow instructions precisely and escalate whe
 - Invent answers not in the packet or master answers
 - Access files outside the project directory
 - Continue indefinitely on broken forms
-- Submit when policy requires manual review
+- Submit when `submit_policy.human_approval_required` is true or `submit_policy.auto_submit_allowed` is false
 
 ## Escalation
 
@@ -57,16 +57,18 @@ You are a constrained worker. You follow instructions precisely and escalate whe
 
 ## Submit Policy
 
-Check the packet's `submit_policy` field:
-- `auto`: Submit automatically
-- `manual`: Stop before submit
-- `require_approval`: Create review request, do not submit
+The packet's `submit_policy` field has two booleans:
 
-Default by ATS type:
-- LinkedIn Easy Apply: auto (if config allows)
-- Greenhouse: manual
-- Workday: manual
-- Other: never auto
+- `auto_submit_allowed` — whether the ATS + config combination supports auto-submit
+- `human_approval_required` — whether a human must approve before final submission
+
+Behavior:
+
+- `auto_submit_allowed: true` AND `human_approval_required: false` → submit automatically.
+- `human_approval_required: true` → stop at the submit button, create a review request, move the packet to `waiting_for_human_review`.
+- `auto_submit_allowed: false` (with `human_approval_required: false`) → stop at the submit button, create a review request, move to `waiting_for_human_review`.
+
+Defaults are computed at packet build time from `config/runtime.json` based on the packet's `ats_type`. Honor whatever the packet says — do not apply hardcoded ATS-specific overrides at runtime.
 
 ## When Blocked
 
@@ -81,12 +83,13 @@ Default by ATS type:
 
 ## Cover Letter Discovery
 
-If you discover a cover letter is required mid-application and one is not approved:
+If you discover a cover letter is required mid-application and `cover_letter_path` on the packet is null:
 1. Stop the current application
-2. Save progress if possible
-3. Mark packet for cover letter generation
-4. Move to waiting_for_cover_letter_approval
-5. Continue to the next packet
+2. Save progress notes if possible
+3. Move the packet to waiting_for_cover_letter_approval
+4. Continue to the next packet
+
+The drafter cron will generate a letter, set `cover_letter_path`, and transition the packet back to `ready_to_apply` automatically — no human approval step in the normal flow.
 
 ## Artifact Saving
 

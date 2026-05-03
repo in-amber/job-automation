@@ -32,13 +32,6 @@ For any rejection, the `evidence` array must contain:
 - Short strings quoting or referencing specific text from the job description
 - Direct references to what triggered the rule
 
-### Cover Letter Signal
-Instead of guessing, classify the signal:
-- `unknown`: No clear indication
-- `no_signal`: Posting suggests not needed
-- `optional_signal`: Mentioned but not required
-- `explicitly_required`: Explicitly stated as required
-
 ### Anti-Fabrication Rules
 - Do not infer values unless grounded in posting
 - Use `unknown` when unclear
@@ -48,10 +41,28 @@ Instead of guessing, classify the signal:
 ### Examples of REJECT (with evidence)
 - "Requires 3+ years" → Evidence: `["Requires 3+ years of experience (max allowed: 1)"]`
 - "Senior Software Engineer" → Evidence: `["Title contains 'Senior': Senior Software Engineer"]`
+- "Food Safety Compliance Analyst" (with `reject_if_role_not_in_approved_domains` enabled) → Evidence: `["Title 'Food Safety Compliance Analyst' does not fit any approved domain"]`
 
 ### Examples of APPLY
 - "1-3 years preferred" → No evidence needed, apply by default
 - "Ideally has X" → No hard rule triggered
+
+### Approved Role Domains rule
+
+The `reject_if_role_not_in_approved_domains` rule (in `config/search/reject_rules.json`) gates the screener on whether the role itself fits one of the categories listed in `config/search/approved_role_domains.md`. The markdown file is loaded by `screen_jobs.py` and injected into the user prompt as `{{approved_role_domains}}`.
+
+Behavior:
+- Categories are inclusive. Any role plausibly within a category is approved, even if its specific specialization is not in the examples.
+- The examples under each category are illustrative, not exhaustive. The model is instructed not to require an exact title match.
+- The company's industry does **not** decide the outcome. A SWE role at a food-delivery company is approved; a food-safety analyst role at a tech company is not.
+- When uncertain, default to APPLY (volume-first).
+- Rejections under this rule must include evidence quoting or referencing the title/description text that establishes the role's domain.
+
+To adjust scope:
+- Edit `config/search/approved_role_domains.md` — add/remove a category, or expand examples to nudge the model on borderline cases.
+- Set `reject_if_role_not_in_approved_domains` to `false` in `reject_rules.json` to disable the rule entirely without changing the prompt.
+
+The current categories are Software Engineering, IT / Systems, and Cybersecurity.
 
 ## Cover Letter Prompt
 

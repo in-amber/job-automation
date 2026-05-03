@@ -95,7 +95,6 @@ def sample_screening_decision_apply():
         "matched_reject_rules": [],
         "reason_summary": "No hard reject rules triggered",
         "evidence": [],
-        "cover_letter_signal": "unknown",
         "generated_at": "2024-01-15T10:00:00Z"
     }
 
@@ -109,7 +108,6 @@ def sample_screening_decision_reject():
         "matched_reject_rules": ["reject_senior_titles"],
         "reason_summary": "Title contains senior keyword",
         "evidence": ["Title contains 'Senior': Senior Software Engineer"],
-        "cover_letter_signal": "unknown",
         "generated_at": "2024-01-15T10:00:00Z"
     }
 
@@ -129,7 +127,6 @@ def sample_application_packet():
         "ats_type": "linkedin_easy_apply",
         "trust_tier": "tier_a",
         "resume_path": "config/applicant/resume.pdf",
-        "cover_letter_status": "not_needed",
         "cover_letter_path": None,
         "applicant_answers_path": "config/applicant/applicant_master_answers.md",
         "job_snapshot_path": "data/normalized_jobs/abc123def456.json",

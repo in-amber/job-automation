@@ -2,11 +2,12 @@
 
 ## Prerequisites
 
-- macOS
+- macOS or Windows host
 - Docker Desktop
-- Python 3.10+
+- Python 3.10+ (for any host-side script invocations; the container has its own)
 - Google Cloud account (for Sheets API)
 - OpenAI API key
+- RapidAPI account (LinkedIn Job Search API)
 
 ## Installation
 
@@ -19,8 +20,9 @@ cp .env.example .env
 
 Edit `.env` with your values:
 - `OPENAI_API_KEY`: Your OpenAI API key
+- `RAPIDAPI_KEY`: Your RapidAPI key for LinkedIn job search
 - `GOOGLE_SHEET_ID`: ID of your tracking spreadsheet
-- `N8N_BASIC_AUTH_PASSWORD`: Change from default
+- `GOOGLE_SHEETS_CREDENTIALS_PATH`: Path to your Google service-account credentials JSON (relative paths are resolved against the project root)
 
 ### 2. Set Up Google Sheets
 
@@ -56,26 +58,40 @@ Edit these files:
 python scripts/bootstrap/validate_env.py
 ```
 
-### 6. Start n8n
+### 6. Start the Container
 
 ```bash
 docker-compose up -d
 ```
 
-Access n8n at http://localhost:5678
+This builds the image (first run only, ~2 min) and starts the container. cron is now running inside it and will fire the configured scheduled jobs.
 
-### 7. Import n8n Workflows
+Tail container logs to see cron-job output:
 
-1. Open n8n web interface
-2. Import each workflow from `n8n/workflows/`
-3. Configure credentials in n8n
+```bash
+docker-compose logs -f
+```
+
+Stop the container:
+
+```bash
+docker-compose down
+```
+
+### 7. Verify the Container
+
+Confirm cron is reading the crontab and the scripts can find their dependencies:
+
+```bash
+docker exec job-automation crontab -l         # should print the project's crontab
+docker exec job-automation python /home/node/scripts/bootstrap/validate_env.py
+```
 
 ## Directory Permissions
 
 Ensure these directories are writable:
 - `data/`
 - `artifacts/`
-- `n8n/data/`
 
 ## Verification
 
@@ -89,8 +105,8 @@ pytest tests/ -v
 ### Docker not starting
 Ensure Docker Desktop is running.
 
-### n8n can't write data
-Check permissions on `n8n/data/` directory.
+### Cron jobs aren't firing
+Check `docker-compose logs -f` for cron-job output. Confirm `docker exec job-automation crontab -l` lists the expected schedule. Cron in containers has a known footgun where env vars set in `docker-compose.yml` are not visible to cron jobs — the project's entrypoint writes `.env` contents into a location cron can read; if a cron job fails with missing-env errors, verify that mechanism in `docker/entrypoint.sh`.
 
 ### Google Sheets errors
-Verify the sheet is shared with your service account email.
+Verify the sheet is shared with your service account email. `GOOGLE_SHEETS_CREDENTIALS_PATH` may be relative; the script resolves relative paths against the project root.

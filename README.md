@@ -1,6 +1,6 @@
 # Job Application Automation
 
-Local-first job application automation system for macOS that maximizes application volume while preserving control, logging, and auditability.
+Local-first job application automation system that maximizes application volume while preserving control, logging, and auditability. Runs in a Docker container so the same setup works on macOS or Windows hosts.
 
 ## Philosophy
 
@@ -14,7 +14,7 @@ This system is **volume-first**. Screening is a hard-reject filter, not a rankin
 
 | Component | Technology | Responsibility |
 |-----------|------------|----------------|
-| Orchestrator | n8n (Docker) | Scheduling, workflow, state transitions |
+| Orchestrator | cron in Docker container | Scheduled job ingestion, periodic Sheets sync |
 | Screening | OpenAI API | Hard-reject filtering, cover letter drafts |
 | Browser Worker | Claude Cowork | Form filling, submission, escalation |
 | State | Local filesystem | Primary source of truth |
@@ -33,10 +33,11 @@ This system is **volume-first**. Screening is a hard-reject filter, not a rankin
    python scripts/bootstrap/validate_env.py
    ```
 
-3. **Start n8n**
+3. **Start the container**
    ```bash
    docker-compose up -d
    ```
+   This brings up the project's Docker container with cron running inside it. The crontab triggers ingestion on a schedule and polls for new run logs to push to Sheets. Tail logs with `docker-compose logs -f`.
 
 4. **Configure your search**
    - Edit `config/search/titles.txt` with job titles
@@ -44,12 +45,12 @@ This system is **volume-first**. Screening is a hard-reject filter, not a rankin
    - Add your resume to `config/applicant/resume.pdf`
    - Fill in `config/applicant/applicant_master_answers.md`
 
-5. **Run the pipeline**
+5. **Run pipeline steps manually** (any time, in addition to the scheduled cron jobs)
    ```bash
-   python scripts/ingest/fetch_jobs.py --source linkedin
-   python scripts/ingest/normalize_jobs.py
-   python scripts/screening/screen_jobs.py
-   python scripts/packets/build_application_packets.py
+   docker exec job-automation python /home/node/scripts/ingest/fetch_jobs.py --source linkedin
+   docker exec job-automation python /home/node/scripts/ingest/normalize_jobs.py
+   docker exec job-automation python /home/node/scripts/screening/screen_jobs.py
+   docker exec job-automation python /home/node/scripts/packets/build_application_packets.py
    ```
 
 ## Directory Structure
@@ -61,15 +62,18 @@ artifacts/       Cover letters
 prompts/         OpenAI and Cowork system prompts
 schemas/         JSON Schema validators
 scripts/         Python CLI tools
-n8n/             Workflow definitions
+docker/          Container entrypoint and crontab
 tests/           Unit and integration tests
 ```
 
 ## Trusted Application Targets (v1)
 
-- LinkedIn Easy Apply (auto-submit allowed)
+- LinkedIn Easy Apply
 - Greenhouse
 - Workday
+- Other (catchall — any ATS not in the three above)
+
+Auto-submit is enabled per-ATS via `config/runtime.json` (`auto_submit_*` flags); see `scripts/packets/build_application_packets.py:build_submit_policy`.
 
 ## Non-Goals (v1)
 

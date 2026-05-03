@@ -13,7 +13,6 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 from queues.transition_packet import VALID_QUEUES, VALID_TRANSITIONS
-from queues.enqueue_packet import get_target_queue
 
 
 class TestQueueStates:
@@ -34,61 +33,6 @@ class TestQueueStates:
 
         for queue in required_queues:
             assert queue in VALID_QUEUES, f"Missing queue: {queue}"
-
-
-class TestCoverLetterNonBlocking:
-    """Test that cover letter waiting doesn't block the queue."""
-
-    def test_cover_letter_pending_goes_to_waiting(self):
-        """Packets needing cover letters go to waiting queue, not ready."""
-        packet = {
-            'cover_letter_status': 'predicted_needed_draft_pending'
-        }
-
-        target = get_target_queue(packet)
-
-        assert target == 'waiting_for_cover_letter_approval'
-        assert target != 'ready_to_apply'
-
-    def test_cover_letter_draft_waiting_goes_to_waiting(self):
-        """Packets with drafts awaiting approval go to waiting queue."""
-        packet = {
-            'cover_letter_status': 'draft_ready_waiting_approval'
-        }
-
-        target = get_target_queue(packet)
-
-        assert target == 'waiting_for_cover_letter_approval'
-
-    def test_mid_apply_cover_letter_goes_to_waiting(self):
-        """Cover letters discovered mid-apply go to waiting."""
-        packet = {
-            'cover_letter_status': 'required_discovered_mid_apply'
-        }
-
-        target = get_target_queue(packet)
-
-        assert target == 'waiting_for_cover_letter_approval'
-
-    def test_no_cover_letter_needed_goes_to_ready(self):
-        """Packets not needing cover letters go to ready queue."""
-        packet = {
-            'cover_letter_status': 'not_needed'
-        }
-
-        target = get_target_queue(packet)
-
-        assert target == 'ready_to_apply'
-
-    def test_approved_cover_letter_goes_to_ready(self):
-        """Packets with approved cover letters go to ready queue."""
-        packet = {
-            'cover_letter_status': 'approved'
-        }
-
-        target = get_target_queue(packet)
-
-        assert target == 'ready_to_apply'
 
 
 class TestTransitionRules:
@@ -142,32 +86,3 @@ class TestQueueIndependence:
 
         # ready_to_apply should be processable independently
         assert 'in_progress' in VALID_TRANSITIONS['ready_to_apply']
-
-
-class TestPacketHasNoStatusField:
-    """Test that we don't rely on packet status field."""
-
-    def test_queue_routing_uses_cover_letter_status_not_status(self):
-        """Queue routing should use cover_letter_status, not a status field."""
-        # Packet with no status field - should still work
-        packet = {
-            'packet_id': 'test123',
-            'cover_letter_status': 'not_needed'
-        }
-
-        target = get_target_queue(packet)
-
-        assert target == 'ready_to_apply'
-
-    def test_queue_routing_ignores_status_field_if_present(self):
-        """If a status field exists, it should be ignored for routing."""
-        packet = {
-            'packet_id': 'test123',
-            'cover_letter_status': 'not_needed',
-            'status': 'some_old_status'  # Should be ignored
-        }
-
-        target = get_target_queue(packet)
-
-        # Should route based on cover_letter_status, not status
-        assert target == 'ready_to_apply'

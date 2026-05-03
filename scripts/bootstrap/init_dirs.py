@@ -12,7 +12,6 @@ DIRECTORIES = [
     "data/raw_jobs",
     "data/normalized_jobs",
     "data/screened_jobs",
-    "data/application_packets",
     "data/queues/ready_to_apply",
     "data/queues/waiting_for_cover_letter_approval",
     "data/queues/waiting_for_signup",
@@ -26,8 +25,6 @@ DIRECTORIES = [
     "data/checkpoints",
     # Artifact directories
     "artifacts/cover_letters",
-    # n8n data
-    "n8n/data",
 ]
 
 

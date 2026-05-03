@@ -68,56 +68,25 @@ class TestPacketBuilding:
         assert "max_issue_minutes" in policy
         assert isinstance(policy["max_field_retries"], int)
 
-    def test_cover_letter_status_from_signal(self):
-        """Verify cover letter status is determined from signal."""
-        from packets.build_application_packets import determine_cover_letter_status
+    def test_packet_starts_with_no_cover_letter(
+        self,
+        sample_normalized_job,
+        sample_screening_decision_apply,
+        sample_runtime_config,
+        sample_trusted_domains,
+    ):
+        """Fresh packets always start without a cover letter attached.
 
-        # Explicitly required
-        decision = {"cover_letter_signal": "explicitly_required"}
-        assert determine_cover_letter_status(decision) == "predicted_needed_draft_pending"
+        The apply step moves the packet to waiting_for_cover_letter_approval
+        if the form actually demands one — screening no longer predicts it.
+        """
+        from packets.build_application_packets import build_packet
 
-        # Optional signal
-        decision = {"cover_letter_signal": "optional_signal"}
-        assert determine_cover_letter_status(decision) == "predicted_needed_draft_pending"
+        packet = build_packet(
+            sample_normalized_job,
+            sample_screening_decision_apply,
+            sample_runtime_config,
+            sample_trusted_domains,
+        )
 
-        # No signal or unknown
-        decision = {"cover_letter_signal": "no_signal"}
-        assert determine_cover_letter_status(decision) == "not_needed"
-
-        decision = {"cover_letter_signal": "unknown"}
-        assert determine_cover_letter_status(decision) == "not_needed"
-
-
-class TestQueueManagement:
-    """Test queue management operations."""
-
-    def test_cover_letter_routing(self):
-        """Verify packets are routed based on cover letter status."""
-        from queues.enqueue_packet import get_target_queue
-
-        # Needing cover letter goes to waiting
-        assert get_target_queue({
-            "cover_letter_status": "predicted_needed_draft_pending"
-        }) == "waiting_for_cover_letter_approval"
-
-        # Not needing cover letter goes to ready
-        assert get_target_queue({
-            "cover_letter_status": "not_needed"
-        }) == "ready_to_apply"
-
-        # Approved cover letter goes to ready
-        assert get_target_queue({
-            "cover_letter_status": "approved"
-        }) == "ready_to_apply"
-
-    def test_no_status_field_dependency(self):
-        """Verify queue routing doesn't depend on status field."""
-        from queues.enqueue_packet import get_target_queue
-
-        # Packet without status field should work
-        packet = {"cover_letter_status": "not_needed"}
-        assert get_target_queue(packet) == "ready_to_apply"
-
-        # Packet with status field should ignore it
-        packet = {"cover_letter_status": "not_needed", "status": "old_status"}
-        assert get_target_queue(packet) == "ready_to_apply"
+        assert packet['cover_letter_path'] is None

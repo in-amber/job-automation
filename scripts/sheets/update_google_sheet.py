@@ -403,7 +403,7 @@ def sync_packet(service, sheet_id: str, packet_id: str, manifest: dict) -> dict[
         raise FileNotFoundError(f"Packet not found in any queue: {packet_id}")
 
     packet = read_json(packet_path)
-    status = queue_name if queue_name and queue_name != "application_packets" else "pending"
+    status = queue_name or "pending"
     run_log = _find_run_log_for_packet(packet_id)
 
     written: dict[str, int] = {"applied": 0, "runs": 0, "interventions": 0}

@@ -39,4 +39,4 @@ Supporting reference for `apply_to_job_from_packet/SKILL.md`. Defines what to sa
 
 ## Downstream
 
-Saving the run log is what triggers `05_log_completed_application` in n8n, which updates Google Sheets. Do not skip the final write.
+Saving the run log is what gets the application into Google Sheets. A cron job inside the project's Docker container runs `update_google_sheet.py --sync-all` every 5 minutes, picks up any new run logs, and appends them to the audit Sheet's `applied`, `runs`, and `interventions` tabs. The sync is idempotent via `data/.sheets_synced.json`, so duplicate writes are safe but missing the run log entirely loses the audit trail. Do not skip the final write.

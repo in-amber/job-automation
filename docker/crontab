@@ -1,0 +1,41 @@
+# Cron schedule for the job-automation container.
+# Jobs run as `root` so they can write to /proc/1/fd/1 (tini's stdout) and
+# their output is captured by `docker-compose logs`. Running as `node` failed
+# silently — bash can't open root-owned /proc fds, so the redirect errored
+# before the python script ever exec'd.
+#
+# Format: m h dom mon dow user command
+
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+
+# Sync run logs + completed packets + interventions to Google Sheets every 5 min.
+# Idempotent via data/.sheets_synced.json.
+*/5 * * * * root /usr/local/bin/python /home/node/scripts/sheets/update_google_sheet.py --sync-all > /proc/1/fd/1 2>/proc/1/fd/2
+
+# Draft cover letters for any packet with cover_letter_status =
+# required_discovered_mid_apply, then auto-approve and push back to
+# ready_to_apply so Cowork can resume. No-op (and no OpenAI call) when
+# nothing is pending. Use --local for a stub draft that requires manual
+# approval (skips auto-approve).
+*/15 * * * * root /usr/local/bin/python /home/node/scripts/cover_letters/draft_cover_letters.py > /proc/1/fd/1 2>/proc/1/fd/2
+
+# Screen any normalized jobs not already in data/screened_jobs/. Idle when
+# nothing new has been ingested.
+0 * * * * root /usr/local/bin/python /home/node/scripts/screening/screen_jobs.py > /proc/1/fd/1 2>/proc/1/fd/2
+
+# Manual stages — invoked from the host via `docker exec`, NOT scheduled here.
+#
+# Ingest pipeline (kept manual until the title filter is validated; uncomment
+# the line below to start running every 6 hours):
+# 0 */6 * * * root /usr/local/bin/python /home/node/scripts/ingest/fetch_jobs.py --source all && /usr/local/bin/python /home/node/scripts/ingest/normalize_jobs.py && /usr/local/bin/python /home/node/scripts/ingest/dedupe_jobs.py > /proc/1/fd/1 2>/proc/1/fd/2
+#
+# Other manual stages — run via:
+#   docker exec job-automation python /home/node/scripts/ingest/fetch_jobs.py --source all
+#   docker exec job-automation python /home/node/scripts/ingest/normalize_jobs.py
+#   docker exec job-automation python /home/node/scripts/ingest/dedupe_jobs.py
+#   docker exec job-automation python /home/node/scripts/screening/screen_jobs.py
+#   docker exec job-automation python /home/node/scripts/packets/build_application_packets.py
+#   docker exec job-automation python /home/node/scripts/cover_letters/draft_cover_letters.py [--local]
+#   docker exec job-automation python /home/node/scripts/cover_letters/approve_cover_letter.py <packet_id>  # manual override
+#   docker exec job-automation python /home/node/scripts/queues/transition_packet.py <packet_id> <new_state>

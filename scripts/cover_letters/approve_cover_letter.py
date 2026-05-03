@@ -37,7 +37,6 @@ def approve_cover_letter(packet_id: str) -> bool:
         print(f"ERROR: cover letter file missing at {cover_letter_path}", file=sys.stderr)
         return False
 
-    packet["cover_letter_status"] = "approved"
     packet["updated_at"] = now_iso()
     write_json(packet_path, packet)
 

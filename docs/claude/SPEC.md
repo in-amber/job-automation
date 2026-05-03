@@ -35,9 +35,9 @@ There is a human approval step for cover letters and an optional human approval 
 
 These are locked requirements.
 
-- Environment: local Mac
-- Docker is allowed
-- n8n should be self-hosted locally
+- Environment: local macOS or Windows host
+- Docker is required; the system runs as a single container so the same setup works cross-platform
+- Orchestration runs inside the container (cron); no external orchestrator is required
 - Google Sheet is the definitive external activity log
 - Google Sheet must be updated after every completed application
 - local files are the primary source of truth for artifacts and state
@@ -47,7 +47,7 @@ These are locked requirements.
   - LinkedIn Easy Apply
   - Greenhouse
   - Workday
-- LinkedIn Easy Apply is trusted enough for auto-submit
+- Auto-submit is enabled per-ATS via `auto_submit_*` flags in `config/runtime.json`
 - Workday should attempt to correct fields before escalating
 - if screening predicts a cover letter is needed, generate draft and move packet to waiting-for-approval
 - if Cowork discovers a cover letter is needed mid-application, stop that job, send it to the cover-letter workflow, and continue the queue
@@ -56,19 +56,22 @@ These are locked requirements.
 
 ### Orchestrator
 
-Self-hosted n8n running locally in Docker.
+cron running inside the project's Docker container. The container's crontab fires Python scripts directly; there is no separate orchestration UI or service.
 
-Responsibilities:
+Scheduled responsibilities:
 
-- scheduled ingestion
-- job normalization
-- deduplication
+- scheduled ingestion (fetch → normalize → dedupe)
+- periodic Google Sheets sync (`update_google_sheet.py --sync-all`)
+
+On-demand responsibilities (invoked manually via `docker exec` or a wrapper):
+
 - screening calls to OpenAI
-- queue/state transitions
+- packet build and enqueue
 - cover-letter generation calls to OpenAI
-- Google Sheets updates
-- local file writes
-- run bookkeeping
+- queue/state transitions
+- approval flows
+
+These are intentionally not scheduled because each requires either human review or a downstream signal (e.g. cover-letter approval before submission).
 
 ### Screening and writing engine
 
@@ -105,7 +108,7 @@ Responsibilities:
 - scaffold repo
 - generate configs and schemas
 - write scripts
-- stand up Docker and n8n files
+- stand up Docker (Dockerfile, compose, container entrypoint, crontab)
 - implement queue workers and utilities
 - add tests and docs
 
@@ -158,7 +161,6 @@ job-automation/
     raw_jobs/
     normalized_jobs/
     screened_jobs/
-    application_packets/
     queues/
       ready_to_apply/
       waiting_for_cover_letter_approval/
@@ -225,8 +227,6 @@ job-automation/
     packets/
       build_application_packets.py
     queues/
-      enqueue_packet.py
-      dequeue_packet.py
       transition_packet.py
     sheets/
       update_google_sheet.py
@@ -238,15 +238,9 @@ job-automation/
       json_validate.py
       timestamps.py
 
-  n8n/
-    workflows/
-      01_ingest_jobs.json
-      02_screen_jobs.json
-      03_generate_cover_letters.json
-      04_queue_packets.json
-      05_log_completed_application.json
-    credentials/
-      README.md
+  docker/
+    entrypoint.sh
+    crontab
 
   tests/
     fixtures/
@@ -275,10 +269,11 @@ Rule:
 {
   "mode": "volume_first",
   "default_decision_on_uncertainty": "apply",
-  "human_approval_before_submit": true,
+  "human_approval_before_submit": false,
   "auto_submit_linkedin_easy_apply": true,
-  "auto_submit_greenhouse": false,
-  "auto_submit_workday": false,
+  "auto_submit_greenhouse": true,
+  "auto_submit_workday": true,
+  "auto_submit_other": true,
   "attempt_field_corrections_before_escalation": true,
   "max_field_retries": 2,
   "max_issue_minutes": 3,
@@ -400,13 +395,7 @@ Fields:
 - `ats_type`
 - `trust_tier`
 - `resume_path`
-- `cover_letter_status` enum:
-  - `not_needed`
-  - `predicted_needed_draft_pending`
-  - `draft_ready_waiting_approval`
-  - `approved`
-  - `required_discovered_mid_apply`
-- `cover_letter_path`
+- `cover_letter_path` (null when no cover letter is attached; set by the drafter when a cover-letter field is discovered mid-apply)
 - `applicant_answers_path`
 - `job_snapshot_path`
 - `screening_decision_path`
@@ -626,10 +615,8 @@ Try-then-escalate on:
 
 ### Submission policy
 
-- LinkedIn Easy Apply: auto-submit allowed by config
-- Greenhouse: controlled by config
-- Workday: controlled by config
-- unknown sites: never auto-submit in v1
+- Each ATS type (`linkedin_easy_apply`, `greenhouse`, `workday`, `other`) has its own `auto_submit_*` flag in `config/runtime.json`. The packet's `submit_policy` is computed at build time from those flags plus `human_approval_before_submit`.
+- Cowork honors the packet's `submit_policy.auto_submit_allowed` and `submit_policy.human_approval_required` booleans at runtime; do not apply ATS-specific overrides.
 
 ## 14. ATS abstraction
 
@@ -721,19 +708,21 @@ After every completed application attempt, immediately update:
 - `runs`
 - `interventions` if relevant
 
-## 16. n8n workflows to scaffold
+## 16. Pipeline stages to scaffold
 
-### Workflow 1: ingest jobs
+The pipeline runs as a mix of cron-scheduled jobs (in the project's Docker container) and manual stages invoked via `docker exec`. Stages map 1-to-1 to scripts under `scripts/`. See `docs/workflow-spec.md` for the canonical breakdown.
+
+### Stage 1: ingest jobs (scheduled)
 
 Steps:
 
-- schedule trigger
+- on cron schedule (default every 6 hours, off by default during early testing)
 - fetch raw jobs from configured provider
 - normalize
 - dedupe
 - write raw and normalized files locally
 
-### Workflow 2: screen jobs
+### Stage 2: screen jobs (manual)
 
 Steps:
 
@@ -742,29 +731,29 @@ Steps:
 - write `ScreeningDecision`
 - route to rejected or packet-building path
 
-### Workflow 3: generate cover letters
+### Stage 3: generate cover letters (manual)
 
 Steps:
 
 - find packets needing cover letters
 - call OpenAI draft prompt
-- save draft locally
+- save draft as markdown plus an exported DOCX with a submission-ready filename
 - update packet and queue state
 
-### Workflow 4: queue packets
+### Stage 4: queue packets (manual)
 
 Steps:
 
 - move eligible packets to `ready_to_apply`
 - ensure waiting states do not block queue
 
-### Workflow 5: log completed application
+### Stage 5: log completed application (cron-driven sync)
 
 Steps:
 
-- consume run result
-- write run log locally
-- update Google Sheets immediately
+- Cowork writes a `RunLog` JSON to `data/run_logs/`
+- a cron job runs `update_google_sheet.py --sync-all` every 5 minutes and appends any not-yet-pushed rows to the audit Google Sheet's `applied`, `runs`, and `interventions` tabs
+- idempotency is enforced via `data/.sheets_synced.json`
 
 ## 17. Scripts to implement
 
@@ -790,8 +779,6 @@ Claude Code should implement these scripts with clear CLI entry points.
 
 ### Queue management
 
-- `enqueue_packet.py`
-- `dequeue_packet.py`
 - `transition_packet.py`
 
 ### Sheets sync
@@ -919,8 +906,8 @@ Claude Code’s output is acceptable when all of the following are true:
 - directory structure matches spec
 - all schemas exist and validate sample payloads
 - config files exist with realistic defaults
-- n8n Docker setup exists
-- n8n workflow JSON files exist as initial scaffold
+- Docker setup exists (Dockerfile, docker-compose.yml, container entrypoint)
+- crontab exists with the scheduled stages defined
 - Python scripts exist with CLI stubs or working first-pass implementations
 - screening pipeline works end-to-end on fixture jobs
 - “apply by default” behavior is enforced by tests

@@ -118,8 +118,8 @@ def main() -> int:
     if missing_app_files:
         warnings.append(f"Missing applicant files (needed for actual applications): {', '.join(missing_app_files)}")
 
-    # Check Docker
-    if not check_docker():
+    # Check Docker (skip if we're already running inside a container)
+    if not Path("/.dockerenv").exists() and not check_docker():
         warnings.append("Docker not found or not running")
 
     # Report results

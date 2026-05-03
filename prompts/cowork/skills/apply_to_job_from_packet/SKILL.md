@@ -23,7 +23,7 @@ Supporting references in this directory:
 
 - Load the packet JSON and confirm it conforms to the `ApplicationPacket` schema.
 - Confirm required paths exist: `resume_path`, `applicant_answers_path`, `job_snapshot_path`, `screening_decision_path`.
-- If `cover_letter_status == "approved"`, confirm `cover_letter_path` exists.
+- If `cover_letter_path` is set, confirm the file exists.
 - If any required file is missing, do not attempt the application. Record a failure result and move on.
 
 ### 2. Confirm context before navigating
@@ -35,7 +35,7 @@ Before opening the browser, note:
 - `trust_tier` - A / B / C
 - `submit_policy` - controls whether submission is allowed
 - `escalation_policy` - retry limits, escalation thresholds
-- `cover_letter_status` - whether a cover letter is attached, needed, or not required
+- `cover_letter_path` - non-null if an approved cover letter is attached
 
 ### 3. Fill application fields
 
@@ -57,7 +57,7 @@ Consult `ats_playbooks.md` for compact guidance on:
 - Greenhouse
 - Workday
 
-For `other` / unknown ATS: never auto-submit; treat as Tier C.
+For `other` / unknown ATS: behavior is governed entirely by the packet's `submit_policy`. Do not apply hardcoded ATS-specific overrides at runtime.
 
 ### 5. Attempt allowed field corrections
 
@@ -89,15 +89,16 @@ On escalation:
 
 A cover letter is "discovered" whenever the form offers any field that accepts one — a textarea, a file upload, or a link — regardless of whether the form labels it required or optional. If the form will accept a cover letter, treat it as mandatory.
 
-If you discover a cover letter field mid-application and none is approved:
+If you discover a cover letter field mid-application and none is attached (`cover_letter_path` is null):
 
 1. Stop work on the current application immediately.
 2. Save current progress notes.
-3. Mark the packet `cover_letter_status = required_discovered_mid_apply`.
-4. Create the cover-letter draft request / intervention.
-5. Move the packet to `waiting_for_cover_letter_approval`.
-6. Remove the packet from the active browser queue.
-7. Continue to the next packet.
+3. Create the cover-letter draft request / intervention.
+4. Move the packet to `waiting_for_cover_letter_approval`.
+5. Remove the packet from the active browser queue.
+6. Continue to the next packet.
+
+The drafter cron will pick the packet up, generate a letter, set `cover_letter_path`, and transition it back to `ready_to_apply` for a fresh attempt.
 
 This path must never block the rest of the queue.
 
@@ -107,13 +108,13 @@ Before clicking submit, run the full checklist in `submission_audit_checklist.md
 
 ### 9. Submit only if policy allows
 
-Honor `submit_policy`:
+Honor `submit_policy` (two booleans on the packet):
 
-- `auto` - submit
-- `manual` - stop at submit, create review request
-- `require_approval` - create review request, move packet to `waiting_for_human_review`, do not submit
+- `auto_submit_allowed: true` AND `human_approval_required: false` → submit.
+- `human_approval_required: true` → create a review request, move packet to `waiting_for_human_review`, do not submit.
+- `auto_submit_allowed: false` (and `human_approval_required: false`) → create a review request, move packet to `waiting_for_human_review`, do not submit.
 
-Defaults by ATS are defined in `ats_playbooks.md` and `config/runtime.json`.
+These booleans are computed at packet build time from `config/runtime.json` based on the packet's `ats_type`. Do not override based on the ATS at runtime.
 
 ### 10. Save artifacts
 
@@ -133,6 +134,12 @@ Emit a `RunLog`-compatible result:
 - `notes`
 
 This result triggers the downstream logging workflow (`05_log_completed_application`) and the Google Sheets update.
+
+### 12. Close the browser tab
+
+After the run log is written and the packet has been transitioned to its terminal queue, close the browser tab opened for this application before moving on. The next packet should open a fresh tab.
+
+This applies to every outcome — successful submission, escalation, mid-apply cover-letter discovery, or failure — so tabs do not accumulate across a long queue drain.
 
 ## What this Skill is not
 

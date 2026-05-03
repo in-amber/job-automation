@@ -26,6 +26,6 @@ Supporting reference for `apply_to_job_from_packet/SKILL.md`. Compact per-ATS gu
 
 ## Other / unknown (`other`)
 
-- Never auto-submit in v1, regardless of config flags.
-- Treat as trust Tier C by default.
-- Be conservative with escalation thresholds - prefer creating a review request over attempting risky field corrections.
+- Auto-submit is allowed when `config/runtime.json: auto_submit_other` is true; the packet's `submit_policy` is the source of truth at runtime.
+- Treat as trust Tier C by default for risk weighting.
+- Be conservative with escalation thresholds — prefer creating a review request over attempting risky field corrections.

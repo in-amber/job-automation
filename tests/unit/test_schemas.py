@@ -95,7 +95,6 @@ class TestScreeningDecisionSchema:
             "matched_reject_rules": ["reject_senior_titles"],
             "reason_summary": "Senior title detected",
             "evidence": [],  # Empty - should fail
-            "cover_letter_signal": "unknown",
             "generated_at": "2024-01-15T10:00:00Z"
         }
         is_valid, errors = validate_screening_decision(decision)
@@ -111,25 +110,10 @@ class TestScreeningDecisionSchema:
             "matched_reject_rules": [],  # Empty - should fail
             "reason_summary": "Rejected",
             "evidence": ["Some evidence"],
-            "cover_letter_signal": "unknown",
             "generated_at": "2024-01-15T10:00:00Z"
         }
         is_valid, errors = validate_screening_decision(decision)
         # Conditional validation should catch this
-
-    def test_invalid_cover_letter_signal(self):
-        """Invalid cover_letter_signal should fail."""
-        decision = {
-            "job_id": "test123",
-            "decision": "apply",
-            "matched_reject_rules": [],
-            "reason_summary": "No rules triggered",
-            "evidence": [],
-            "cover_letter_signal": "probably_needed",  # Invalid enum
-            "generated_at": "2024-01-15T10:00:00Z"
-        }
-        is_valid, errors = validate_screening_decision(decision)
-        assert not is_valid
 
     def test_rejects_old_fields(self):
         """Old fields like confidence should be rejected."""
@@ -139,7 +123,6 @@ class TestScreeningDecisionSchema:
             "matched_reject_rules": [],
             "reason_summary": "No rules triggered",
             "evidence": [],
-            "cover_letter_signal": "unknown",
             "confidence": "high",  # Old field
             "generated_at": "2024-01-15T10:00:00Z"
         }
@@ -169,7 +152,6 @@ class TestApplicationPacketSchema:
             "ats_type": "greenhouse",
             "trust_tier": "tier_a",
             "resume_path": "config/applicant/resume.pdf",
-            "cover_letter_status": "not_needed",
             "cover_letter_path": None,
             "applicant_answers_path": "config/applicant/answers.txt",
             "job_snapshot_path": "data/jobs/job456.json",
@@ -200,7 +182,6 @@ class TestApplicationPacketSchema:
             "ats_type": "greenhouse",
             "trust_tier": "tier_a",
             "resume_path": "config/applicant/resume.pdf",
-            "cover_letter_status": "not_needed",
             "applicant_answers_path": "config/applicant/answers.txt",
             "job_snapshot_path": "data/jobs/job456.json",
             "screening_decision_path": "data/screened/job456.json",
@@ -223,7 +204,6 @@ class TestApplicationPacketSchema:
             "ats_type": "unknown_ats",  # Invalid
             "trust_tier": "tier_a",
             "resume_path": "config/applicant/resume.pdf",
-            "cover_letter_status": "not_needed",
             "applicant_answers_path": "config/applicant/answers.txt",
             "job_snapshot_path": "data/jobs/job456.json",
             "screening_decision_path": "data/screened/job456.json",

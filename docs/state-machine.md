@@ -9,41 +9,26 @@
 Every application packet is in exactly one queue at a time.
 
 ```
-                                    ┌─────────────┐
-                                    │   rejected  │
-                                    └─────────────┘
-                                          ▲
-                                          │ hard reject
-                                          │
-┌───────────┐     ┌────────────────┐     ┌┴────────────────────┐
-│ raw_job   │────▶│ normalized_job │────▶│ application_packets │
-└───────────┘     └────────────────┘     └─────────┬───────────┘
-                                                   │
-                         ┌─────────────────────────┼─────────────────────────┐
-                         │                         │                         │
-                         ▼                         ▼                         │
-          ┌──────────────────────────┐   ┌───────────────┐                  │
-          │ waiting_for_cover_letter │   │ ready_to_apply│◀─────────────────┘
-          │       _approval          │   └───────┬───────┘
-          └──────────────────────────┘           │
-                         │                       ▼
-                         │              ┌───────────────┐
-                         └─────────────▶│  in_progress  │
-                         (after approve)└───────┬───────┘
-                                                │
-                    ┌───────────────────────────┼───────────────────────────┐
-                    │                           │                           │
-                    ▼                           ▼                           ▼
-         ┌──────────────────┐         ┌───────────────┐         ┌───────────────┐
-         │ waiting_for_     │         │   completed   │         │    failed     │
-         │ signup           │         └───────────────┘         └───────────────┘
-         └──────────────────┘
-                    │
-                    ▼
-         ┌──────────────────┐
-         │ waiting_for_     │
-         │ human_review     │
-         └──────────────────┘
+ingest:    raw_job ──▶ normalized_job
+
+screening: normalized_job ──▶ screening_decision (in data/screened_jobs/)
+              ├─ decision='apply'  ──▶ packet written to ready_to_apply/
+              └─ decision='reject' ──▶ no packet built
+
+apply phase:
+    ready_to_apply ──▶ in_progress ──┬──▶ completed
+                                      ├──▶ failed
+                                      ├──▶ waiting_for_signup
+                                      ├──▶ waiting_for_human_review
+                                      ├──▶ waiting_for_cover_letter_approval
+                                      │      (cover letter discovered mid-apply)
+                                      └──▶ rejected (manual)
+
+resume from waiting:
+    waiting_for_signup                ──▶ ready_to_apply  (after manual signup)
+    waiting_for_cover_letter_approval ──▶ ready_to_apply  (after approve)
+    waiting_for_human_review          ──▶ ready_to_apply  (after review)
+                                      ──▶ completed       (after human submits)
 ```
 
 ## Queue Directories
@@ -66,15 +51,14 @@ data/queues/
 
 | From | To | Condition |
 |------|------|-----------|
-| application_packets/ | waiting_for_cover_letter_approval | Cover letter predicted needed |
-| application_packets/ | ready_to_apply | No cover letter needed |
+| screened_jobs/ (decision='apply') | ready_to_apply | `build_application_packets.py` writes the packet directly to the ready queue |
 
 ### Cover Letter Flow
 
 | From | To | Condition |
 |------|------|-----------|
-| waiting_for_cover_letter_approval | ready_to_apply | Cover letter approved |
 | in_progress | waiting_for_cover_letter_approval | Cover letter discovered mid-apply |
+| waiting_for_cover_letter_approval | ready_to_apply | Cover letter approved |
 
 ### Execution Phase
 

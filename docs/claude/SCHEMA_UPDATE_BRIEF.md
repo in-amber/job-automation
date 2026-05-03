@@ -258,7 +258,6 @@ Use a shape equivalent to this:
   "ats_type": "linkedin_easy_apply|greenhouse|workday|other",
   "trust_tier": "tier_a|tier_b|tier_c",
   "resume_path": "string",
-  "cover_letter_status": "not_needed|predicted_needed_draft_pending|draft_ready_waiting_approval|approved|required_discovered_mid_apply",
   "cover_letter_path": "string|null",
   "applicant_answers_path": "string",
   "job_snapshot_path": "string",
@@ -278,9 +277,7 @@ Use a shape equivalent to this:
 ```
 
 ### Validation rules
-Add conditional logic:
-- if `cover_letter_status == "approved"`, then `cover_letter_path` must be non-null
-- if `cover_letter_status != "approved"`, `cover_letter_path` may be null
+Cover-letter presence is encoded by `cover_letter_path` (null vs set) and queue location; no separate status field.
 
 ### Code changes
 Update packet builders and queue code so:

@@ -25,7 +25,7 @@ Track all application attempts.
 | apply_url | url | Application URL |
 | ats_type | string | ATS classification |
 | status | string | Current status |
-| submission_mode | string | auto, manual, or require_approval |
+| submission_mode | string | `auto_submit`, `human_approval_required`, or `manual` |
 | cover_letter_used | string | Yes/No |
 | artifact_folder | string | Packet ID for finding artifacts |
 | confirmation_number | string | Application confirmation if received |

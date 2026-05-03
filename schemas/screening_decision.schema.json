@@ -10,7 +10,6 @@
     "matched_reject_rules",
     "reason_summary",
     "evidence",
-    "cover_letter_signal",
     "generated_at"
   ],
   "additionalProperties": false,
@@ -41,11 +40,6 @@
         "type": "string"
       },
       "description": "Short strings grounded in posting text. Must be non-empty if decision is 'reject'."
-    },
-    "cover_letter_signal": {
-      "type": "string",
-      "enum": ["unknown", "no_signal", "optional_signal", "explicitly_required"],
-      "description": "Signal from posting about cover letter. Use 'unknown' if unclear."
     },
     "generated_at": {
       "type": "string",

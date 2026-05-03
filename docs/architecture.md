@@ -3,30 +3,32 @@
 ## Overview
 
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Job Sources   │────▶│    n8n          │────▶│  Google Sheets  │
-│  (LinkedIn,etc) │     │  (Orchestrator) │     │   (Audit Log)   │
-└─────────────────┘     └────────┬────────┘     └─────────────────┘
-                                 │
-                    ┌────────────┼────────────┐
-                    ▼            ▼            ▼
-              ┌──────────┐ ┌──────────┐ ┌──────────┐
-              │  OpenAI  │ │  Local   │ │  Cowork  │
-              │Screening │ │Filesystem│ │ Browser  │
-              │& Writing │ │  State   │ │  Worker  │
-              └──────────┘ └──────────┘ └──────────┘
+┌─────────────────┐     ┌──────────────────────┐     ┌─────────────────┐
+│   Job Sources   │────▶│  Docker container    │────▶│  Google Sheets  │
+│  (LinkedIn,etc) │     │  (cron + scripts)    │     │   (Audit Log)   │
+└─────────────────┘     └──────────┬───────────┘     └─────────────────┘
+                                   │
+                      ┌────────────┼────────────┐
+                      ▼            ▼            ▼
+                ┌──────────┐ ┌──────────┐ ┌──────────┐
+                │  OpenAI  │ │  Local   │ │  Cowork  │
+                │Screening │ │Filesystem│ │ Browser  │
+                │& Writing │ │  State   │ │  Worker  │
+                └──────────┘ └──────────┘ └──────────┘
 ```
+
+The container is the only deployment unit. The same image runs identically on macOS and Windows hosts because Docker abstracts the host OS.
 
 ## Components
 
-### n8n Orchestrator
+### Orchestrator: cron in Docker
 
-Self-hosted in Docker. Handles:
-- Scheduled job ingestion
-- Pipeline coordination
-- State transitions
-- API calls to OpenAI
-- Google Sheets updates
+A single Docker container runs cron alongside the project's Python scripts. The crontab fires:
+
+- The ingestion pipeline (fetch → normalize → dedupe) on a configurable interval (default every 6 hours, off by default during early testing).
+- A periodic Sheets sync (`update_google_sheet.py --sync-all`) that picks up any new run logs and completed packets and appends rows to the audit Sheet. The sync script is idempotent via the `data/.sheets_synced.json` manifest.
+
+Other pipeline stages (screening, packet build, cover letter drafting, queue transitions) are invoked manually via `docker exec` or directly from the host shell — they don't run on a schedule because they require human review of intermediate state.
 
 ### OpenAI API
 
@@ -68,8 +70,10 @@ External audit log only. Updated after every application attempt. Not used for q
 
 ## Trust Tiers
 
-| Tier | Domains | Auto-Submit |
-|------|---------|-------------|
-| A | linkedin.com, greenhouse.io, myworkdayjobs.com | Per config |
-| B | User-configured | Never |
-| C | All others | Never |
+| Tier | Domains | Notes |
+|------|---------|-------|
+| A | linkedin.com, greenhouse.io, myworkdayjobs.com | Highest confidence |
+| B | User-configured | Verify before relying on auto-submit |
+| C | All others | Default; treat as least-trusted |
+
+Auto-submit eligibility is currently driven by `ats_type` and the `auto_submit_*` flags in `config/runtime.json`, not by trust tier directly. See `build_submit_policy` in `scripts/packets/build_application_packets.py`.

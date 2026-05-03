@@ -15,11 +15,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 from utils.fileio import read_json, write_json, read_text, write_text, list_json_files
 from utils.timestamps import now_iso, timestamp_for_filename
 
-try:
-    from openai import OpenAI
-    HAS_OPENAI = True
-except ImportError:
-    HAS_OPENAI = False
+from openai import OpenAI
 
 
 QUEUE_DIR = PROJECT_ROOT / "data" / "queues"
@@ -153,49 +149,16 @@ def export_docx(md_path: Path, docx_path: Path) -> None:
         )
 
 
-def draft_cover_letter_placeholder(packet: dict, job: dict, corpus: str) -> str:
-    """Generate a placeholder cover letter when OpenAI is unavailable."""
-    return f"""[DRAFT COVER LETTER - REQUIRES REVIEW]
-
-Dear Hiring Manager,
-
-I am writing to express my interest in the {packet.get('title', 'position')} role at {packet.get('company', 'your company')}.
-
-[This is a placeholder draft. Please edit with relevant experience from your background.]
-
-Based on the job requirements, I believe my skills would be a strong match for this role.
-
-Thank you for considering my application.
-
-Sincerely,
-[Your Name]
-
----
-Generated: {now_iso()}
-Job: {packet.get('company')} - {packet.get('title')}
-"""
-
-
 def process_packets_needing_cover_letters() -> list[Path]:
-    """Find all packets that need cover letters drafted."""
+    """Find all packets in the cover-letter waiting queue.
+
+    Queue placement is the authoritative signal: anything sitting in
+    waiting_for_cover_letter_approval needs a draft. The drafter overwrites
+    the deterministic submission DOCX, so re-running on an already-drafted
+    packet is safe.
+    """
     waiting_dir = QUEUE_DIR / "waiting_for_cover_letter_approval"
-    packets_dir = PROJECT_ROOT / "data" / "application_packets"
-
-    packets_to_process = []
-
-    # Check waiting queue
-    for packet_file in list_json_files(waiting_dir):
-        packet = read_json(packet_file)
-        if packet.get('cover_letter_status') in ('predicted_needed_draft_pending', 'required_discovered_mid_apply'):
-            packets_to_process.append(packet_file)
-
-    # Check packets directory
-    for packet_file in list_json_files(packets_dir):
-        packet = read_json(packet_file)
-        if packet.get('cover_letter_status') in ('predicted_needed_draft_pending', 'required_discovered_mid_apply'):
-            packets_to_process.append(packet_file)
-
-    return packets_to_process
+    return list(list_json_files(waiting_dir))
 
 
 def main() -> int:
@@ -203,11 +166,6 @@ def main() -> int:
     parser.add_argument(
         "--packet-id",
         help="Specific packet ID to process"
-    )
-    parser.add_argument(
-        "--local",
-        action="store_true",
-        help="Use placeholder instead of OpenAI"
     )
     parser.add_argument(
         "--dry-run",
@@ -218,32 +176,15 @@ def main() -> int:
 
     _load_env_file()
 
-    # Set up OpenAI
-    client = None
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        print("ERROR: OPENAI_API_KEY is not set.", file=sys.stderr)
+        return 1
+    client = OpenAI(api_key=api_key)
     model = os.environ.get("OPENAI_MODEL", "gpt-4o")
 
-    if not args.local:
-        if not HAS_OPENAI:
-            print(
-                "ERROR: openai package is not installed. "
-                "Install it (pip install openai) or pass --local to use the placeholder.",
-                file=sys.stderr,
-            )
-            return 1
-        api_key = os.environ.get("OPENAI_API_KEY")
-        if not api_key:
-            print(
-                "ERROR: OPENAI_API_KEY is not set. "
-                "Export the key or pass --local to use the placeholder.",
-                file=sys.stderr,
-            )
-            return 1
-        client = OpenAI(api_key=api_key)
-
-    # Load corpus
     corpus = load_cover_letter_corpus()
 
-    # Find packets to process
     if args.packet_id:
         from queues.transition_packet import find_packet
         packet_path = find_packet(args.packet_id)
@@ -272,11 +213,7 @@ def main() -> int:
 
             print(f"Drafting: {packet['company']} - {packet['title']}")
 
-            if args.local:
-                body = draft_cover_letter_placeholder(packet, job, corpus)
-            else:
-                body = draft_cover_letter(packet, job, corpus, client, model)
-
+            body = draft_cover_letter(packet, job, corpus, client, model)
             draft = build_letter_header() + body.lstrip()
 
             if args.dry_run:
@@ -297,21 +234,16 @@ def main() -> int:
             docx_path = COVER_LETTERS_DIR / docx_filename
             export_docx(draft_path, docx_path)
 
-            # Update packet to point at the DOCX
             packet['cover_letter_path'] = str(docx_path.relative_to(PROJECT_ROOT))
-            packet['cover_letter_status'] = 'draft_ready_waiting_approval'
             packet['updated_at'] = now_iso()
             write_json(packet_path, packet)
 
-            # Move to waiting queue if not already there
-            waiting_dir = QUEUE_DIR / "waiting_for_cover_letter_approval"
-            waiting_dir.mkdir(parents=True, exist_ok=True)
-
-            if packet_path.parent != waiting_dir:
-                new_path = waiting_dir / f"{packet['packet_id']}.json"
-                write_json(new_path, packet)
-                if packet_path.exists():
-                    packet_path.unlink()
+            from queues.transition_packet import transition_packet
+            if not transition_packet(packet['packet_id'], 'ready_to_apply'):
+                raise RuntimeError(
+                    f"failed to transition {packet['packet_id']} to "
+                    f"ready_to_apply after drafting cover letter"
+                )
 
             drafted_count += 1
             print(f"  Saved: {draft_filename}")

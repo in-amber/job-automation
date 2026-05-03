@@ -7,7 +7,6 @@ Default is APPLY unless a hard reject rule clearly triggers.
 
 AI-output schema: ScreeningDecision (minimal, strict)
 - Rejections require evidence from the posting
-- Uses cover_letter_signal enum instead of boolean guess
 """
 import argparse
 import json
@@ -19,7 +18,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from utils.fileio import read_json, write_json, list_json_files, read_text, read_lines
+from utils.fileio import read_json, write_json, list_json_files, read_text
 from utils.timestamps import now_iso
 from utils.json_validate import validate_screening_decision
 
@@ -39,54 +38,85 @@ def _load_env_file() -> None:
 from openai import OpenAI
 
 
-def load_screening_prompt() -> tuple[str, str]:
-    """Load the screening system and user prompts."""
-    prompts_dir = PROJECT_ROOT / "prompts" / "screening"
-    system_prompt = read_text(prompts_dir / "system.md")
-    user_template = read_text(prompts_dir / "user_template.md")
-    return system_prompt, user_template
+SYSTEM_PROMPT_DIR = PROJECT_ROOT / "prompts" / "screening" / "system"
+FACTORS_DIR = SYSTEM_PROMPT_DIR / "factors"
+FACTOR_PLACEHOLDER = "{{factor_sections}}"
+
+APPROVED_ROLE_DOMAINS_PATH = PROJECT_ROOT / "config" / "search" / "approved_role_domains.md"
+APPROVED_ROLE_DOMAINS_PLACEHOLDER = "{{approved_role_domains}}"
 
 
-def build_user_prompt(
-    job: dict,
-    reject_rules: dict,
-    titles: list[str],
-    search_filters: dict,
-    template: str
-) -> str:
-    """Build the user prompt from template."""
+def _available_factors() -> set[str]:
+    return {p.stem for p in FACTORS_DIR.glob("*.md")}
+
+
+def _load_factor_fragment(name: str) -> str:
+    """Read a factor fragment and inject any per-factor config data it depends on."""
+    fragment = read_text(FACTORS_DIR / f"{name}.md")
+    if name == "role_domain":
+        if APPROVED_ROLE_DOMAINS_PLACEHOLDER not in fragment:
+            raise ValueError(
+                f"role_domain fragment is missing required placeholder "
+                f"{APPROVED_ROLE_DOMAINS_PLACEHOLDER!r}; the approved-categories list "
+                f"won't reach the model."
+            )
+        fragment = fragment.replace(
+            APPROVED_ROLE_DOMAINS_PLACEHOLDER,
+            read_text(APPROVED_ROLE_DOMAINS_PATH),
+        )
+    return fragment
+
+
+def build_system_prompt(enabled_factors: list[str]) -> str:
+    """Compose the system prompt from the always-on core plus the enabled factor fragments.
+
+    Each factor's instructions are baked in only when that factor is enabled, so the
+    model never sees guidance for criteria the user has chosen not to screen by.
+    Per-factor config data (e.g., approved-role-domain categories) is also baked in
+    here at build time rather than re-fed in the user prompt on every call.
+    """
+    available = _available_factors()
+    unknown = [f for f in enabled_factors if f not in available]
+    if unknown:
+        raise ValueError(
+            f"Unknown screening factor(s): {unknown}. "
+            f"Add a fragment at {FACTORS_DIR}/<name>.md or remove from enabled_factors. "
+            f"Available: {sorted(available)}"
+        )
+
+    core = read_text(SYSTEM_PROMPT_DIR / "core.md")
+    fragments = [_load_factor_fragment(name) for name in enabled_factors]
+    factor_block = "\n\n".join(fragments)
+    return core.replace(FACTOR_PLACEHOLDER, factor_block)
+
+
+def load_user_template() -> str:
+    """Load the screening user-prompt template."""
+    return read_text(PROJECT_ROOT / "prompts" / "screening" / "user_template.md")
+
+
+def build_user_prompt(job: dict, template: str) -> str:
+    """Build the user prompt from template — only per-job data, no per-user config."""
     return template.replace(
+        "{{job_id}}", job.get("job_id", "")
+    ).replace(
         "{{company}}", job.get("company", "")
     ).replace(
         "{{title}}", job.get("title", "")
     ).replace(
-        "{{location}}", job.get("location") or "Not specified"
-    ).replace(
-        "{{source}}", job.get("source", "")
-    ).replace(
         "{{description_clean}}", job.get("description_clean") or job.get("description_raw", "")
-    ).replace(
-        "{{reject_rules_json}}", json.dumps(reject_rules, indent=2)
-    ).replace(
-        "{{titles_list}}", "\n".join(f"- {t}" for t in titles)
-    ).replace(
-        "{{search_filters_json}}", json.dumps(search_filters, indent=2)
-    ).replace(
-        "{{job_id}}", job.get("job_id", "")
     )
 
 
 def screen_job_with_openai(
     job: dict,
-    reject_rules: dict,
-    titles: list[str],
-    search_filters: dict,
     client: "OpenAI",
-    model: str
+    model: str,
+    system_prompt: str,
+    user_template: str,
 ) -> dict:
     """Screen a single job using OpenAI."""
-    system_prompt, user_template = load_screening_prompt()
-    user_prompt = build_user_prompt(job, reject_rules, titles, search_filters, user_template)
+    user_prompt = build_user_prompt(job, user_template)
 
     # Load the response schema
     schema = read_json(PROJECT_ROOT / "prompts" / "screening" / "schema.json")
@@ -183,7 +213,6 @@ def screen_location_prefilter(
         "matched_reject_rules": ["reject_if_location_mismatch"],
         "reason_summary": "Job location is outside the configured allowed list and the posting is not remote.",
         "evidence": [f"Job location: {job_location}"],
-        "cover_letter_signal": "unknown",
         "generated_at": now_iso(),
     }
 
@@ -219,7 +248,6 @@ def main() -> int:
     # Load configuration
     reject_rules = read_json(PROJECT_ROOT / "config" / "search" / "reject_rules.json")
     search_filters = read_json(PROJECT_ROOT / "config" / "search" / "search_filters.json")
-    titles = read_lines(PROJECT_ROOT / "config" / "search" / "titles.txt")
 
     model = os.environ.get("OPENAI_MODEL", "gpt-4o")
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -230,6 +258,10 @@ def main() -> int:
         )
         return 2
     client = OpenAI(api_key=api_key)
+
+    enabled_factors = reject_rules.get("enabled_factors", [])
+    system_prompt = build_system_prompt(enabled_factors)
+    user_template = load_user_template()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -251,14 +283,16 @@ def main() -> int:
     error_count = 0
 
     for job_file in to_screen:
+        # Screening logic
         try:
             job = read_json(job_file)
             print(f"Screening: {job.get('company', '?')} - {job.get('title', '?')}")
 
+            # Prefilter by location
             decision = screen_location_prefilter(job, search_filters, reject_rules)
             if decision is None:
                 decision = screen_job_with_openai(
-                    job, reject_rules, titles, search_filters, client, model
+                    job, client, model, system_prompt, user_template,
                 )
 
             # Validate decision
@@ -270,7 +304,7 @@ def main() -> int:
 
             if decision["decision"] == "apply":
                 apply_count += 1
-                print(f"  -> APPLY (cover letter: {decision.get('cover_letter_signal', 'unknown')})")
+                print(f"  -> APPLY")
             else:
                 reject_count += 1
                 print(f"  -> REJECT ({decision.get('matched_reject_rules', [])})")

@@ -13,7 +13,6 @@
     "ats_type",
     "trust_tier",
     "resume_path",
-    "cover_letter_status",
     "applicant_answers_path",
     "job_snapshot_path",
     "screening_decision_path",
@@ -65,19 +64,9 @@
       "type": "string",
       "description": "Path to resume file"
     },
-    "cover_letter_status": {
-      "type": "string",
-      "enum": [
-        "not_needed",
-        "predicted_needed_draft_pending",
-        "draft_ready_waiting_approval",
-        "approved",
-        "required_discovered_mid_apply"
-      ]
-    },
     "cover_letter_path": {
       "type": ["string", "null"],
-      "description": "Path to cover letter file. Must be non-null if cover_letter_status is 'approved'."
+      "description": "Path to cover letter file. Null when no cover letter is attached."
     },
     "applicant_answers_path": {
       "type": "string",
@@ -135,19 +124,5 @@
       "type": ["string", "null"],
       "format": "date-time"
     }
-  },
-  "if": {
-    "properties": {
-      "cover_letter_status": { "const": "approved" }
-    }
-  },
-  "then": {
-    "properties": {
-      "cover_letter_path": {
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "required": ["cover_letter_path"]
   }
 }
