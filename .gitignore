@@ -7,6 +7,9 @@ config/google_credentials.json
 n8n/credentials/*.json
 !n8n/credentials/README.md
 
+# Dashboard write-time backups of config files
+config/.backups/
+
 # Python
 __pycache__/
 *.py[cod]

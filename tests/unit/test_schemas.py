@@ -95,7 +95,10 @@ class TestScreeningDecisionSchema:
             "matched_reject_rules": ["reject_senior_titles"],
             "reason_summary": "Senior title detected",
             "evidence": [],  # Empty - should fail
-            "generated_at": "2024-01-15T10:00:00Z"
+            "generated_at": "2024-01-15T10:00:00Z",
+            "role_domain": "Software Engineering",
+            "industry": "Technology",
+            "experience_years_required": None,
         }
         is_valid, errors = validate_screening_decision(decision)
         # With conditional validation, this should fail
@@ -110,7 +113,10 @@ class TestScreeningDecisionSchema:
             "matched_reject_rules": [],  # Empty - should fail
             "reason_summary": "Rejected",
             "evidence": ["Some evidence"],
-            "generated_at": "2024-01-15T10:00:00Z"
+            "generated_at": "2024-01-15T10:00:00Z",
+            "role_domain": "Software Engineering",
+            "industry": "Technology",
+            "experience_years_required": None,
         }
         is_valid, errors = validate_screening_decision(decision)
         # Conditional validation should catch this
@@ -124,10 +130,29 @@ class TestScreeningDecisionSchema:
             "reason_summary": "No rules triggered",
             "evidence": [],
             "confidence": "high",  # Old field
-            "generated_at": "2024-01-15T10:00:00Z"
+            "generated_at": "2024-01-15T10:00:00Z",
+            "role_domain": "Software Engineering",
+            "industry": "Technology",
+            "experience_years_required": None,
         }
         is_valid, errors = validate_screening_decision(decision)
         assert not is_valid, "Old fields should be rejected"
+
+    def test_missing_audit_field_fails(self):
+        """Decision missing a factor audit field should fail validation."""
+        decision = {
+            "job_id": "test123",
+            "decision": "apply",
+            "matched_reject_rules": [],
+            "reason_summary": "No rules triggered",
+            "evidence": [],
+            "generated_at": "2024-01-15T10:00:00Z",
+            "role_domain": "Software Engineering",
+            "industry": "Technology",
+            # missing experience_years_required
+        }
+        is_valid, errors = validate_screening_decision(decision)
+        assert not is_valid, "Missing audit field should be rejected"
 
 
 class TestApplicationPacketSchema:

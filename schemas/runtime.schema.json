@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "runtime.schema.json",
+  "title": "Runtime",
+  "description": "Top-level runtime configuration for the job-automation pipeline.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mode",
+    "default_decision_on_uncertainty",
+    "human_approval_before_submit",
+    "auto_submit_linkedin_easy_apply",
+    "auto_submit_greenhouse",
+    "auto_submit_workday",
+    "auto_submit_other",
+    "attempt_field_corrections_before_escalation",
+    "max_field_retries",
+    "max_issue_minutes",
+    "pause_on_cover_letter_detection",
+    "manual_signup_only",
+    "update_google_sheet_after_each_application",
+    "local_timezone"
+  ],
+  "properties": {
+    "mode": { "type": "string", "enum": ["volume_first"] },
+    "default_decision_on_uncertainty": { "type": "string", "enum": ["apply", "reject"] },
+    "human_approval_before_submit": { "type": "boolean" },
+    "auto_submit_linkedin_easy_apply": { "type": "boolean" },
+    "auto_submit_greenhouse": { "type": "boolean" },
+    "auto_submit_workday": { "type": "boolean" },
+    "auto_submit_other": { "type": "boolean" },
+    "attempt_field_corrections_before_escalation": { "type": "boolean" },
+    "max_field_retries": { "type": "integer", "minimum": 0, "maximum": 10 },
+    "max_issue_minutes": { "type": "integer", "minimum": 0, "maximum": 60 },
+    "pause_on_cover_letter_detection": { "type": "boolean" },
+    "manual_signup_only": { "type": "boolean" },
+    "update_google_sheet_after_each_application": { "type": "boolean" },
+    "local_timezone": { "type": "string", "minLength": 1 }
+  }
+}

@@ -9,6 +9,7 @@ AI-output schema: ScreeningDecision (minimal, strict)
 - Rejections require evidence from the posting
 """
 import argparse
+import copy
 import json
 import os
 import re
@@ -41,13 +42,122 @@ from openai import OpenAI
 SYSTEM_PROMPT_DIR = PROJECT_ROOT / "prompts" / "screening" / "system"
 FACTORS_DIR = SYSTEM_PROMPT_DIR / "factors"
 FACTOR_PLACEHOLDER = "{{factor_sections}}"
+ACTIVE_REJECT_FACTORS_PLACEHOLDER = "{{active_reject_factors}}"
 
 APPROVED_ROLE_DOMAINS_PATH = PROJECT_ROOT / "config" / "search" / "approved_role_domains.md"
 APPROVED_ROLE_DOMAINS_PLACEHOLDER = "{{approved_role_domains}}"
 
+APPROVED_INDUSTRIES_PATH = PROJECT_ROOT / "config" / "search" / "approved_industries.md"
+APPROVED_INDUSTRIES_PLACEHOLDER = "{{approved_industries}}"
 
-def _available_factors() -> set[str]:
-    return {p.stem for p in FACTORS_DIR.glob("*.md")}
+
+def _available_factors() -> list[str]:
+    """Factor fragment names in alphabetical order (deterministic prompt assembly)."""
+    return sorted(p.stem for p in FACTORS_DIR.glob("*.md"))
+
+
+def _parse_md_categories(md_path: Path) -> list[str]:
+    """Extract '### Heading' titles from an approved-categories markdown file.
+
+    These titles double as the enum values for the corresponding factor's
+    output field, so the model is constrained to the same labels the prompt
+    lists. Edits to the markdown propagate to the schema on the next run.
+    """
+    text = read_text(md_path)
+    return re.findall(r"^###\s+(.+?)\s*$", text, flags=re.MULTILINE)
+
+
+def _factor_field_spec(name: str) -> dict | None:
+    """Return ``{"field": <field_name>, "schema": <fragment>, "unknown": <value>}``
+    for a factor's audit output field, or ``None`` if the factor doesn't add one.
+
+    Every factor with a spec is always included in the response schema and the
+    prompt — the model categorizes every factor on every decision regardless of
+    which factors are enabled for *rejection*. ``unknown`` is the sentinel used
+    when the LLM never runs (e.g., the location prefilter short-circuits).
+
+    The schema fragment is OpenAI-strict-mode compatible: no numeric bounds
+    or string-length constraints. Storage-side validation is looser (any
+    string / int|null) — see ``schemas/screening_decision.schema.json``.
+    """
+    if name == "role_domain":
+        cats = _parse_md_categories(APPROVED_ROLE_DOMAINS_PATH) + ["unknown"]
+        return {
+            "field": "role_domain",
+            "unknown": "unknown",
+            "schema": {
+                "type": "string",
+                "enum": cats,
+                "description": (
+                    "Which approved role-domain category this role fits. "
+                    "Use the exact category name from the Approved Role Domains "
+                    "list, or 'unknown' if it does not fit any."
+                ),
+            },
+        }
+    if name == "industry":
+        cats = _parse_md_categories(APPROVED_INDUSTRIES_PATH) + ["unknown"]
+        return {
+            "field": "industry",
+            "unknown": "unknown",
+            "schema": {
+                "type": "string",
+                "enum": cats,
+                "description": (
+                    "Which approved industry category the company fits. "
+                    "Use the exact category name from the Approved Industries "
+                    "list, or 'unknown' if it does not fit any."
+                ),
+            },
+        }
+    if name == "experience":
+        return {
+            "field": "experience_years_required",
+            "unknown": None,
+            "schema": {
+                "type": ["integer", "null"],
+                "description": (
+                    "Minimum years of relevant experience the posting hard-requires "
+                    "(not 'preferred' or 'ideally'). Use null if unspecified or ambiguous."
+                ),
+            },
+        }
+    return None
+
+
+def _factor_audit_specs() -> list[dict]:
+    """Audit specs for every factor that defines an output field, in stable order."""
+    out = []
+    for name in _available_factors():
+        spec = _factor_field_spec(name)
+        if spec is not None:
+            out.append(spec)
+    return out
+
+
+def build_response_schema() -> dict:
+    """Build the OpenAI structured-output schema.
+
+    Every factor's audit field is always required regardless of whether the
+    factor is enabled for *rejection*. This guarantees every screening
+    decision carries the full categorization for downstream auditing and
+    dashboard breakdowns.
+
+    The base schema lives in ``prompts/screening/schema.json``; this function
+    returns a deep copy with factor fields injected so the file on disk stays
+    the canonical "always-present" set.
+    """
+    base = copy.deepcopy(read_json(PROJECT_ROOT / "prompts" / "screening" / "schema.json"))
+    schema = base["schema"]
+    for spec in _factor_audit_specs():
+        schema["properties"][spec["field"]] = spec["schema"]
+        schema["required"].append(spec["field"])
+    return base
+
+
+def _unknown_factor_fields() -> dict:
+    """Sentinel factor-field values for decisions produced without an LLM call."""
+    return {spec["field"]: spec["unknown"] for spec in _factor_audit_specs()}
 
 
 def _load_factor_fragment(name: str) -> str:
@@ -64,18 +174,30 @@ def _load_factor_fragment(name: str) -> str:
             APPROVED_ROLE_DOMAINS_PLACEHOLDER,
             read_text(APPROVED_ROLE_DOMAINS_PATH),
         )
+    if name == "industry":
+        if APPROVED_INDUSTRIES_PLACEHOLDER not in fragment:
+            raise ValueError(
+                f"industry fragment is missing required placeholder "
+                f"{APPROVED_INDUSTRIES_PLACEHOLDER!r}; the approved-industries list "
+                f"won't reach the model."
+            )
+        fragment = fragment.replace(
+            APPROVED_INDUSTRIES_PLACEHOLDER,
+            read_text(APPROVED_INDUSTRIES_PATH),
+        )
     return fragment
 
 
 def build_system_prompt(enabled_factors: list[str]) -> str:
-    """Compose the system prompt from the always-on core plus the enabled factor fragments.
+    """Compose the system prompt.
 
-    Each factor's instructions are baked in only when that factor is enabled, so the
-    model never sees guidance for criteria the user has chosen not to screen by.
-    Per-factor config data (e.g., approved-role-domain categories) is also baked in
-    here at build time rather than re-fed in the user prompt on every call.
+    All factor fragments are *always* included so the model categorizes every
+    factor on every decision (audit data). ``enabled_factors`` controls which
+    factors may *trigger a rejection* — that subset is injected into the core
+    prompt as the active-reject-factors list, and the model is instructed to
+    only reject based on factors named there.
     """
-    available = _available_factors()
+    available = set(_available_factors())
     unknown = [f for f in enabled_factors if f not in available]
     if unknown:
         raise ValueError(
@@ -85,9 +207,14 @@ def build_system_prompt(enabled_factors: list[str]) -> str:
         )
 
     core = read_text(SYSTEM_PROMPT_DIR / "core.md")
-    fragments = [_load_factor_fragment(name) for name in enabled_factors]
+    fragments = [_load_factor_fragment(name) for name in _available_factors()]
     factor_block = "\n\n".join(fragments)
-    return core.replace(FACTOR_PLACEHOLDER, factor_block)
+    active_block = ", ".join(enabled_factors) if enabled_factors else "(none)"
+    return (
+        core
+        .replace(ACTIVE_REJECT_FACTORS_PLACEHOLDER, active_block)
+        .replace(FACTOR_PLACEHOLDER, factor_block)
+    )
 
 
 def load_user_template() -> str:
@@ -114,12 +241,10 @@ def screen_job_with_openai(
     model: str,
     system_prompt: str,
     user_template: str,
+    response_schema: dict,
 ) -> dict:
     """Screen a single job using OpenAI."""
     user_prompt = build_user_prompt(job, user_template)
-
-    # Load the response schema
-    schema = read_json(PROJECT_ROOT / "prompts" / "screening" / "schema.json")
 
     response = client.chat.completions.create(
         model=model,
@@ -129,7 +254,7 @@ def screen_job_with_openai(
         ],
         response_format={
             "type": "json_schema",
-            "json_schema": schema
+            "json_schema": response_schema
         },
         temperature=0.1  # Low temperature for consistent decisions
     )
@@ -207,7 +332,7 @@ def screen_location_prefilter(
     if _location_matches_allowed(job_location, allowed_locations):
         return None
 
-    return {
+    decision = {
         "job_id": job.get("job_id", ""),
         "decision": "reject",
         "matched_reject_rules": ["reject_if_location_mismatch"],
@@ -215,6 +340,10 @@ def screen_location_prefilter(
         "evidence": [f"Job location: {job_location}"],
         "generated_at": now_iso(),
     }
+    # Prefilter rejects skip the LLM, so factor categorizations are unknown.
+    # The schema requires these fields on every decision; populate sentinels.
+    decision.update(_unknown_factor_fields())
+    return decision
 
 
 def main() -> int:
@@ -261,6 +390,7 @@ def main() -> int:
 
     enabled_factors = reject_rules.get("enabled_factors", [])
     system_prompt = build_system_prompt(enabled_factors)
+    response_schema = build_response_schema()
     user_template = load_user_template()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -292,7 +422,7 @@ def main() -> int:
             decision = screen_location_prefilter(job, search_filters, reject_rules)
             if decision is None:
                 decision = screen_job_with_openai(
-                    job, client, model, system_prompt, user_template,
+                    job, client, model, system_prompt, user_template, response_schema,
                 )
 
             # Validate decision

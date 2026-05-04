@@ -22,3 +22,20 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/dashboard.Dockerfile
+    image: job-automation-dashboard:latest
+    container_name: job-automation-dashboard
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      - TZ=${LOCAL_TIMEZONE:-America/Los_Angeles}
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data:ro
+      - ./schemas:/app/schemas:ro
+      - ./prompts:/app/prompts:ro

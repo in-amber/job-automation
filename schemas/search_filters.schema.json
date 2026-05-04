@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "search_filters.schema.json",
+  "title": "SearchFilters",
+  "description": "Search filters controlling job ingestion sources.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "locations",
+    "remote_allowed",
+    "onsite_allowed",
+    "hybrid_allowed",
+    "keywords_include",
+    "keywords_exclude",
+    "linkedin_api"
+  ],
+  "properties": {
+    "locations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "remote_allowed": { "type": "boolean" },
+    "onsite_allowed": { "type": "boolean" },
+    "hybrid_allowed": { "type": "boolean" },
+    "keywords_include": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "keywords_exclude": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "linkedin_api": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "endpoint",
+        "location_filter",
+        "seniority_filter",
+        "remote",
+        "max_jobs",
+        "include_description"
+      ],
+      "properties": {
+        "endpoint": { "type": "string", "minLength": 1 },
+        "location_filter": { "type": "string" },
+        "seniority_filter": { "type": "string" },
+        "remote": { "type": ["string", "null"] },
+        "max_jobs": { "type": "integer", "minimum": 1, "maximum": 5000 },
+        "include_description": { "type": "boolean" }
+      }
+    }
+  }
+}

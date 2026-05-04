@@ -95,7 +95,10 @@ def sample_screening_decision_apply():
         "matched_reject_rules": [],
         "reason_summary": "No hard reject rules triggered",
         "evidence": [],
-        "generated_at": "2024-01-15T10:00:00Z"
+        "generated_at": "2024-01-15T10:00:00Z",
+        "role_domain": "Software Engineering",
+        "industry": "Technology",
+        "experience_years_required": None,
     }
 
 
@@ -108,7 +111,10 @@ def sample_screening_decision_reject():
         "matched_reject_rules": ["reject_senior_titles"],
         "reason_summary": "Title contains senior keyword",
         "evidence": ["Title contains 'Senior': Senior Software Engineer"],
-        "generated_at": "2024-01-15T10:00:00Z"
+        "generated_at": "2024-01-15T10:00:00Z",
+        "role_domain": "Software Engineering",
+        "industry": "Technology",
+        "experience_years_required": 5,
     }
 
 

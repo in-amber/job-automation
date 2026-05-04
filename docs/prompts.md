@@ -38,6 +38,22 @@ For any rejection, the `evidence` array must contain:
 - Do not output fields not in schema
 - Never fabricate quotes
 
+### Factor Output Fields (always required)
+
+Every factor's audit output field is **always required** on every screening decision, regardless of whether the factor appears in `enabled_factors`. `enabled_factors` only controls whether a factor's rule may *trigger a rejection*; the categorization is captured in all cases for downstream auditing and dashboard breakdowns. The response schema is built by `build_response_schema()` in `screen_jobs.py` and includes:
+
+| Factor | Output field | Type | Notes |
+|---|---|---|---|
+| `role_domain` | `role_domain` | enum | One of the headings in `approved_role_domains.md`, or `"unknown"`. |
+| `industry` | `industry` | enum | One of the headings in `approved_industries.md`, or `"unknown"`. |
+| `experience` | `experience_years_required` | integer or null | Hard-required years from the posting; null if unspecified or only "preferred". |
+
+The system prompt (assembled by `build_system_prompt(enabled_factors)`) always includes **every** factor section so the model has the categorization instructions it needs. The `{{active_reject_factors}}` placeholder in `core.md` is replaced with the comma-separated `enabled_factors` list, and the model is instructed to only reject based on factors named there.
+
+The storage schema (`schemas/screening_decision.schema.json`) makes these three fields **required**. Synthetic rejections from the location prefilter (`screen_location_prefilter`) skip the LLM call and therefore can't categorize — they populate sentinel values (`role_domain="unknown"`, `industry="unknown"`, `experience_years_required=null`) so the schema is still satisfied. Historical decisions written before this change won't validate against the strict schema; re-screen if you need their audit data.
+
+Adding a new factor's output field: implement `_factor_field_spec(name)` in `screen_jobs.py` (return `field`, `schema`, and `unknown` sentinel), add an "Output field" section to the factor's `.md`, add the field to the required list and properties of `screening_decision.schema.json`.
+
 ### Examples of REJECT (with evidence)
 - "Requires 3+ years" → Evidence: `["Requires 3+ years of experience (max allowed: 1)"]`
 - "Senior Software Engineer" → Evidence: `["Title contains 'Senior': Senior Software Engineer"]`
@@ -63,6 +79,22 @@ To adjust scope:
 - Set `reject_if_role_not_in_approved_domains` to `false` in `reject_rules.json` to disable the rule entirely without changing the prompt.
 
 The current categories are Software Engineering, IT / Systems, and Cybersecurity.
+
+### Approved Industries rule
+
+The `reject_if_industry_not_in_approved` rule (in `config/search/reject_rules.json`) gates the screener on whether the **company's industry** fits one of the categories listed in `config/search/approved_industries.md`. The markdown file is loaded by `screen_jobs.py` and injected into the user prompt as `{{approved_industries}}`. The factor is opt-in via `enabled_factors` and is disabled by default.
+
+Behavior:
+- Categories are inclusive. Any company plausibly within a category is approved, even if its specific niche is not in the examples.
+- The role itself does **not** decide the outcome. A finance role at a tech company is approved (the company is Technology); a SWE role at a food-delivery company is rejected if food delivery does not fit any approved industry.
+- When uncertain, default to APPLY (volume-first).
+- Rejections under this rule must include evidence quoting or referencing the company name or description text that establishes the company's industry.
+
+To adjust scope:
+- Edit `config/search/approved_industries.md` — add/remove a category, or expand examples to nudge the model on borderline cases.
+- Add `"industry"` to `enabled_factors` in `reject_rules.json` to enable the factor's prompt fragment, and set `reject_if_industry_not_in_approved` to `true` to actually reject on it.
+
+The current categories are Technology, Healthcare, Finance, Education, and Government / Public Sector.
 
 ## Cover Letter Prompt
 

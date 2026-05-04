@@ -25,6 +25,16 @@ ONLY reject when:
 
 The configured rules below describe how to evaluate each one and provide worked examples.
 
+## Active Reject Factors vs. Audit Categorization
+
+Active reject factors: **{{active_reject_factors}}**
+
+The factor sections below describe **all** screening factors so you can categorize each one for audit purposes (the response schema requires a categorization output for every factor). However:
+
+- You may **only reject** based on a factor that appears in the active list above.
+- For factors **not** in the active list, do **not** trigger a rejection — only output the categorization audit field.
+- Categorize every factor regardless. The audit fields are populated whether the decision is `apply` or `reject`.
+
 {{factor_sections}}
 
 ## What Does NOT Trigger a Reject
@@ -65,6 +75,8 @@ You must output a valid JSON object matching the ScreeningDecision schema:
   "generated_at": "ISO timestamp"
 }
 ```
+
+Every factor section above adds an **audit output field** (e.g., the role-domain category, the industry category, the years of experience required). These fields are required by the response schema on every decision, and are recorded for downstream analysis regardless of whether the decision is `apply` or `reject` — and regardless of whether the factor was active for rejection.
 
 If decision is "reject":
 - `matched_reject_rules` MUST be non-empty

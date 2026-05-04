@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reject_rules.schema.json",
+  "title": "RejectRules",
+  "description": "Hard-reject rules applied during screening.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "enabled_factors",
+    "max_required_years_experience",
+    "reject_senior_titles",
+    "senior_title_keywords",
+    "reject_if_requires_clearance",
+    "reject_if_location_mismatch",
+    "reject_if_role_not_in_approved_domains",
+    "reject_if_industry_not_in_approved",
+    "reject_if_explicitly_unwanted_domain"
+  ],
+  "properties": {
+    "enabled_factors": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["experience", "role_domain", "industry", "clearance", "location"]
+      }
+    },
+    "max_required_years_experience": { "type": "integer", "minimum": 0, "maximum": 50 },
+    "reject_senior_titles": { "type": "boolean" },
+    "senior_title_keywords": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "reject_if_requires_clearance": { "type": "boolean" },
+    "reject_if_location_mismatch": { "type": "boolean" },
+    "reject_if_role_not_in_approved_domains": { "type": "boolean" },
+    "reject_if_industry_not_in_approved": { "type": "boolean" },
+    "reject_if_explicitly_unwanted_domain": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

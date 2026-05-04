@@ -1,5 +1,13 @@
 {
-  "locations": ["San Francisco, California", "Oakland, California", "San Jose, California", "Berkeley, California", "Palo Alto, California", "Sacramento, California", "Remote"],
+  "locations": [
+    "San Francisco, California",
+    "Oakland, California",
+    "San Jose, California",
+    "Berkeley, California",
+    "Palo Alto, California",
+    "Sacramento, California",
+    "Remote"
+  ],
   "remote_allowed": true,
   "onsite_allowed": true,
   "hybrid_allowed": true,

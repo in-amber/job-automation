@@ -10,7 +10,10 @@
     "matched_reject_rules",
     "reason_summary",
     "evidence",
-    "generated_at"
+    "generated_at",
+    "role_domain",
+    "industry",
+    "experience_years_required"
   ],
   "additionalProperties": false,
   "properties": {
@@ -45,6 +48,20 @@
       "type": "string",
       "format": "date-time",
       "description": "ISO 8601 timestamp when decision was made"
+    },
+    "role_domain": {
+      "type": "string",
+      "description": "Approved role-domain category the model assigned, or 'unknown'. Always recorded for audit, regardless of whether role_domain is an active reject factor. Synthetic location-prefilter rejects use 'unknown'."
+    },
+    "industry": {
+      "type": "string",
+      "description": "Approved industry category the model assigned, or 'unknown'. Always recorded for audit, regardless of whether industry is an active reject factor. Synthetic location-prefilter rejects use 'unknown'."
+    },
+    "experience_years_required": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 50,
+      "description": "Minimum years of relevant experience the posting hard-requires; null if unspecified, ambiguous, or for synthetic location-prefilter rejects. Always recorded for audit, regardless of whether experience is an active reject factor."
     }
   },
   "if": {

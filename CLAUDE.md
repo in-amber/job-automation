@@ -73,6 +73,7 @@ Escalation paths: `waiting_for_cover_letter_approval`, `waiting_for_signup`, `wa
 - `config/runtime.json` - Submit policies, retry limits, mode settings
 - `config/search/reject_rules.json` - Hard reject criteria
 - `config/search/approved_role_domains.md` - Inclusive list of role categories the screener will apply to (gated by `reject_if_role_not_in_approved_domains`); see `docs/prompts.md` for behavior
+- `config/search/approved_industries.md` - Inclusive list of company industries the screener will apply to (gated by `reject_if_industry_not_in_approved`, opt-in via `enabled_factors`); see `docs/prompts.md` for behavior
 - `config/applicant/applicant_master_answers.md` - Form field answers
 - `schemas/*.schema.json` - JSON Schema validators for all data types
 - `prompts/` - System prompts for OpenAI and Cowork
