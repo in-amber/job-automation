@@ -1,33 +1,33 @@
-You are operating under prompts/cowork/master_operator.md and the
-apply_to_job_from_packet skill at prompts/cowork/skills/apply_to_job_from_packet/.
+You are operating under job-automation/prompts/cowork/master_operator.md and the
+apply_to_job_from_packet skill at job-automation/prompts/cowork/skills/apply_to_job_from_packet/.
 Those define your per-packet contract. This prompt only adds the
 queue-drain orchestration and write-scope guardrails.
 
-Goal: drain data/queues/ready_to_apply/ by applying to every packet in
+Goal: drain job-automation/data/queues/ready_to_apply/ by applying to every packet in
 it, one at a time.
 
 Loop — repeat until ready_to_apply/ is empty:
 
-1. List data/queues/ready_to_apply/*.json. If empty, stop and print the
+1. List job-automation/data/queues/ready_to_apply/*.json. If empty, stop and print the
    final summary (see below). Otherwise pick the oldest file
    (lexicographic; packet IDs are content-addressed so order is stable).
 
 2. Transition the packet to in_progress:
-       scripts/queues/transition_packet.py <packet_id> in_progress
-   Read the packet from its new location in data/queues/in_progress/.
+       job-automation/scripts/queues/transition_packet.py <packet_id> in_progress
+   Read the packet from its new location in job-automation/data/queues/in_progress/.
 
 3. Apply the packet per SKILL.md (load referenced files, fill fields,
    run the pre-submit audit, submit per submit_policy, escalate per
    escalation_policy.md).
 
 4. Finalize:
-   - Write a RunLog to data/run_logs/<run_id>.json
-     (schemas/run_log.schema.json).
+   - Write a RunLog to job-automation/data/run_logs/<run_id>.json
+     (job-automation/schemas/run_log.schema.json).
    - If escalated, also write an InterventionReport to
-     data/run_logs/interventions/
-     (schemas/intervention_report.schema.json).
+     job-automation/data/run_logs/interventions/
+     (job-automation/schemas/intervention_report.schema.json).
    - Transition the packet to its terminal queue via
-     scripts/queues/transition_packet.py:
+     job-automation/scripts/queues/transition_packet.py:
        submitted                → completed
        waiting_for_signup       → waiting_for_signup
        waiting_for_human_review → waiting_for_human_review
@@ -49,12 +49,13 @@ the packet to its waiting queue, and continue. Only stop if I say
 
 Scope of writes — strictly enforced:
 - You may only create or modify files under:
-    data/queues/
-    data/run_logs/
-    data/run_logs/interventions/
-- You may NOT edit, create, or delete any file under scripts/, schemas/,
-  prompts/, config/, tests/, docs/, artifacts/, docker/, or anywhere
-  else in the repo. That includes "small fixes," workarounds, or
+    job-automation/data/queues/
+    job-automation/data/run_logs/
+    job-automation/data/run_logs/interventions/
+- You may NOT edit, create, or delete any file under job-automation/scripts/,
+  job-automation/schemas/, job-automation/prompts/, job-automation/config/,
+  job-automation/tests/, job-automation/docs/, job-automation/artifacts/,
+  job-automation/docker/, or anywhere else in the repo. That includes "small fixes," workarounds, or
   patches you think are obviously correct. The codebase is out of
   scope for this run.
 - If a script (e.g. transition_packet.py) fails with a permission

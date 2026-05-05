@@ -59,7 +59,7 @@ Required fields:
 - `required_human_action` - typed enum (e.g. `create_account`, `solve_captcha`, `complete_verification`, `approve_cover_letter`, `answer_missing_question`, `review_application`, `inspect_site`)
 - `created_at`
 
-Save reports to `data/run_logs/interventions/`.
+Save reports to `job-automation/data/run_logs/interventions/`.
 
 ## Queue routing on escalation
 

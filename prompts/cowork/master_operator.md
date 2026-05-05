@@ -68,7 +68,7 @@ Behavior:
 - `human_approval_required: true` → stop at the submit button, create a review request, move the packet to `waiting_for_human_review`.
 - `auto_submit_allowed: false` (with `human_approval_required: false`) → stop at the submit button, create a review request, move to `waiting_for_human_review`.
 
-Defaults are computed at packet build time from `config/runtime.json` based on the packet's `ats_type`. Honor whatever the packet says — do not apply hardcoded ATS-specific overrides at runtime.
+Defaults are computed at packet build time from `job-automation/config/runtime.json` based on the packet's `ats_type`. Honor whatever the packet says — do not apply hardcoded ATS-specific overrides at runtime.
 
 ## When Blocked
 

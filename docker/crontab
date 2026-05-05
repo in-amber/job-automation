@@ -20,9 +20,12 @@ PATH=/usr/local/bin:/usr/bin:/bin
 # approval (skips auto-approve).
 */15 * * * * root /usr/local/bin/python /home/node/scripts/cover_letters/draft_cover_letters.py > /proc/1/fd/1 2>/proc/1/fd/2
 
-# Screen any normalized jobs not already in data/screened_jobs/. Idle when
-# nothing new has been ingested.
-0 * * * * root /usr/local/bin/python /home/node/scripts/screening/screen_jobs.py > /proc/1/fd/1 2>/proc/1/fd/2
+# Screen any normalized jobs not already in data/screened_jobs/, then build
+# application packets for newly-screened apply decisions. Chained with `&&`
+# so build_application_packets only runs after screen_jobs exits 0; the
+# screen step blocks on OpenAI calls, so the chain waits for it. Both steps
+# are no-ops when there's nothing new to process.
+0 * * * * root /usr/local/bin/python /home/node/scripts/screening/screen_jobs.py > /proc/1/fd/1 2>/proc/1/fd/2 && /usr/local/bin/python /home/node/scripts/packets/build_application_packets.py > /proc/1/fd/1 2>/proc/1/fd/2
 
 # Manual stages — invoked from the host via `docker exec`, NOT scheduled here.
 #
@@ -34,8 +37,9 @@ PATH=/usr/local/bin:/usr/bin:/bin
 #   docker exec job-automation python /home/node/scripts/ingest/fetch_jobs.py --source all
 #   docker exec job-automation python /home/node/scripts/ingest/normalize_jobs.py
 #   docker exec job-automation python /home/node/scripts/ingest/dedupe_jobs.py
+#   docker exec job-automation python /home/node/scripts/ingest/run_pipeline.py  # convenience wrapper: chains fetch -> normalize -> dedupe, stops on first failure; forwards --source/--limit/--dry-run to fetch_jobs.py
 #   docker exec job-automation python /home/node/scripts/screening/screen_jobs.py
-#   docker exec job-automation python /home/node/scripts/packets/build_application_packets.py
+#   docker exec job-automation python /home/node/scripts/packets/build_application_packets.py  # only needed for ad-hoc runs; cron chains it after screen_jobs
 #   docker exec job-automation python /home/node/scripts/cover_letters/draft_cover_letters.py [--local]
 #   docker exec job-automation python /home/node/scripts/cover_letters/approve_cover_letter.py <packet_id>  # manual override
 #   docker exec job-automation python /home/node/scripts/queues/transition_packet.py <packet_id> <new_state>

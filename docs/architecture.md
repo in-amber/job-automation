@@ -25,10 +25,12 @@ The container is the only deployment unit. The same image runs identically on ma
 
 A single Docker container runs cron alongside the project's Python scripts. The crontab fires:
 
-- The ingestion pipeline (fetch → normalize → dedupe) on a configurable interval (default every 6 hours, off by default during early testing).
-- A periodic Sheets sync (`update_google_sheet.py --sync-all`) that picks up any new run logs and completed packets and appends rows to the audit Sheet. The sync script is idempotent via the `data/.sheets_synced.json` manifest.
+- The ingestion pipeline (fetch → normalize → dedupe) on a configurable interval (default every 6 hours, off by default during early testing because RapidAPI credits are metered).
+- Hourly screening + packet build, chained with `&&` so packet-building only runs if screening exits 0.
+- Cover letter drafting every 15 minutes, picking up any packet sitting in `waiting_for_cover_letter_approval`.
+- A periodic Sheets sync (`update_google_sheet.py --sync-all`, every 5 minutes) that picks up any new run logs and completed packets and appends rows to the audit Sheet. The sync script is idempotent via the `data/.sheets_synced.json` manifest.
 
-Other pipeline stages (screening, packet build, cover letter drafting, queue transitions) are invoked manually via `docker exec` or directly from the host shell — they don't run on a schedule because they require human review of intermediate state.
+Manual stages (queue transitions, the manual cover-letter override, ad-hoc reruns) are invoked via `docker exec` or directly from the host shell.
 
 ### OpenAI API
 

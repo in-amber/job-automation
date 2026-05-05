@@ -14,8 +14,8 @@ Supporting references in this directory:
 ## Inputs
 
 - Path to an application packet JSON file (conforms to `ApplicationPacket` schema)
-- Access to `config/applicant/applicant_master_answers.md`
-- Access to `config/runtime.json`
+- Access to `job-automation/config/applicant/applicant_master_answers.md`
+- Access to `job-automation/config/runtime.json`
 
 ## Procedure
 
@@ -114,7 +114,7 @@ Honor `submit_policy` (two booleans on the packet):
 - `human_approval_required: true` → create a review request, move packet to `waiting_for_human_review`, do not submit.
 - `auto_submit_allowed: false` (and `human_approval_required: false`) → create a review request, move packet to `waiting_for_human_review`, do not submit.
 
-These booleans are computed at packet build time from `config/runtime.json` based on the packet's `ats_type`. Do not override based on the ATS at runtime.
+These booleans are computed at packet build time from `job-automation/config/runtime.json` based on the packet's `ats_type`. Do not override based on the ATS at runtime.
 
 ### 10. Save artifacts
 

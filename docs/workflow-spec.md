@@ -24,33 +24,22 @@ The system runs as a single Docker container with cron inside. Scheduled jobs ar
 
 This iterates `data/queues/completed/`, `data/run_logs/`, and `data/run_logs/interventions/` and appends any not-yet-pushed rows to the audit Sheet's `applied`, `runs`, and `interventions` tabs. Idempotent via `data/.sheets_synced.json`.
 
-## Manual stages
+### Screen jobs + build packets
 
-These don't run on a schedule because they require human review of intermediate state. Invoke via `docker exec job-automation python /home/node/scripts/...`.
-
-### Screen jobs
-
-**Trigger**: After ingestion or any time you want to screen newly-fetched jobs.
+**Schedule**: hourly (top of the hour). The two steps are chained with `&&` in the crontab so packet-building only runs if screening exits 0.
 
 **Steps**:
 1. Load unscreened normalized jobs.
 2. Call OpenAI with screening prompt + reject rules + approved role domains (`config/search/approved_role_domains.md`; see `docs/prompts.md`).
 3. Parse strict JSON response.
-4. Write screening decision.
-5. Route: rejected → `data/queues/rejected/`, apply → next step.
+4. Write screening decision to `data/screened_jobs/`. Rejected → `data/queues/rejected/`; apply decisions are picked up in step 5.
+5. `build_application_packets.py` turns screened-apply jobs into application packets and writes them directly into `data/queues/ready_to_apply/`. Cover-letter need is not predicted; packets start with `cover_letter_path=null` and are routed to `waiting_for_cover_letter_approval` only if the apply step encounters a cover-letter requirement.
 
-**Output**: Screening decisions in `data/screened_jobs/`.
-
-### Build packets
-
-**Trigger**: After screening.
-
-**Steps**:
-1. `build_application_packets.py` — turn screened-apply jobs into application packets and write them directly into `data/queues/ready_to_apply/`. Cover-letter need is not predicted; packets start with `cover_letter_path=null` and are routed to `waiting_for_cover_letter_approval` only if the apply step encounters a cover-letter requirement.
+Both steps are no-ops when there's nothing new to process.
 
 ### Generate cover letter drafts
 
-**Trigger**: Cron — picks up any packet sitting in `waiting_for_cover_letter_approval` (the apply step moves them there mid-flight when a cover-letter field is discovered).
+**Schedule**: every 15 minutes. Picks up any packet sitting in `waiting_for_cover_letter_approval` (the apply step moves them there mid-flight when a cover-letter field is discovered).
 
 **Steps**:
 1. Find every packet in `waiting_for_cover_letter_approval`.
@@ -60,6 +49,10 @@ These don't run on a schedule because they require human review of intermediate 
 5. Set `cover_letter_path` on the packet and transition it to `ready_to_apply`.
 
 **Output**: DOCX cover letters and packets returned to `ready_to_apply` automatically. No manual approval step in the normal flow.
+
+## Other stages
+
+Not scheduled — either gated on cost (RapidAPI credits), triggered externally (Cowork), or only invoked when a human needs to intervene.
 
 ### Manual cover letter override (escape hatch)
 
